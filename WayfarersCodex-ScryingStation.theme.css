@@ -1,7 +1,7 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.7
+ * @version 2.0.8
  * @description An original fantasy scrying-desk theme with parchment glass panels. Persistent surfaces use 20% opacity.
  * @source https://github.com/Inkyubis/Discord-themes
  */
@@ -280,4 +280,61 @@ textarea {
 #app-mount [class*="nowPlayingColumn"] [class*="outer"]:hover,
 #app-mount [class*="nowPlayingColumn"] [class*="wrapper"]:hover {
   background: rgba(229, 199, 142, 0.09) !important;
+}
+
+/*
+ * Server member list: the current Discord layout uses container_c8ffbb.
+ * Keep the panel at 20% opacity while making its Activity cards transparent.
+ */
+#app-mount [class*="container_c8ffbb"],
+#app-mount [class*="membersWrap_c8ffbb"] {
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  --background-mod-faint: transparent !important;
+  --background-mod-subtle: transparent !important;
+  --background-mod-normal: transparent !important;
+  --background-mod-strong: transparent !important;
+  --background-modifier-accent: transparent !important;
+  --background-modifier-hover: transparent !important;
+  --background-modifier-active: transparent !important;
+  --background-modifier-selected: transparent !important;
+  --card-background-default: transparent !important;
+  --card-primary-bg: transparent !important;
+  --card-secondary-bg: transparent !important;
+  --card-gradient-bg: transparent !important;
+  --card-primary-pressed-bg: transparent !important;
+  --card-secondary-pressed-bg: transparent !important;
+  --card-gradient-pressed-bg: transparent !important;
+  background: rgba(30, 19, 13, 0.20) !important;
+  backdrop-filter: blur(3px) saturate(0.9);
+}
+
+#app-mount [class*="container_c8ffbb"] *,
+#app-mount [class*="membersWrap_c8ffbb"] * {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [class*="container_c8ffbb"] *::before,
+#app-mount [class*="container_c8ffbb"] *::after,
+#app-mount [class*="membersWrap_c8ffbb"] *::before,
+#app-mount [class*="membersWrap_c8ffbb"] *::after {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="container_c8ffbb"] [class*="member"]:hover,
+#app-mount [class*="container_c8ffbb"] [class*="member"]:hover [class*="layout"],
+#app-mount [class*="container_c8ffbb"] [class*="card"]:hover,
+#app-mount [class*="membersWrap_c8ffbb"] [class*="member"]:hover [class*="layout"] {
+  background-color: rgba(229, 199, 142, 0.09) !important;
 }
