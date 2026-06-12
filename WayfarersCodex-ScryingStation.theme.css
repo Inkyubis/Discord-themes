@@ -1,7 +1,7 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.5
+ * @version 2.0.6
  * @description An original fantasy scrying-desk theme with parchment glass panels. Persistent surfaces use 20% opacity.
  * @source https://github.com/Inkyubis/Discord-themes
  */
@@ -186,21 +186,54 @@ textarea {
   background-color: rgba(229, 199, 142, 0.20) !important;
 }
 
-/* Final hard overrides for Discord's nested right-side panel tokens. */
-#app-mount [class*="nowPlayingColumn_"],
-#app-mount [class*="nowPlayingColumn_"] > [class*="container_"],
-#app-mount [class*="nowPlayingColumn_"] [class*="scroller_"],
-#app-mount [class*="nowPlayingColumn_"] [class*="content_"],
-#app-mount [class*="membersWrap_"],
-#app-mount [class*="membersWrap_"] > [class*="members_"],
-#app-mount [class*="membersWrap_"] [class*="scroller_"],
-#app-mount [class*="membersWrap_"] [class*="content_"] {
-  background-color: transparent !important;
-  background-image: none !important;
+/* Final hard overrides for Discord's current right-side panel tokens. */
+#app-mount [class*="nowPlayingColumn"],
+#app-mount [class*="membersWrap"] {
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  --bg-base-primary: transparent !important;
+  --bg-base-secondary: transparent !important;
+  --bg-base-tertiary: transparent !important;
 }
 
-#app-mount [class*="nowPlayingColumn_"],
-#app-mount [class*="membersWrap_"] {
-  background-color: rgba(30, 19, 13, 0.20) !important;
+#app-mount [class*="container__133bf"]:has([class*="nowPlayingColumn"]),
+#app-mount [class*="tabBody"]:has([class*="nowPlayingColumn"]),
+#app-mount [class*="nowPlayingColumn"] > [class*="container"],
+#app-mount [class*="nowPlayingColumn"] [class*="scroller"],
+#app-mount [class*="nowPlayingColumn"] [class*="content"],
+#app-mount [class*="nowPlayingColumn"] [class*="activeNow"],
+#app-mount [class*="nowPlayingColumn"] [class*="itemCard"],
+#app-mount [class*="nowPlayingColumn"] [class*="emptyCard"],
+#app-mount [class*="nowPlayingColumn"] [class*="outer"],
+#app-mount [class*="nowPlayingColumn"] [class*="interactive"],
+#app-mount [class*="nowPlayingColumn"] [class*="body"],
+#app-mount [class*="nowPlayingColumn"] [class*="section"],
+#app-mount [class*="nowPlayingColumn"] [class*="inset"],
+#app-mount [class*="nowPlayingColumn"] [class*="activity"],
+#app-mount [class*="membersWrap"] > [class*="members"],
+#app-mount [class*="membersWrap"] [class*="scroller"],
+#app-mount [class*="membersWrap"] [class*="content"] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="nowPlayingColumn"] [class*="outer"]::before,
+#app-mount [class*="nowPlayingColumn"] [class*="outer"]::after,
+#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]::before,
+#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]::after {
+  background: transparent !important;
+}
+
+#app-mount [class*="nowPlayingColumn"],
+#app-mount [class*="membersWrap"] {
+  background: rgba(30, 19, 13, 0.20) !important;
   backdrop-filter: blur(3px) saturate(0.9);
 }
