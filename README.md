@@ -1,19 +1,16 @@
 # Wayfarer's Codex: Scrying Station
 
 An original fantasy Discord theme that presents the interface as translucent
-magical glass floating over a candlelit scholar's desk. The scene includes an
-open parchment, brass instruments, crystals, candles, and a luminous scrying
-orb.
+magical glass floating over a candlelit scholar's desk.
 
 ## Install
 
-The image is embedded inside the CSS. Installation requires only one file:
-
-1. Open your custom client theme folder.
-2. Place `WayfarersCodex-ScryingStation.theme.css` in that folder.
+1. Download `WayfarersCodex-ScryingStation.theme.css`.
+2. Place it in your custom client theme folder.
 3. Return to Discord and enable **Wayfarer's Codex: Scrying Station**.
 
-The ZIP also contains:
+The theme loads its original background scene from this repository. An internet
+connection is needed for the scene image. The repository also includes:
 
 - `preview-scrying-station.html` - offline visual preview
 - `assets/scrying-station.webp` - compact scene image
@@ -24,29 +21,25 @@ security guidance for your chosen client before installing one.
 
 ## Customize
 
-The main controls are near the top of the CSS:
+The persistent interface surfaces are set to 20% opacity:
 
 ```css
---wc-glass-deep: rgba(3, 10, 11, 0.70);
---wc-glass: rgba(7, 19, 20, 0.52);
---wc-glass-soft: rgba(11, 29, 29, 0.37);
---wc-nav-glass: rgba(7, 19, 20, 0.35);
---wc-teal: #63e6dc;
---wc-amber: #e4aa55;
+--wc-glass-deep: rgba(3, 10, 11, 0.20);
+--wc-glass: rgba(7, 19, 20, 0.20);
+--wc-glass-soft: rgba(11, 29, 29, 0.20);
+--wc-nav-glass: rgba(7, 19, 20, 0.20);
 ```
 
-Lower the final number in an `rgba()` glass color to reveal more of the desk.
-Raise it for stronger text contrast. `--wc-nav-glass` controls the server
-channel list, direct-message/friends navigation, friends list, and member list.
+`--wc-nav-glass` controls the server channel list, direct-message and Friends
+navigation, Friends list, Active Now panel, and server member list. Version
+2.0.8 clears the opaque Friends-page ancestors and Discord's current server
+Activity/member panel backgrounds, leaving one 20% outer pane.
 
 ## Originality
 
 The scene, interface treatment, palette, and terminology were created for this
 package. The image uses generic fantasy objects and contains no copied logos,
 named settings, recognizable characters, commercial maps, or franchise art.
-
-Avoid adding protected logos, signature characters, copied rulebook layouts, or
-recognizable assets from commercial tabletop properties.
 
 ## Compatibility
 
