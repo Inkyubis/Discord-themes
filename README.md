@@ -32,8 +32,8 @@ The persistent interface surfaces are set to 20% opacity:
 
 `--wc-nav-glass` controls the server channel list, direct-message and Friends
 navigation, Friends list, Active Now panel, and server member list. Version
-2.0.6 clears Discord's newer `background-base-*`, `outer`, and empty-card
-layers in Active Now so their opacity does not stack.
+2.0.7 clears the opaque Friends-page ancestors plus every nested background
+and pseudo-layer inside Active Now, leaving one 20% outer pane.
 
 ## Originality
 
