@@ -1,7 +1,7 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.15
+ * @version 2.0.17
  * @description An original fantasy scrying-desk theme with one 10% layer per persistent pane.
  * @source https://github.com/Inkyubis/Discord-themes
  */
@@ -98,16 +98,36 @@
  * Restore voice activity after the transparent-sidebar reset clears
  * Discord's default speaking shadow.
  */
-#app-mount [class*="sidebarList_"] [class*="avatarSpeaking_"],
-#app-mount [class*="sidebarList_"] [class*="voiceUser_"]:has([class*="avatarSpeaking_"]) [class*="avatar_"] {
-  box-shadow:
-    inset 0 0 0 2px #79ebe1,
-    0 0 8px rgba(99, 230, 220, 0.95),
-    0 0 18px rgba(99, 230, 220, 0.62) !important;
-  filter: brightness(1.14) saturate(1.16);
+#app-mount [class*="voiceUser_"]:has([class*="usernameSpeaking_"]),
+#app-mount [class*="voiceUser_"][data-wc-speaking="true"] {
+  position: relative !important;
+  overflow: visible !important;
+  background: linear-gradient(
+    90deg,
+    rgba(99, 230, 220, 0.18),
+    rgba(99, 230, 220, 0.04) 72%,
+    transparent
+  ) !important;
+  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.8) !important;
 }
 
-#app-mount [class*="sidebarList_"] [class*="voiceUser_"]:has([class*="avatarSpeaking_"]) [class*="username_"] {
+#app-mount [class*="voiceUser_"]:has([class*="usernameSpeaking_"]) [class*="avatar_"],
+#app-mount [class*="voiceUser_"][data-wc-speaking="true"] [class*="avatar_"] {
+  box-shadow:
+    inset 0 0 0 2px rgba(121, 235, 225, 0.8),
+    0 0 8px rgba(99, 230, 220, 0.76),
+    0 0 18px rgba(99, 230, 220, 0.5) !important;
+  outline: 2px solid rgba(121, 235, 225, 0.8) !important;
+  outline-offset: 2px !important;
+  filter:
+    brightness(1.14)
+    saturate(1.16)
+    drop-shadow(0 0 6px rgba(99, 230, 220, 0.8))
+    drop-shadow(0 0 13px rgba(99, 230, 220, 0.62)) !important;
+}
+
+#app-mount [class*="usernameSpeaking_"],
+#app-mount [class*="voiceUser_"][data-wc-speaking="true"] [class*="username_"] {
   color: #79ebe1 !important;
-  text-shadow: 0 0 8px rgba(99, 230, 220, 0.72);
+  text-shadow: 0 0 8px rgba(99, 230, 220, 0.66) !important;
 }
