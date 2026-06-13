@@ -46,3 +46,50 @@
   box-shadow: none !important;
   backdrop-filter: none !important;
 }
+
+/*
+ * Match the two left panes to the rest of the interface. Older rail rules
+ * added heavier blur and shadows that made a 10% color look much denser.
+ */
+#app-mount nav[aria-label*="Servers"],
+#app-mount [class*="guilds_"],
+#app-mount [class*="sidebarList_"] {
+  background: rgba(30, 19, 13, 0.10) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [class*="sidebar_"],
+#app-mount [class*="sidebarList_"] [class*="container_"],
+#app-mount [class*="sidebarList_"] [class*="scroller_"],
+#app-mount [class*="privateChannels_"],
+#app-mount nav[aria-label*="Servers"] [class*="scroller_"],
+#app-mount [class*="guilds_"] [class*="scroller_"],
+#app-mount [class*="guilds_"] [class*="tree_"],
+#app-mount [class*="guilds_"] [class*="itemsContainer_"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/*
+ * Keep the desk scene crisp across every persistent pane, matching the left
+ * navigation. Opacity and borders remain; only backdrop frosting is removed.
+ */
+#app-mount [class*="chat_"],
+#app-mount [class*="sidebarList_"],
+#app-mount [class*="peopleColumn_"],
+#app-mount [class*="nowPlayingColumn_"],
+#app-mount [class*="membersWrap_"],
+#app-mount [class*="container_c8ffbb"],
+#app-mount [class*="profilePanel_"],
+#app-mount [class*="userProfileOuter_"],
+#app-mount [class*="fullSizeOuter_"],
+#app-mount [class*="userProfileModal_"],
+#app-mount [class*="outer_c0bea0"],
+#app-mount .user-profile-sidebar {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
