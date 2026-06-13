@@ -1,39 +1,39 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.9
- * @description An original fantasy scrying-desk theme with parchment glass panels. Persistent surfaces use 20% opacity.
+ * @version 2.0.11
+ * @description An original fantasy scrying-desk theme with parchment glass panels. Persistent surfaces use 15% opacity.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
 @import url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/dc2e8bedcc7d755ec2ca9ea37b8cb96eabcaeecf/WayfarersCodex-ScryingStation.theme.css");
 
 :root {
-  --wc-glass-deep: rgba(17, 11, 8, 0.20);
-  --wc-glass: rgba(43, 28, 18, 0.20);
-  --wc-glass-soft: rgba(100, 70, 39, 0.20);
-  --wc-parchment: rgba(229, 199, 142, 0.20);
-  --wc-parchment-soft: rgba(229, 199, 142, 0.20);
+  --wc-glass-deep: rgba(17, 11, 8, 0.15);
+  --wc-glass: rgba(43, 28, 18, 0.15);
+  --wc-glass-soft: rgba(100, 70, 39, 0.15);
+  --wc-parchment: rgba(229, 199, 142, 0.15);
+  --wc-parchment-soft: rgba(229, 199, 142, 0.15);
 
-  --background-primary: rgba(43, 28, 18, 0.20);
-  --background-secondary: rgba(30, 19, 13, 0.20);
-  --background-secondary-alt: rgba(22, 14, 10, 0.20);
-  --background-tertiary: rgba(17, 11, 8, 0.20);
-  --background-floating: rgba(17, 11, 8, 0.20);
-  --background-mobile-primary: rgba(43, 28, 18, 0.20);
-  --background-mobile-secondary: rgba(30, 19, 13, 0.20);
-  --channeltextarea-background: rgba(229, 199, 142, 0.20);
-  --modal-background: rgba(24, 15, 10, 0.20);
-  --modal-footer-background: rgba(17, 11, 8, 0.20);
-  --input-background: rgba(229, 199, 142, 0.20);
-  --bg-base-primary: rgba(43, 28, 18, 0.20);
-  --bg-base-secondary: rgba(30, 19, 13, 0.20);
-  --bg-base-tertiary: rgba(17, 11, 8, 0.20);
-  --bg-surface-overlay: rgba(17, 11, 8, 0.20);
-  --bg-surface-raised: rgba(30, 19, 13, 0.20);
-  --background-surface-high: rgba(30, 19, 13, 0.20);
-  --background-surface-higher: rgba(43, 28, 18, 0.20);
-  --background-surface-highest: rgba(60, 39, 22, 0.20);
+  --background-primary: rgba(43, 28, 18, 0.15);
+  --background-secondary: rgba(30, 19, 13, 0.15);
+  --background-secondary-alt: rgba(22, 14, 10, 0.15);
+  --background-tertiary: rgba(17, 11, 8, 0.15);
+  --background-floating: rgba(17, 11, 8, 0.15);
+  --background-mobile-primary: rgba(43, 28, 18, 0.15);
+  --background-mobile-secondary: rgba(30, 19, 13, 0.15);
+  --channeltextarea-background: rgba(229, 199, 142, 0.15);
+  --modal-background: rgba(24, 15, 10, 0.15);
+  --modal-footer-background: rgba(17, 11, 8, 0.15);
+  --input-background: rgba(229, 199, 142, 0.15);
+  --bg-base-primary: rgba(43, 28, 18, 0.15);
+  --bg-base-secondary: rgba(30, 19, 13, 0.15);
+  --bg-base-tertiary: rgba(17, 11, 8, 0.15);
+  --bg-surface-overlay: rgba(17, 11, 8, 0.15);
+  --bg-surface-raised: rgba(30, 19, 13, 0.15);
+  --background-surface-high: rgba(30, 19, 13, 0.15);
+  --background-surface-higher: rgba(43, 28, 18, 0.15);
+  --background-surface-highest: rgba(60, 39, 22, 0.15);
 }
 
 html,
@@ -42,6 +42,12 @@ body,
   background-image:
     linear-gradient(rgba(10, 6, 4, 0.06), rgba(10, 6, 4, 0.14)),
     var(--wc-scene) !important;
+}
+
+/* Keep the global edge vignette from darkening the 15% left panes. */
+#app-mount::after {
+  -webkit-mask-image: linear-gradient(to right, transparent 0 376px, #000 440px 100%);
+  mask-image: linear-gradient(to right, transparent 0 376px, #000 440px 100%);
 }
 
 /* Main persistent panes */
@@ -59,7 +65,7 @@ body,
 [class*="container_"][class*="nowPlayingColumn_"],
 [class*="shop_"],
 [class*="applicationStore_"] {
-  background-color: rgba(30, 19, 13, 0.20) !important;
+  background-color: rgba(30, 19, 13, 0.15) !important;
   background-image: none !important;
   backdrop-filter: blur(3px) saturate(0.9);
 }
@@ -90,7 +96,7 @@ body,
 [class*="content_"]:has([class*="peopleColumn_"]),
 [class*="container_"]:has(> [class*="peopleColumn_"]),
 [class*="container_"]:has([class*="nowPlayingColumn_"]) {
-  background-color: rgba(30, 19, 13, 0.20) !important;
+  background-color: rgba(30, 19, 13, 0.15) !important;
   background-image: none !important;
 }
 
@@ -107,7 +113,7 @@ body,
 [class*="title_"][class*="container_"],
 [class*="upperContainer_"],
 [class*="children_"]:after {
-  background-color: rgba(17, 11, 8, 0.20) !important;
+  background-color: rgba(17, 11, 8, 0.15) !important;
   background-image: none !important;
 }
 
@@ -119,7 +125,7 @@ body,
 [class*="input_"],
 input,
 textarea {
-  background: rgba(229, 199, 142, 0.20) !important;
+  background: rgba(229, 199, 142, 0.15) !important;
 }
 
 [class*="button_"]:not([class*="lookFilled_"]),
@@ -131,12 +137,12 @@ textarea {
 [class*="attachment_"],
 [class*="wrapper_"][class*="audioMetadata_"],
 [class*="messageAttachment_"] {
-  background-color: rgba(229, 199, 142, 0.20) !important;
+  background-color: rgba(229, 199, 142, 0.15) !important;
 }
 
 [class*="lookFilled_"],
 [class*="lookOutlined_"] {
-  background-color: rgba(100, 70, 39, 0.20) !important;
+  background-color: rgba(100, 70, 39, 0.15) !important;
   border-color: rgba(216, 168, 80, 0.42) !important;
 }
 
@@ -151,7 +157,7 @@ textarea {
 [class*="browser_"],
 [class*="picker_"],
 [class*="autocomplete_"] {
-  background-color: rgba(17, 11, 8, 0.20) !important;
+  background-color: rgba(17, 11, 8, 0.15) !important;
   background-image: none !important;
   backdrop-filter: blur(7px) saturate(0.9);
 }
@@ -162,7 +168,7 @@ textarea {
 [class*="connection_"],
 [class*="voiceUsers_"],
 [class*="callContainer_"] {
-  background-color: rgba(17, 11, 8, 0.20) !important;
+  background-color: rgba(17, 11, 8, 0.15) !important;
   background-image: none !important;
 }
 
@@ -173,7 +179,7 @@ textarea {
 [class*="contentRegionScroller_"],
 [class*="searchResultsWrap_"],
 [class*="searchResult_"] {
-  background-color: rgba(30, 19, 13, 0.20) !important;
+  background-color: rgba(30, 19, 13, 0.15) !important;
   background-image: none !important;
 }
 
@@ -183,7 +189,7 @@ textarea {
 [class*="member_"][class*="selected_"],
 [class*="messageListItem_"]:hover,
 [class*="message_"][class*="selected_"] {
-  background-color: rgba(229, 199, 142, 0.20) !important;
+  background-color: rgba(229, 199, 142, 0.15) !important;
 }
 
 /* Final hard overrides for Discord's current right-side panel tokens. */
@@ -234,7 +240,7 @@ textarea {
 
 #app-mount [class*="nowPlayingColumn"],
 #app-mount [class*="membersWrap"] {
-  background: rgba(30, 19, 13, 0.20) !important;
+  background: rgba(30, 19, 13, 0.15) !important;
   backdrop-filter: blur(3px) saturate(0.9);
 }
 
@@ -264,7 +270,7 @@ textarea {
   --background-modifier-hover: transparent !important;
   --background-modifier-active: transparent !important;
   --background-modifier-selected: transparent !important;
-  background: rgba(30, 19, 13, 0.20) !important;
+  background: rgba(30, 19, 13, 0.15) !important;
 }
 
 #app-mount [class*="nowPlayingColumn"] *,
@@ -284,7 +290,7 @@ textarea {
 
 /*
  * Server member list: the current Discord layout uses container_c8ffbb.
- * Keep the panel at 20% opacity while making its Activity cards transparent.
+ * Keep the panel at 15% opacity while making its Activity cards transparent.
  */
 #app-mount [class*="container_c8ffbb"],
 #app-mount [class*="membersWrap_c8ffbb"] {
@@ -313,7 +319,7 @@ textarea {
   --card-primary-pressed-bg: transparent !important;
   --card-secondary-pressed-bg: transparent !important;
   --card-gradient-pressed-bg: transparent !important;
-  background: rgba(30, 19, 13, 0.20) !important;
+  background: rgba(30, 19, 13, 0.15) !important;
   backdrop-filter: blur(3px) saturate(0.9);
 }
 
@@ -340,7 +346,7 @@ textarea {
 }
 
 /*
- * Left navigation: keep one 20% pane behind the guild rail and one behind
+ * Left navigation: keep one 15% pane behind the guild rail and one behind
  * the channel/DM list. Discord's nested shells otherwise stack darker.
  */
 #app-mount nav[aria-label*="Servers"],
@@ -360,7 +366,7 @@ textarea {
   --background-mod-subtle: transparent !important;
   --background-mod-normal: transparent !important;
   --background-mod-strong: transparent !important;
-  background: rgba(30, 19, 13, 0.20) !important;
+  background: rgba(30, 19, 13, 0.15) !important;
   box-shadow: inset 0 0 0 1px rgba(216, 168, 80, 0.12) !important;
   backdrop-filter: blur(3px) saturate(0.9);
 }
@@ -385,6 +391,43 @@ textarea {
   --background-secondary: transparent !important;
   --background-secondary-alt: transparent !important;
   --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  --background-mod-faint: transparent !important;
+  --background-mod-subtle: transparent !important;
+  --background-mod-normal: transparent !important;
+  --background-mod-strong: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount nav[aria-label*="Servers"] *,
+#app-mount [class*="guilds_"] * {
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [class*="sidebarList_"] *::before,
+#app-mount [class*="sidebarList_"] *::after,
+#app-mount nav[aria-label*="Servers"] *::before,
+#app-mount nav[aria-label*="Servers"] *::after,
+#app-mount [class*="guilds_"] *::before,
+#app-mount [class*="guilds_"] *::after {
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 #app-mount [class*="sidebarList_"] [class*="modeSelected_"] [class*="link_"],
