@@ -1,8 +1,8 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.0.0
- * @description Restores server-rail unread markers when Discord suppresses its own marker element.
+ * @version 1.0.1
+ * @description Keeps server-rail unread markers visible without marking muted or stale channel state.
  */
 
 module.exports = class WayfarersCodexUnreadIndicators {
@@ -56,7 +56,6 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
       const unread =
         this.readState?.hasUnread(guildId) ||
-        this.readState?.getGuildHasUnreadIgnoreMuted(guildId) ||
         this.readState?.getMentionCount(guildId) > 0;
       const listItem = treeItem.closest('[class*="listItem_"]');
 
