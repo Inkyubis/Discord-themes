@@ -1,7 +1,7 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.11
+ * @version 2.0.12
  * @description An original fantasy scrying-desk theme with parchment glass panels. Persistent surfaces use 15% opacity.
  * @source https://github.com/Inkyubis/Discord-themes
  */
@@ -436,4 +436,56 @@ textarea {
 #app-mount [class*="sidebarList_"] [class*="link_"]:hover,
 #app-mount [class*="sidebarList_"] [class*="interactive_"]:hover {
   background-color: rgba(229, 199, 142, 0.09) !important;
+}
+
+/*
+ * Friend profile cards: keep one 15% pane and clear Discord's nested
+ * profile gradient, body, and overlay layers.
+ */
+#app-mount [class*="profilePanel_"],
+#app-mount [class*="userProfileOuter_"],
+#app-mount [class*="fullSizeOuter_"],
+#app-mount [class*="userProfileModal_"],
+#app-mount [class*="outer_c0bea0"],
+#app-mount .user-profile-sidebar {
+  --profile-gradient-primary-color: transparent !important;
+  --profile-gradient-secondary-color: transparent !important;
+  --profile-gradient-overlay-color: transparent !important;
+  --profile-body-background-color: transparent !important;
+  --profile-note-background-color: rgba(229, 199, 142, 0.09) !important;
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  background: rgba(30, 19, 13, 0.15) !important;
+  border-color: rgba(216, 168, 80, 0.18) !important;
+  backdrop-filter: blur(3px) saturate(0.9);
+}
+
+#app-mount [class*="profilePanel_"] [class*="userPanelInner_"],
+#app-mount [class*="profilePanel_"] [class*="inner_"],
+#app-mount [class*="profilePanel_"] [class*="body_"],
+#app-mount [class*="profilePanel_"] [class*="overlay_"],
+#app-mount [class*="userProfileOuter_"] [class*="userProfileInner_"],
+#app-mount [class*="userProfileOuter_"] [class*="inner_"],
+#app-mount [class*="userProfileOuter_"] [class*="body_"],
+#app-mount [class*="userProfileOuter_"] [class*="overlay_"],
+#app-mount [class*="fullSizeOuter_"] [class*="inner_"],
+#app-mount [class*="fullSizeOuter_"] [class*="body_"],
+#app-mount [class*="fullSizeOuter_"] [class*="overlay_"],
+#app-mount [class*="userProfileModal_"] [class*="inner_"],
+#app-mount [class*="userProfileModal_"] [class*="body_"],
+#app-mount [class*="userProfileModal_"] [class*="overlay_"],
+#app-mount [class*="outer_c0bea0"] [class*="inner_c0bea0"],
+#app-mount .user-profile-sidebar [class*="inner_c0bea0"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
