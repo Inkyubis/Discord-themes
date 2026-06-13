@@ -21,19 +21,19 @@ security guidance for your chosen client before installing one.
 
 ## Customize
 
-The persistent interface surfaces are set to 20% opacity:
+The persistent interface surfaces are set to 15% opacity:
 
 ```css
---wc-glass-deep: rgba(3, 10, 11, 0.20);
---wc-glass: rgba(7, 19, 20, 0.20);
---wc-glass-soft: rgba(11, 29, 29, 0.20);
---wc-nav-glass: rgba(7, 19, 20, 0.20);
+--wc-glass-deep: rgba(3, 10, 11, 0.15);
+--wc-glass: rgba(7, 19, 20, 0.15);
+--wc-glass-soft: rgba(11, 29, 29, 0.15);
+--wc-nav-glass: rgba(7, 19, 20, 0.15);
 ```
 
 `--wc-nav-glass` controls the server channel list, direct-message and Friends
 navigation, Friends list, Active Now panel, and server member list. Version
-2.0.8 clears the opaque Friends-page ancestors and Discord's current server
-Activity/member panel backgrounds, leaving one 20% outer pane.
+2.0.11 clears the opaque Friends-page and server Activity backgrounds, gives
+the left panes one 15% layer each, and excludes them from the edge vignette.
 
 ## Originality
 
