@@ -32,8 +32,8 @@ The persistent interface surfaces are set to 15% opacity:
 
 `--wc-nav-glass` controls the server channel list, direct-message and Friends
 navigation, Friends list, Active Now panel, and server member list. Version
-2.0.11 clears the opaque Friends-page and server Activity backgrounds, gives
-the left panes one 15% layer each, and excludes them from the edge vignette.
+2.0.12 also clears the nested friend-profile body and gradient layers, leaving
+one 15% profile pane while preserving profile content and controls.
 
 ## Originality
 
