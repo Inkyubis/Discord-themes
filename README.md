@@ -33,14 +33,16 @@ The persistent interface surfaces are set to 10% opacity:
 
 `--wc-nav-glass` controls the server channel list, direct-message and Friends
 navigation, Friends list, Active Now panel, and server member list. Version
-2.0.17 keeps persistent panes at one true 10% layer, removes backdrop blur
+2.0.19 keeps persistent panes at one true 10% layer, removes backdrop blur
 across the persistent interface, restores a teal glow around users who are
-currently speaking in voice at a softened brightness, and limits server dots to
-Discord's current unread and mention state.
+currently speaking in voice at a softened brightness, and updates the companion
+plugin to poll channel-level unread state when Discord's live message listener
+misses a server update.
 
 The included unread-indicator plugin preserves teal server dots without using
 muted or stale channel state, preventing dots on servers with no current unread
-messages.
+messages while adding a fallback for Discord updates that no longer wake the
+read-state listener or no longer expose a reliable guild-level unread store.
 
 ## Originality
 
