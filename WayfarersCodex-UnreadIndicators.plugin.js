@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.2
+ * @version 1.2.6
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -17,6 +17,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
   initialize() {
     this.pluginName = "WayfarersCodexUnreadIndicators";
     this.fallbackUnreadChannels = new Map();
+    this.fallbackPulseMs = 3500;
     this.dispatchSubscriptions = [];
     this.runtime = {
       startedAt: new Date().toISOString(),
@@ -24,7 +25,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
       dispatcherSource: null,
       messageEvents: 0,
       guildNavItems: 0,
-      fallbackChannels: 0
+      fallbackChannels: 0,
+      fallbackPulseMs: this.fallbackPulseMs
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -32,6 +34,10 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.speakingStore = this.getStore("SpeakingStore");
     this.channelStore = this.getStore("ChannelStore");
     this.guildChannelStore = this.getStore("GuildChannelStore");
+    this.mutedStore =
+      this.getStore("MutedStore") ||
+      this.getStore("UserGuildSettingsStore") ||
+      this.getStore("NotificationSettingsStore");
     this.selectedChannelStore = this.getStore("SelectedChannelStore");
     this.selectedGuildStore = this.getStore("SelectedGuildStore");
     this.userStore = this.getStore("UserStore");
@@ -43,6 +49,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       speaking: Boolean(this.speakingStore),
       channel: Boolean(this.channelStore),
       guildChannel: Boolean(this.guildChannelStore),
+      muted: Boolean(this.mutedStore),
       selectedChannel: Boolean(this.selectedChannelStore),
       selectedGuild: Boolean(this.selectedGuildStore),
       user: Boolean(this.userStore)
@@ -133,18 +140,20 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
     this.saveRuntime("start");
     this.scheduleUpdate();
-    this.pollTimer = setInterval(this.scheduleUpdate, 2500);
+    this.pollTimer = setInterval(this.scheduleUpdate, 2000);
   }
 
   saveStartupError(error) {
     this.pluginName ||= "WayfarersCodexUnreadIndicators";
     this.fallbackUnreadChannels ||= new Map();
+    this.fallbackPulseMs ||= 3500;
     this.runtime ||= {
       startedAt: new Date().toISOString(),
       dispatcherFound: false,
       messageEvents: 0,
       guildNavItems: 0,
-      fallbackChannels: 0
+      fallbackChannels: 0,
+      fallbackPulseMs: this.fallbackPulseMs
     };
 
     try {
@@ -215,6 +224,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       this.speakingStore,
       this.channelStore,
       this.guildChannelStore,
+      this.mutedStore,
       this.selectedChannelStore,
       this.selectedGuildStore,
       this.userStore
@@ -284,7 +294,10 @@ module.exports = class WayfarersCodexUnreadIndicators {
     };
 
     if (!this.runtime.lastMessage.fromSelf && !this.runtime.lastMessage.selectedChannel) {
-      this.fallbackUnreadChannels.set(channelId, guildId);
+      this.fallbackUnreadChannels.set(channelId, {
+        guildId,
+        expiresAt: Date.now() + this.fallbackPulseMs
+      });
     }
 
     this.saveRuntime("message");
@@ -327,23 +340,37 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
   updateMarkers() {
     const guildItems = this.getGuildNavItems();
+    this.pruneFallbackUnread();
     this.runtime.guildNavItems = guildItems.length;
     this.runtime.fallbackChannels = this.fallbackUnreadChannels.size;
     const unreadGuilds = [];
+    const nativeUnreadGuilds = [];
+    const fallbackUnreadGuilds = [];
+    const nativeUnreadSources = [];
 
     for (const { guildId, listItem } of guildItems) {
-      const unread =
-        this.hasNativeUnread(guildId) || this.hasFallbackUnread(guildId);
+      const nativeSource = this.getNativeUnreadSource(guildId);
+      const nativeUnread = Boolean(nativeSource);
+      const fallbackUnread = !nativeUnread && this.hasFallbackUnread(guildId);
+      const unread = nativeUnread || fallbackUnread;
 
       if (unread) {
         listItem.setAttribute("data-wc-unread", "true");
         unreadGuilds.push(guildId);
+        if (nativeUnread) {
+          nativeUnreadGuilds.push(guildId);
+          nativeUnreadSources.push(nativeSource);
+        }
+        if (fallbackUnread) fallbackUnreadGuilds.push(guildId);
       } else {
         listItem.removeAttribute("data-wc-unread");
       }
     }
 
     this.runtime.unreadGuilds = unreadGuilds.slice(0, 25);
+    this.runtime.nativeUnreadGuilds = nativeUnreadGuilds.slice(0, 25);
+    this.runtime.fallbackUnreadGuilds = fallbackUnreadGuilds.slice(0, 25);
+    this.runtime.nativeUnreadSources = nativeUnreadSources.slice(0, 25);
     this.saveRuntime("update");
   }
 
@@ -369,29 +396,51 @@ module.exports = class WayfarersCodexUnreadIndicators {
   }
 
   hasNativeUnread(guildId) {
-    try {
-      if (this.storeHasUnread(this.guildReadState, guildId)) return true;
-      if (this.storeHasUnread(this.readState, guildId)) return true;
+    return Boolean(this.getNativeUnreadSource(guildId));
+  }
 
+  getNativeUnreadSource(guildId) {
+    try {
       for (const channelId of this.getGuildChannelIds(guildId)) {
-        if (this.storeHasUnread(this.readState, channelId)) return true;
+        const unreadSource = this.storeUnreadSource(this.readState, channelId);
+        if (unreadSource) {
+          const channel = this.getChannel(channelId);
+          return {
+            guildId,
+            channelId,
+            channelName: channel?.name || null,
+            channelType: channel?.type ?? null,
+            ...unreadSource
+          };
+        }
       }
     } catch {}
 
-    return false;
+    return null;
   }
 
   storeHasUnread(store, id) {
+    return Boolean(this.storeUnreadSource(store, id));
+  }
+
+  storeUnreadSource(store, id) {
     if (!store || !id) return false;
 
     try {
-      if (store.getMentionCount?.(id) > 0) return true;
-      if (store.getUnreadCount?.(id) > 0) return true;
-      if (store.hasUnread?.(id)) return true;
-      if (store.hasUnreadCount?.(id)) return true;
+      const mentionCount = store.getMentionCount?.(id);
+      if (mentionCount > 0) return { method: "getMentionCount", value: mentionCount };
+
+      const unreadCount = store.getUnreadCount?.(id);
+      if (unreadCount > 0) return { method: "getUnreadCount", value: unreadCount };
+
+      const hasUnread = store.hasUnread?.(id);
+      if (hasUnread) return { method: "hasUnread", value: true };
+
+      const hasUnreadCount = store.hasUnreadCount?.(id);
+      if (hasUnreadCount) return { method: "hasUnreadCount", value: true };
     } catch {}
 
-    return false;
+    return null;
   }
 
   getGuildChannelIds(guildId) {
@@ -400,7 +449,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       if (depth > 5 || value == null || ids.size > 500) return;
 
       if (typeof value === "string") {
-        if (this.isChannelInGuild(value, guildId)) ids.add(value);
+        if (this.isUnreadEligibleChannel(value, guildId)) ids.add(value);
         return;
       }
 
@@ -414,7 +463,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       const directId = value.id || value.channelId || value.channel_id;
       const directGuild = value.guild_id || value.guildId;
       if (directId && directId !== guildId && (!directGuild || directGuild === guildId)) {
-        if (this.isChannelInGuild(directId, guildId)) ids.add(directId);
+        if (this.isUnreadEligibleChannel(directId, guildId)) ids.add(directId);
       }
 
       if (value.channel) harvest(value.channel, depth + 1);
@@ -447,21 +496,74 @@ module.exports = class WayfarersCodexUnreadIndicators {
     return ids;
   }
 
-  isChannelInGuild(channelId, guildId) {
+  isUnreadEligibleChannel(channelId, guildId) {
     if (!channelId || channelId === guildId) return false;
 
     try {
       const channel = this.channelStore?.getChannel?.(channelId);
-      if (!channel) return /^\d{16,20}$/.test(String(channelId));
-      return (channel.guild_id || channel.guildId) === guildId;
+      if (!channel) return false;
+      const channelGuildId = channel.guild_id || channel.guildId;
+      if (channelGuildId !== guildId) return false;
+      if (this.isMuted(guildId, channelId, channel.parent_id || channel.parentId)) {
+        return false;
+      }
+
+      const textLikeTypes = new Set([0, 5, 10, 11, 12, 15, 16]);
+      return channel.type == null || textLikeTypes.has(channel.type);
     } catch {
-      return /^\d{16,20}$/.test(String(channelId));
+      return false;
+    }
+  }
+
+  isMuted(guildId, channelId, parentId) {
+    const store = this.mutedStore;
+    if (!store) return false;
+
+    const calls = [
+      () => store.isMuted?.(guildId),
+      () => store.isChannelMuted?.(guildId, channelId),
+      () => parentId && store.isChannelMuted?.(guildId, parentId),
+      () => store.isChannelMuted?.(channelId),
+      () => parentId && store.isChannelMuted?.(parentId),
+      () => store.isGuildOrCategoryOrChannelMuted?.(guildId, channelId),
+      () => parentId && store.isGuildOrCategoryOrChannelMuted?.(guildId, parentId),
+      () => store.isMuted?.(channelId),
+      () => parentId && store.isMuted?.(parentId)
+    ];
+
+    for (const call of calls) {
+      try {
+        if (call()) return true;
+      } catch {}
+    }
+
+    try {
+      const mutedChannels = store.getMutedChannels?.(guildId);
+      if (Array.isArray(mutedChannels)) {
+        return mutedChannels.includes(channelId) || mutedChannels.includes(parentId);
+      }
+
+      if (mutedChannels && typeof mutedChannels === "object") {
+        return Boolean(mutedChannels[channelId] || mutedChannels[parentId]);
+      }
+    } catch {}
+
+    return false;
+  }
+
+  getChannel(channelId) {
+    try {
+      return this.channelStore?.getChannel?.(channelId) || null;
+    } catch {
+      return null;
     }
   }
 
   hasFallbackUnread(guildId) {
     for (const value of this.fallbackUnreadChannels.values()) {
-      if (value === guildId) return true;
+      const fallbackGuildId =
+        typeof value === "string" ? value : value?.guildId;
+      if (fallbackGuildId === guildId) return true;
     }
 
     return false;
@@ -469,7 +571,18 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
   clearFallbackGuild(guildId) {
     for (const [channelId, value] of this.fallbackUnreadChannels.entries()) {
-      if (value === guildId) this.fallbackUnreadChannels.delete(channelId);
+      const fallbackGuildId =
+        typeof value === "string" ? value : value?.guildId;
+      if (fallbackGuildId === guildId) this.fallbackUnreadChannels.delete(channelId);
+    }
+  }
+
+  pruneFallbackUnread() {
+    const now = Date.now();
+    for (const [channelId, value] of this.fallbackUnreadChannels.entries()) {
+      if (typeof value === "string" || !value?.expiresAt || value.expiresAt <= now) {
+        this.fallbackUnreadChannels.delete(channelId);
+      }
     }
   }
 
