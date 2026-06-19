@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.6
+ * @version 1.2.7
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -347,6 +347,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     const nativeUnreadGuilds = [];
     const fallbackUnreadGuilds = [];
     const nativeUnreadSources = [];
+    this.currentSuppressedUnreadSources = [];
 
     for (const { guildId, listItem } of guildItems) {
       const nativeSource = this.getNativeUnreadSource(guildId);
@@ -371,7 +372,9 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.runtime.nativeUnreadGuilds = nativeUnreadGuilds.slice(0, 25);
     this.runtime.fallbackUnreadGuilds = fallbackUnreadGuilds.slice(0, 25);
     this.runtime.nativeUnreadSources = nativeUnreadSources.slice(0, 25);
+    this.runtime.suppressedUnreadSources = this.currentSuppressedUnreadSources.slice(0, 25);
     this.saveRuntime("update");
+    this.currentSuppressedUnreadSources = null;
   }
 
   getGuildNavItems() {
@@ -403,6 +406,11 @@ module.exports = class WayfarersCodexUnreadIndicators {
     try {
       for (const channelId of this.getGuildChannelIds(guildId)) {
         const unreadSource = this.storeUnreadSource(this.readState, channelId);
+        if (unreadSource?.suppressed) {
+          this.recordSuppressedUnreadSource(guildId, channelId, unreadSource);
+          continue;
+        }
+
         if (unreadSource) {
           const channel = this.getChannel(channelId);
           return {
@@ -420,7 +428,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
   }
 
   storeHasUnread(store, id) {
-    return Boolean(this.storeUnreadSource(store, id));
+    const unreadSource = this.storeUnreadSource(store, id);
+    return Boolean(unreadSource && !unreadSource.suppressed);
   }
 
   storeUnreadSource(store, id) {
@@ -430,17 +439,45 @@ module.exports = class WayfarersCodexUnreadIndicators {
       const mentionCount = store.getMentionCount?.(id);
       if (mentionCount > 0) return { method: "getMentionCount", value: mentionCount };
 
-      const unreadCount = store.getUnreadCount?.(id);
-      if (unreadCount > 0) return { method: "getUnreadCount", value: unreadCount };
-
       const hasUnread = store.hasUnread?.(id);
       if (hasUnread) return { method: "hasUnread", value: true };
 
       const hasUnreadCount = store.hasUnreadCount?.(id);
       if (hasUnreadCount) return { method: "hasUnreadCount", value: true };
+
+      const unreadCount = store.getUnreadCount?.(id);
+      if (unreadCount > 0) {
+        const hasBooleanUnread =
+          typeof store.hasUnread === "function" ||
+          typeof store.hasUnreadCount === "function";
+
+        if (!hasBooleanUnread) {
+          return { method: "getUnreadCount", value: unreadCount };
+        }
+
+        return {
+          suppressed: true,
+          method: "getUnreadCount",
+          value: unreadCount,
+          reason: "boolean unread state did not agree"
+        };
+      }
     } catch {}
 
     return null;
+  }
+
+  recordSuppressedUnreadSource(guildId, channelId, unreadSource) {
+    if (!this.currentSuppressedUnreadSources) return;
+
+    const channel = this.getChannel(channelId);
+    this.currentSuppressedUnreadSources.push({
+      guildId,
+      channelId,
+      channelName: channel?.name || null,
+      channelType: channel?.type ?? null,
+      ...unreadSource
+    });
   }
 
   getGuildChannelIds(guildId) {
