@@ -17,7 +17,7 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.37`
+- Theme: `2.0.38`
 - Plugin: `1.2.12`
 
 Recent improvements:
@@ -27,7 +27,7 @@ Recent improvements:
 - Server unread dots are restored without stale false-positive dots.
 - Voice users glow when speaking.
 - Member and chat name colors stay controlled by Discord/server role settings.
-- Right-side member hover is contained so the whole panel should not light up.
+- Right-side member hover paint is removed so the whole panel does not light up.
 - Server-rail mention strips are muted so the top and bottom of the left rail
   do not flare brighter than the rest of the theme.
 - Channel-list top/bottom overlay bars are hidden so server invite/settings
