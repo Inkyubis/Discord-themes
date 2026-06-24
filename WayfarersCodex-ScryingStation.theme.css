@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.32
- * @description An original fantasy scrying-desk theme with one 10% layer per persistent pane.
+ * @version 2.0.33
+ * @description An original fantasy scrying-desk theme with clear unread channel row highlights.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -272,4 +272,45 @@
     0 0 18px rgba(99, 230, 220, 0.4) !important;
   outline: 2px solid rgba(121, 235, 225, 0.64) !important;
   outline-offset: 2px !important;
+}
+
+/*
+ * Keep unread channels legible after the transparency recovery layer clears
+ * nested channel-list paint.
+ */
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Direct Messages" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Private Channels" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [data-wc-channel-list="true"] [class*="containerDefault" i]:has([class*="unread_" i]) [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] [class*="containerDefault" i]:has([class*="unread_" i]) [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] [role="treeitem"][aria-label*="unread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
+  border-color: rgba(99, 230, 220, 0.32) !important;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(99, 230, 220, 0.22),
+      rgba(99, 230, 220, 0.08) 68%,
+      rgba(99, 230, 220, 0.02)
+    ) !important;
+  box-shadow:
+    inset 3px 0 rgba(121, 235, 225, 0.88),
+    0 0 16px rgba(99, 230, 220, 0.14) !important;
+}
+
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="name_" i],
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="icon_" i],
+#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="name_" i],
+#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="icon_" i],
+#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="name_" i],
+#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="icon_" i] {
+  color: #bffdf5 !important;
+  text-shadow: 0 0 10px rgba(99, 230, 220, 0.46) !important;
+}
+
+#app-mount [data-wc-channel-list="true"] [class*="unread_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] [class*="unread_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
+  background: var(--wc-teal, #63e6dc) !important;
+  box-shadow: 0 0 12px rgba(99, 230, 220, 0.78) !important;
 }
