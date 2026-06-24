@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.36
- * @description An original fantasy scrying-desk theme with safer member hover and quieter server rail indicators.
+ * @version 2.0.38
+ * @description An original fantasy scrying-desk theme with member hover paint removed and quieter sidebar overlays.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -273,6 +273,47 @@
   box-shadow: 0 0 6px rgba(218, 79, 79, 0.18) !important;
 }
 
+/*
+ * Discord also renders full-width top/bottom overlays inside the channel
+ * sidebar. They can sit over invite/settings controls, so keep them invisible
+ * and non-blocking while leaving real unread channel rows/dots alone.
+ */
+#app-mount [data-wc-channel-list="true"] > [class*="unread" i],
+#app-mount [data-wc-channel-list="true"] > [class*="bar" i],
+#app-mount [aria-label*="Channels" i] > [class*="unread" i],
+#app-mount [aria-label*="Channels" i] > [class*="bar" i],
+#app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i],
+#app-mount [class*="sidebarList" i] [class*="newMessagesBar" i],
+#app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i],
+#app-mount [class*="sidebarList" i] [class*="barBase" i],
+#app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i],
+#app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  color: transparent !important;
+  pointer-events: none !important;
+}
+
+#app-mount [data-wc-channel-list="true"] > [class*="unread" i] *,
+#app-mount [data-wc-channel-list="true"] > [class*="bar" i] *,
+#app-mount [aria-label*="Channels" i] > [class*="unread" i] *,
+#app-mount [aria-label*="Channels" i] > [class*="bar" i] *,
+#app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i] *,
+#app-mount [class*="sidebarList" i] [class*="newMessagesBar" i] *,
+#app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i] *,
+#app-mount [class*="sidebarList" i] [class*="barBase" i] *,
+#app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i] *,
+#app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] * {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: transparent !important;
+}
+
 #app-mount [data-wc-speaking="true"] {
   position: relative !important;
   overflow: visible !important;
@@ -333,8 +374,66 @@
 
 /*
  * Keep Discord's hovered/selected member sync from painting the whole member
- * column. Only the actual member row under the cursor gets a small tint.
+ * column. Member-list hover paint is removed entirely; profile popouts and
+ * role colors still come from Discord.
  */
+#app-mount [data-wc-members-panel="true"],
+#app-mount [aria-label*="Members" i],
+#app-mount [class*="membersWrap" i],
+#app-mount [class*="container_c8ffbb" i],
+#app-mount [class*="members_" i] {
+  --background-modifier-hover: transparent !important;
+  --background-modifier-selected: transparent !important;
+  --background-modifier-active: transparent !important;
+  --bg-overlay-hover: transparent !important;
+  --bg-overlay-selected: transparent !important;
+  --bg-overlay-active: transparent !important;
+  --custom-member-list-item-hover: transparent !important;
+  --custom-member-list-item-selected: transparent !important;
+}
+
+#app-mount [data-wc-members-panel="true"]:hover,
+#app-mount [aria-label*="Members" i]:hover,
+#app-mount [class*="membersWrap" i]:hover,
+#app-mount [class*="container_c8ffbb" i]:hover,
+#app-mount [class*="members_" i]:hover {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="members_" i]:hover,
+#app-mount [aria-label*="Members" i]:hover,
+#app-mount [class*="membersWrap" i] [class*="members_" i]:hover,
+#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]::before,
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]::after,
+#app-mount [aria-label*="Members" i] [class*="member_" i]::before,
+#app-mount [aria-label*="Members" i] [class*="member_" i]::after,
+#app-mount [class*="membersWrap" i] [class*="member_" i]::before,
+#app-mount [class*="membersWrap" i] [class*="member_" i]::after,
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]::before,
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]::after {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Members" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [class*="membersWrap" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [class*="container_c8ffbb" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
 #app-mount [data-wc-members-panel="true"]:hover [class*="layout_" i],
 #app-mount [aria-label*="Members" i]:hover [class*="layout_" i],
 #app-mount [class*="membersWrap" i]:hover [class*="layout_" i],
@@ -364,6 +463,9 @@
 #app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="layout_" i],
 #app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="layout_" i],
 #app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="layout_" i] {
-  background-color: rgba(99, 230, 220, 0.055) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
   border-radius: 8px !important;
 }
