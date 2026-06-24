@@ -1,28 +1,50 @@
 # Wayfarer's Codex: Scrying Station
 
-An original fantasy Discord theme that presents the interface as translucent
-magical glass floating over a candlelit scholar's desk.
+A fantasy Discord theme that turns the app into a translucent scrying desk:
+glass-like panels over an original candlelit scholar's table scene.
+
+This project is fantasy-inspired without using licensed settings, characters,
+logos, maps, or commercial tabletop game art.
+
+## What's Included
+
+- `WayfarersCodex-ScryingStation.theme.css` - the BetterDiscord theme
+- `WayfarersCodex-UnreadIndicators.plugin.js` - companion plugin for unread
+  server dots, voice speaking glows, and durable Discord panel markers
+- `preview-scrying-station.html` - offline visual preview
+- `assets/scrying-station.webp` - optimized background scene
+- `assets/scrying-station-source.png` - full-quality source scene
+
+## Current Version
+
+- Theme: `2.0.36`
+- Plugin: `1.2.12`
+
+Recent improvements:
+
+- Persistent panels are kept at one light 10% glass layer.
+- Unread channels get a teal row glow so they are easier to find.
+- Server unread dots are restored without stale false-positive dots.
+- Voice users glow when speaking.
+- Member and chat name colors stay controlled by Discord/server role settings.
+- Right-side member hover is contained so the whole panel should not light up.
+- Server-rail mention strips are muted so the top and bottom of the left rail
+  do not flare brighter than the rest of the theme.
 
 ## Install
 
 1. Download `WayfarersCodex-ScryingStation.theme.css`.
-2. Place it in your custom client theme folder.
-3. Place `WayfarersCodex-UnreadIndicators.plugin.js` in your plugins folder.
-4. Return to Discord and enable both add-ons.
+2. Put it in your BetterDiscord themes folder.
+3. Download `WayfarersCodex-UnreadIndicators.plugin.js`.
+4. Put it in your BetterDiscord plugins folder.
+5. Reload Discord, then enable both the theme and plugin.
 
-The theme loads its original background scene from this repository. An internet
-connection is needed for the scene image. The repository also includes:
+The theme loads its background image from this repository, so Discord needs an
+internet connection for the desk scene to appear.
 
-- `preview-scrying-station.html` - offline visual preview
-- `assets/scrying-station.webp` - compact scene image
-- `assets/scrying-station-source.png` - full-quality source scene
+## Customize Transparency
 
-Client modifications are third-party software. Review the current terms and
-security guidance for your chosen client before installing one.
-
-## Customize
-
-The persistent interface surfaces are set to 10% opacity:
+The main glass surfaces are set to 10% opacity:
 
 ```css
 --wc-glass-deep: rgba(3, 10, 11, 0.10);
@@ -31,44 +53,22 @@ The persistent interface surfaces are set to 10% opacity:
 --wc-nav-glass: rgba(7, 19, 20, 0.10);
 ```
 
-`--wc-nav-glass` controls the server channel list, direct-message and Friends
-navigation, Friends list, Active Now panel, and server member list. Version
-2.0.34 contains member-list hover highlights so hovering a user name does not
-paint the whole right column. Version 2.0.33 restores visible unread-channel row highlights after the transparent
-pane recovery layer. Version 2.0.32 preserves member-list text background images so gradient/role-colored
-names do not blank out, and changes unread channels from forced white text to a
-semi-transparent row highlight. Version 2.0.31 removes the theme's global Discord text-token overrides, username
-speaker shadows, and chat-name styling so member and chat username colors remain
-controlled by Discord/server settings.
-Version 2.0.30 removes the member-panel username/name/content recovery selectors.
-Version 2.0.29 keeps speaking-user name colors under Discord's server/role settings
-while preserving the visibility fix. Version 2.0.28 restores
-right-side member-list names after Discord's latest member panel layout change.
-Version 2.0.27 softens the speaking-user avatar glow by 20%. Version 2.0.26 restores
-voice-channel occupant avatars by keeping Discord avatar background images out
-of the transparent-pane reset. Version 2.0.25 refreshes the package with the
-quieter 1.2.9 unread plugin. Version
-2.0.24 adds a Discord-update recovery layer that uses plugin-authored
-`data-wc-*` pane markers plus ARIA fallbacks, while keeping persistent panes at
-one true 10% layer and restoring the teal voice-speaking glow.
+Increase the last number for darker panels, or decrease it for more of the
+desk scene showing through. `--wc-nav-glass` controls the server rail, channel
+list, Friends list, Active Now panel, and server member list.
 
-The included unread-indicator plugin preserves teal server dots without using
-muted or stale channel state, preventing dots on servers with no current unread
-messages while adding a fallback for Discord updates that no longer wake the
-read-state listener. Version 1.2.9 adds a single-instance guard, de-duplicates
-repeated message events, ignores direct messages entirely, and avoids writing
-runtime diagnostics on every message so Discord's own notification audio stays
-undisturbed. Version 1.2.8 marks live guild, channel, member, activity, and
-voice rows with stable `data-wc-*` attributes.
+## Troubleshooting
 
-## Originality
+If unread dots, speaking glows, or panel transparency stop working after a
+Discord update, restart Discord and make sure the companion plugin is enabled.
+Discord changes internal class names often, and the plugin helps the theme find
+important panels more reliably.
 
-The scene, interface treatment, palette, and terminology were created for this
-package. The image uses generic fantasy objects and contains no copied logos,
-named settings, recognizable characters, commercial maps, or franchise art.
+If the theme still looks stale after updating, remove the old theme/plugin
+files and install the current versions again.
 
-## Compatibility
+## Notes
 
-Discord regularly changes internal class names. This theme favors Discord color
-tokens and partial class selectors to reduce breakage, but future updates may
-require selector maintenance.
+BetterDiscord and similar client modifications are third-party software. Review
+the current terms and security guidance for your chosen client before installing
+any add-on.
