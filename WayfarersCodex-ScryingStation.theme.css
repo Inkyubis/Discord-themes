@@ -1,7 +1,7 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.23
+ * @version 2.0.32
  * @description An original fantasy scrying-desk theme with one 10% layer per persistent pane.
  * @source https://github.com/Inkyubis/Discord-themes
  */
@@ -104,30 +104,172 @@
   overflow: visible !important;
   background: linear-gradient(
     90deg,
-    rgba(99, 230, 220, 0.18),
-    rgba(99, 230, 220, 0.04) 72%,
+    rgba(99, 230, 220, 0.14),
+    rgba(99, 230, 220, 0.03) 72%,
     transparent
   ) !important;
-  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.8) !important;
+  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.64) !important;
 }
 
 #app-mount [class*="voiceUser_"]:has([class*="usernameSpeaking_"]) [class*="avatar_"],
 #app-mount [class*="voiceUser_"][data-wc-speaking="true"] [class*="avatar_"] {
   box-shadow:
-    inset 0 0 0 2px rgba(121, 235, 225, 0.8),
-    0 0 8px rgba(99, 230, 220, 0.76),
-    0 0 18px rgba(99, 230, 220, 0.5) !important;
-  outline: 2px solid rgba(121, 235, 225, 0.8) !important;
+    inset 0 0 0 2px rgba(121, 235, 225, 0.64),
+    0 0 8px rgba(99, 230, 220, 0.61),
+    0 0 18px rgba(99, 230, 220, 0.4) !important;
+  outline: 2px solid rgba(121, 235, 225, 0.64) !important;
   outline-offset: 2px !important;
   filter:
-    brightness(1.14)
+    brightness(1.11)
     saturate(1.16)
-    drop-shadow(0 0 6px rgba(99, 230, 220, 0.8))
-    drop-shadow(0 0 13px rgba(99, 230, 220, 0.62)) !important;
+    drop-shadow(0 0 6px rgba(99, 230, 220, 0.64))
+    drop-shadow(0 0 13px rgba(99, 230, 220, 0.50)) !important;
 }
 
-#app-mount [class*="usernameSpeaking_"],
-#app-mount [class*="voiceUser_"][data-wc-speaking="true"] [class*="username_"] {
-  color: #79ebe1 !important;
-  text-shadow: 0 0 8px rgba(99, 230, 220, 0.66) !important;
+/*
+ * Discord update recovery layer. The companion plugin marks live panes with
+ * data-wc-* attributes so this wrapper survives hashed class churn.
+ */
+#app-mount [class*="message_"] [class*="username_"],
+#app-mount [class*="repliedMessage_"] [class*="username_"],
+#app-mount [id^="message-username-"] {
+  font-family: var(--font-primary, "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif) !important;
+  text-shadow: none !important;
+}
+
+#app-mount [class*="modeUnreadImportant_"] [class*="link_"] {
+  border-color: rgba(99, 230, 220, 0.24) !important;
+  background:
+    linear-gradient(90deg, rgba(99, 230, 220, 0.16), rgba(99, 230, 220, 0.045) 76%, transparent) !important;
+  box-shadow:
+    inset 2px 0 rgba(121, 235, 225, 0.72),
+    0 0 14px rgba(99, 230, 220, 0.08);
+}
+
+#app-mount [class*="modeUnreadImportant_"] [class*="name_"],
+#app-mount [class*="modeUnreadImportant_"] [class*="icon_"] {
+  color: inherit !important;
+  text-shadow: 0 0 9px rgba(99, 230, 220, 0.28);
+}
+
+#app-mount [data-wc-guild-rail="true"],
+#app-mount [data-wc-channel-list="true"],
+#app-mount [data-wc-members-panel="true"],
+#app-mount [data-wc-activity-panel="true"],
+#app-mount nav[aria-label*="Servers" i],
+#app-mount [data-list-id*="guild" i],
+#app-mount [aria-label*="Channels" i],
+#app-mount [aria-label*="Direct Messages" i],
+#app-mount [aria-label*="Private Channels" i],
+#app-mount [aria-label*="Members" i],
+#app-mount [aria-label*="Active Now" i],
+#app-mount [class*="guilds" i],
+#app-mount [class*="sidebarList" i],
+#app-mount [class*="privateChannels" i],
+#app-mount [class*="membersWrap" i],
+#app-mount [class*="peopleColumn" i],
+#app-mount [class*="nowPlayingColumn" i] {
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  background: rgba(7, 19, 20, 0.10) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [data-wc-guild-rail="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [data-wc-channel-list="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [data-wc-activity-panel="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount nav[aria-label*="Servers" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [data-list-id*="guild" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Direct Messages" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Private Channels" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Active Now" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not(img):not(svg),
+#app-mount [aria-label*="Members" i] *:not([class*="avatar" i]):not([class*="icon" i]):not(img):not(svg) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member" i],
+#app-mount [aria-label*="Members" i] [class*="member" i],
+#app-mount [class*="membersWrap" i] [class*="member" i],
+#app-mount [class*="container_c8ffbb"] [class*="member" i],
+#app-mount [class*="membersWrap_c8ffbb"] [class*="member" i] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#app-mount [data-wc-voice-user="true"],
+#app-mount [class*="voiceUser" i],
+#app-mount [data-list-item-id*="voice-user" i],
+#app-mount [data-list-item-id*="voiceuser" i] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#app-mount [data-wc-voice-user="true"] [class*="avatar" i],
+#app-mount [data-wc-voice-user="true"] [style*="background-image"],
+#app-mount [class*="voiceUser" i] [class*="avatar" i],
+#app-mount [class*="voiceUser" i] [style*="background-image"],
+#app-mount [data-list-item-id*="voice-user" i] [class*="avatar" i],
+#app-mount [data-list-item-id*="voice-user" i] [style*="background-image"],
+#app-mount [data-list-item-id*="voiceuser" i] [class*="avatar" i],
+#app-mount [data-list-item-id*="voiceuser" i] [style*="background-image"],
+#app-mount [data-wc-voice-user="true"] img,
+#app-mount [class*="voiceUser" i] img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+#app-mount [data-wc-guild-item="true"][data-wc-unread="true"]::before {
+  content: "";
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 0;
+  width: 4px;
+  height: 10px;
+  border-radius: 0 4px 4px 0;
+  background: #63e6dc !important;
+  box-shadow: 0 0 12px rgba(99, 230, 220, 0.9) !important;
+  transform: translateY(-50%);
+}
+
+#app-mount [data-wc-speaking="true"] {
+  position: relative !important;
+  overflow: visible !important;
+  background: linear-gradient(90deg, rgba(99, 230, 220, 0.14), rgba(99, 230, 220, 0.03) 72%, transparent) !important;
+  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.64) !important;
+}
+
+#app-mount [data-wc-speaking="true"] [class*="avatar" i],
+#app-mount [data-wc-speaking="true"] img {
+  box-shadow:
+    inset 0 0 0 2px rgba(121, 235, 225, 0.64),
+    0 0 8px rgba(99, 230, 220, 0.61),
+    0 0 18px rgba(99, 230, 220, 0.4) !important;
+  outline: 2px solid rgba(121, 235, 225, 0.64) !important;
+  outline-offset: 2px !important;
 }
