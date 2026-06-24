@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.34
- * @description An original fantasy scrying-desk theme with contained member hover highlights.
+ * @version 2.0.36
+ * @description An original fantasy scrying-desk theme with safer member hover and quieter server rail indicators.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -257,6 +257,22 @@
   transform: translateY(-50%);
 }
 
+#app-mount [data-wc-guild-rail="true"] [class*="unreadMentionsIndicator" i],
+#app-mount nav[aria-label*="Servers" i] [class*="unreadMentionsIndicator" i],
+#app-mount [class*="guilds_" i] [class*="unreadMentionsIndicator" i] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-guild-rail="true"] [class*="unreadMentionsIndicator" i] [class*="bar_" i],
+#app-mount nav[aria-label*="Servers" i] [class*="unreadMentionsIndicator" i] [class*="bar_" i],
+#app-mount [class*="guilds_" i] [class*="unreadMentionsIndicator" i] [class*="bar_" i] {
+  background-color: rgba(218, 79, 79, 0.18) !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: 0 0 6px rgba(218, 79, 79, 0.18) !important;
+}
+
 #app-mount [data-wc-speaking="true"] {
   position: relative !important;
   overflow: visible !important;
@@ -316,13 +332,29 @@
 }
 
 /*
- * Keep Discord's "hovered user" sync from painting the whole member column.
- * Only the actual member row under the cursor should get a small tint.
+ * Keep Discord's hovered/selected member sync from painting the whole member
+ * column. Only the actual member row under the cursor gets a small tint.
  */
 #app-mount [data-wc-members-panel="true"]:hover [class*="layout_" i],
 #app-mount [aria-label*="Members" i]:hover [class*="layout_" i],
+#app-mount [class*="membersWrap" i]:hover [class*="layout_" i],
+#app-mount [class*="container_c8ffbb" i]:hover [class*="layout_" i],
+#app-mount [class*="members_" i]:hover [class*="layout_" i],
 #app-mount [class*="membersWrap" i] [class*="members_" i]:hover [class*="layout_" i],
-#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover [class*="layout_" i] {
+#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover [class*="layout_" i],
+#app-mount [data-wc-members-panel="true"] [class*="selected_" i] [class*="layout_" i],
+#app-mount [aria-label*="Members" i] [class*="selected_" i] [class*="layout_" i],
+#app-mount [class*="membersWrap" i] [class*="selected_" i] [class*="layout_" i],
+#app-mount [class*="container_c8ffbb" i] [class*="selected_" i] [class*="layout_" i] {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover,
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover,
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover,
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover {
   background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
