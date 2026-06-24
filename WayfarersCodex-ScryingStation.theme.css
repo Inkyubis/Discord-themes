@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.33
- * @description An original fantasy scrying-desk theme with clear unread channel row highlights.
+ * @version 2.0.34
+ * @description An original fantasy scrying-desk theme with contained member hover highlights.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -313,4 +313,25 @@
 #app-mount [aria-label*="Channels" i] [class*="unread_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
   background: var(--wc-teal, #63e6dc) !important;
   box-shadow: 0 0 12px rgba(99, 230, 220, 0.78) !important;
+}
+
+/*
+ * Keep Discord's "hovered user" sync from painting the whole member column.
+ * Only the actual member row under the cursor should get a small tint.
+ */
+#app-mount [data-wc-members-panel="true"]:hover [class*="layout_" i],
+#app-mount [aria-label*="Members" i]:hover [class*="layout_" i],
+#app-mount [class*="membersWrap" i] [class*="members_" i]:hover [class*="layout_" i],
+#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover [class*="layout_" i] {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="layout_" i],
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="layout_" i],
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="layout_" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="layout_" i] {
+  background-color: rgba(99, 230, 220, 0.055) !important;
+  border-radius: 8px !important;
 }
