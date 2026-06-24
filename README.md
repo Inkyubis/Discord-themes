@@ -33,7 +33,9 @@ The persistent interface surfaces are set to 10% opacity:
 
 `--wc-nav-glass` controls the server channel list, direct-message and Friends
 navigation, Friends list, Active Now panel, and server member list. Version
-2.0.32 preserves member-list text background images so gradient/role-colored
+2.0.34 contains member-list hover highlights so hovering a user name does not
+paint the whole right column. Version 2.0.33 restores visible unread-channel row highlights after the transparent
+pane recovery layer. Version 2.0.32 preserves member-list text background images so gradient/role-colored
 names do not blank out, and changes unread channels from forced white text to a
 semi-transparent row highlight. Version 2.0.31 removes the theme's global Discord text-token overrides, username
 speaker shadows, and chat-name styling so member and chat username colors remain
