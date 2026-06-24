@@ -17,7 +17,7 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.36`
+- Theme: `2.0.37`
 - Plugin: `1.2.12`
 
 Recent improvements:
@@ -30,6 +30,8 @@ Recent improvements:
 - Right-side member hover is contained so the whole panel should not light up.
 - Server-rail mention strips are muted so the top and bottom of the left rail
   do not flare brighter than the rest of the theme.
+- Channel-list top/bottom overlay bars are hidden so server invite/settings
+  controls are not covered by bright panes.
 
 ## Install
 
