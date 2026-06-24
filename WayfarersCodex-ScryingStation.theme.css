@@ -1,12 +1,16 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.38
- * @description An original fantasy scrying-desk theme with member hover paint removed and quieter sidebar overlays.
+ * @version 2.0.43
+ * @description An original fantasy scrying-desk theme with safer video frames and a 50% larger mini video player.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
 @import url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/152d6bf2a384549a83fadfbf6beeed9a6bf98d1d/WayfarersCodex-ScryingStation.theme.css");
+
+:root {
+  --wc-video-player-scale: 1.50;
+}
 
 /*
  * Enforce one 10% layer per persistent pane. Several Discord layouts nest
@@ -329,6 +333,73 @@
     0 0 18px rgba(99, 230, 220, 0.4) !important;
   outline: 2px solid rgba(121, 235, 225, 0.64) !important;
   outline-offset: 2px !important;
+}
+
+/*
+ * Video and stream surfaces: Discord often paints call/stage wrappers black.
+ * Clear exposed wrapper surfaces so the desk scene shows through where Discord
+ * allows it. Black pixels inside the actual stream/video cannot be made
+ * transparent by CSS.
+ */
+#app-mount [class*="root" i]:has(video),
+#app-mount [class*="stage" i]:has(video),
+#app-mount [class*="container" i]:has(video),
+#app-mount [class*="wrapper" i]:has(video),
+#app-mount [class*="content" i]:has(video),
+#app-mount [class*="callContainer" i],
+#app-mount [class*="call_" i],
+#app-mount [class*="channelChatWrapper" i],
+#app-mount [class*="chatLayerWrapper" i],
+#app-mount [class*="stream" i],
+#app-mount [class*="videoGrid" i],
+#app-mount [class*="videoWrapper" i],
+#app-mount [class*="videoFrame" i],
+#app-mount [class*="videoControls" i],
+#app-mount [class*="tile" i]:has(video),
+#app-mount [class*="streamPreview" i],
+#app-mount [class*="pictureInPicture" i],
+#app-mount [class*="floatingVideo" i],
+#app-mount [class*="mediaEngine" i] {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount video,
+#app-mount [class*="mediaEngineVideo" i],
+#app-mount [class*="streamPreview" i] video,
+#app-mount [class*="pictureInPicture" i] video,
+#app-mount [class*="floatingVideo" i] video {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/*
+ * Make the actual non-prioritized/floating video content easier to see without
+ * forcing width/height or screen coordinates. Discord can still drag/anchor it.
+ */
+#app-mount [class*="pictureInPicture" i]:has(video),
+#app-mount [class*="floatingVideo" i]:has(video),
+#app-mount [class*="streamPreview" i]:has(video) {
+  overflow: visible !important;
+  z-index: 1001 !important;
+}
+
+#app-mount [class*="pictureInPicture" i]:has(video) [class*="video" i],
+#app-mount [class*="pictureInPicture" i]:has(video) [class*="preview" i],
+#app-mount [class*="floatingVideo" i]:has(video) [class*="video" i],
+#app-mount [class*="floatingVideo" i]:has(video) [class*="preview" i],
+#app-mount [class*="streamPreview" i]:has(video) [class*="video" i],
+#app-mount [class*="streamPreview" i]:has(video) [class*="preview" i] {
+  overflow: visible !important;
+}
+
+#app-mount [class*="pictureInPicture" i] video,
+#app-mount [class*="floatingVideo" i] video,
+#app-mount [class*="streamPreview" i] video {
+  transform: scale(var(--wc-video-player-scale)) !important;
+  transform-origin: bottom right !important;
 }
 
 /*
