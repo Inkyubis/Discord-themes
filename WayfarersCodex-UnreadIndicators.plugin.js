@@ -1,13 +1,21 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.7
+ * @version 1.2.12
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
 module.exports = class WayfarersCodexUnreadIndicators {
   start() {
     try {
+      const previous = window.__WayfarersCodexUnreadIndicatorsInstance;
+      if (previous && previous !== this && typeof previous.stop === "function") {
+        try {
+          previous.stop();
+        } catch {}
+      }
+
+      window.__WayfarersCodexUnreadIndicatorsInstance = this;
       this.initialize();
     } catch (error) {
       this.saveStartupError(error);
@@ -18,6 +26,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.pluginName = "WayfarersCodexUnreadIndicators";
     this.fallbackUnreadChannels = new Map();
     this.fallbackPulseMs = 3500;
+    this.seenMessageEvents = new Map();
+    this.seenMessageWindowMs = 30000;
     this.dispatchSubscriptions = [];
     this.runtime = {
       startedAt: new Date().toISOString(),
@@ -26,7 +36,9 @@ module.exports = class WayfarersCodexUnreadIndicators {
       messageEvents: 0,
       guildNavItems: 0,
       fallbackChannels: 0,
-      fallbackPulseMs: this.fallbackPulseMs
+      fallbackPulseMs: this.fallbackPulseMs,
+      duplicateMessageEvents: 0,
+      pluginVersion: "1.2.12"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -60,6 +72,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       this.frame = requestAnimationFrame(() => {
         this.updateMarkers();
         this.updateSpeakingUsers();
+        this.markDurablePanes();
       });
     };
 
@@ -113,27 +126,22 @@ module.exports = class WayfarersCodexUnreadIndicators {
         #app-mount [data-wc-speaking="true"] {
           background: linear-gradient(
             90deg,
-            rgba(99, 230, 220, 0.14),
-            rgba(99, 230, 220, 0.03) 70%,
+            rgba(99, 230, 220, 0.11),
+            rgba(99, 230, 220, 0.02) 70%,
             transparent
           ) !important;
-          box-shadow: inset 3px 0 rgba(121, 235, 225, 0.8) !important;
+          box-shadow: inset 3px 0 rgba(121, 235, 225, 0.64) !important;
         }
 
         #app-mount [data-wc-speaking="true"] [class*="avatar"],
         #app-mount [data-wc-speaking="true"] img {
-          outline: 2px solid rgba(121, 235, 225, 0.8) !important;
+          outline: 2px solid rgba(121, 235, 225, 0.64) !important;
           outline-offset: 2px !important;
           filter:
-            brightness(1.13)
+            brightness(1.10)
             saturate(1.14)
-            drop-shadow(0 0 5px rgba(99, 230, 220, 0.8))
-            drop-shadow(0 0 11px rgba(99, 230, 220, 0.66)) !important;
-        }
-
-        #app-mount [data-wc-speaking="true"] [class*="username"] {
-          color: #79ebe1 !important;
-          text-shadow: 0 0 8px rgba(99, 230, 220, 0.64) !important;
+            drop-shadow(0 0 5px rgba(99, 230, 220, 0.64))
+            drop-shadow(0 0 11px rgba(99, 230, 220, 0.53)) !important;
         }
       `
     );
@@ -168,7 +176,13 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
   getStore(name) {
     try {
-      return BdApi.Webpack.getStore(name);
+      const webpack = BdApi?.Webpack;
+      return (
+        webpack?.getStore?.(name) ||
+        webpack?.getByStoreName?.(name) ||
+        webpack?.Stores?.[name] ||
+        null
+      );
     } catch {
       return null;
     }
@@ -178,7 +192,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     const storeDispatcher = this.getStoreDispatcher();
     if (storeDispatcher) return storeDispatcher;
 
-    const webpack = BdApi.Webpack;
+    const webpack = BdApi?.Webpack;
+    if (!webpack) return null;
 
     try {
       const dispatcher = webpack.getByKeys?.("dispatch", "subscribe", "unsubscribe");
@@ -285,12 +300,20 @@ module.exports = class WayfarersCodexUnreadIndicators {
 
     if (!guildId || !channelId) return;
 
+    const eventKey = this.getMessageEventKey(event, message, channelId);
+    if (this.hasSeenMessageEvent(eventKey)) {
+      this.runtime.duplicateMessageEvents += 1;
+      this.scheduleUpdate();
+      return;
+    }
+
     this.runtime.messageEvents += 1;
     this.runtime.lastMessage = {
       hasGuild: true,
       fromSelf: this.isCurrentUser(message.author?.id || message.authorId),
       selectedChannel: this.getSelectedChannelId() === channelId,
-      selectedGuild: this.getSelectedGuildId() === guildId
+      selectedGuild: this.getSelectedGuildId() === guildId,
+      duplicateMessageEvents: this.runtime.duplicateMessageEvents
     };
 
     if (!this.runtime.lastMessage.fromSelf && !this.runtime.lastMessage.selectedChannel) {
@@ -300,7 +323,6 @@ module.exports = class WayfarersCodexUnreadIndicators {
       });
     }
 
-    this.saveRuntime("message");
     this.scheduleUpdate();
     setTimeout(this.scheduleUpdate, 600);
   }
@@ -309,9 +331,38 @@ module.exports = class WayfarersCodexUnreadIndicators {
     const channelId = event.channelId || event.channel_id || event.channel?.id;
     if (channelId) this.fallbackUnreadChannels.delete(channelId);
 
-    this.saveRuntime("ack");
     this.scheduleUpdate();
     setTimeout(this.scheduleUpdate, 600);
+  }
+
+  getMessageEventKey(event, message, channelId) {
+    const messageId = event.id || event.messageId || message.id || message.messageId;
+    if (messageId) return `message:${messageId}`;
+
+    const nonce = event.nonce || message.nonce;
+    if (nonce) return `nonce:${channelId || "unknown"}:${nonce}`;
+
+    const timestamp =
+      event.timestamp ||
+      message.timestamp ||
+      message.editedTimestamp ||
+      message.edited_timestamp;
+    if (channelId && timestamp) return `time:${channelId}:${timestamp}`;
+
+    return null;
+  }
+
+  hasSeenMessageEvent(eventKey) {
+    if (!eventKey) return false;
+
+    const now = Date.now();
+    for (const [key, expiresAt] of this.seenMessageEvents.entries()) {
+      if (expiresAt <= now) this.seenMessageEvents.delete(key);
+    }
+
+    if (this.seenMessageEvents.has(eventKey)) return true;
+    this.seenMessageEvents.set(eventKey, now + this.seenMessageWindowMs);
+    return false;
   }
 
   handleChannelSelect(event) {
@@ -380,14 +431,25 @@ module.exports = class WayfarersCodexUnreadIndicators {
   getGuildNavItems() {
     const rows = [];
     const candidates = document.querySelectorAll(
-      'nav[aria-label*="Servers"] [data-list-item-id], [class*="guilds_"] [data-list-item-id]'
+      [
+        'nav[aria-label*="Servers" i] [data-list-item-id]',
+        '[data-list-id*="guild" i] [data-list-item-id]',
+        '[data-list-item-id*="guildsnav" i]',
+        '[data-list-item-id*="guild" i]',
+        '[class*="guilds" i] [data-list-item-id]'
+      ].join(",")
     );
 
     for (const element of candidates) {
       const guildId = this.extractId(element.dataset.listItemId);
       if (!guildId) continue;
 
-      const listItem = element.closest('[class*="listItem_"]') || element;
+      const listItem =
+        element.closest('[class*="listItem" i]') ||
+        element.closest('[data-list-item-id]') ||
+        element;
+      listItem.setAttribute("data-wc-guild-item", "true");
+      this.markClosestGuildRail(listItem);
       rows.push({ guildId, listItem });
     }
 
@@ -666,7 +728,9 @@ module.exports = class WayfarersCodexUnreadIndicators {
       '[data-list-item-id*="voice-user" i]',
       '[data-list-item-id*="voiceuser" i]',
       '[data-list-item-id*="voice" i]',
-      '[class*="voiceUser" i]'
+      '[class*="voiceUser" i]',
+      '[aria-label*="voice" i] [data-list-item-id]',
+      '[aria-label*="Voice" i] [class*="user" i]'
     ];
 
     for (const element of document.querySelectorAll(selectors.join(","))) {
@@ -674,6 +738,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
         element.closest('[class*="voiceUser" i]') ||
         element.closest('[data-list-item-id]') ||
         element;
+      row.setAttribute("data-wc-voice-user", "true");
       rows.add(row);
     }
 
@@ -720,10 +785,73 @@ module.exports = class WayfarersCodexUnreadIndicators {
   }
 
   updateSpeakingUsers() {
-    for (const row of this.getVoiceUserRows()) {
+    const liveRows = this.getVoiceUserRows();
+    for (const row of document.querySelectorAll('[data-wc-voice-user="true"]')) {
+      if (!liveRows.has(row)) {
+        row.removeAttribute("data-wc-voice-user");
+        row.removeAttribute("data-wc-speaking");
+      }
+    }
+
+    for (const row of liveRows) {
       const userId = this.getUserId(row);
       row.toggleAttribute("data-wc-speaking", this.isSpeaking(row, userId));
     }
+  }
+
+  markDurablePanes() {
+    this.markAll(
+      [
+        'nav[aria-label*="Servers" i]',
+        '[data-list-id*="guild" i]',
+        '[class*="guilds" i]'
+      ],
+      "data-wc-guild-rail"
+    );
+    this.markAll(
+      [
+        '[aria-label*="Channels" i]',
+        '[aria-label*="Private Channels" i]',
+        '[aria-label*="Direct Messages" i]',
+        '[class*="sidebarList" i]',
+        '[class*="privateChannels" i]'
+      ],
+      "data-wc-channel-list"
+    );
+    this.markAll(
+      [
+        '[aria-label*="Members" i]',
+        '[class*="membersWrap" i]',
+        '[class*="members" i]'
+      ],
+      "data-wc-members-panel"
+    );
+    this.markAll(
+      [
+        '[class*="peopleColumn" i]',
+        '[class*="nowPlayingColumn" i]',
+        '[aria-label*="Active Now" i]'
+      ],
+      "data-wc-activity-panel"
+    );
+  }
+
+  markAll(selectors, attribute) {
+    try {
+      for (const element of document.querySelectorAll(selectors.join(","))) {
+        element.setAttribute(attribute, "true");
+      }
+    } catch {}
+  }
+
+  markClosestGuildRail(element) {
+    try {
+      const rail =
+        element.closest('nav[aria-label*="Servers" i]') ||
+        element.closest('[data-list-id*="guild" i]') ||
+        element.closest('[class*="guilds" i]');
+      rail?.setAttribute("data-wc-guild-rail", "true");
+    } catch {}
   }
 
   addStyle(css) {
@@ -798,6 +926,10 @@ module.exports = class WayfarersCodexUnreadIndicators {
     }
 
     this.removeStyle();
+    this.seenMessageEvents?.clear?.();
+    if (window.__WayfarersCodexUnreadIndicatorsInstance === this) {
+      delete window.__WayfarersCodexUnreadIndicatorsInstance;
+    }
 
     document
       .querySelectorAll('[data-wc-unread="true"], [data-wc-speaking="true"]')
