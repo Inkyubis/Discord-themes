@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.17
+ * @version 1.2.18
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -29,8 +29,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.seenMessageEvents = new Map();
     this.seenMessageWindowMs = 30000;
     this.dispatchSubscriptions = [];
-    this.paneScanIntervalMs = 5000;
-    this.pollIntervalMs = 2500;
+    this.paneScanIntervalMs = 15000;
+    this.pollIntervalMs = 10000;
     this.domObserverEnabled = false;
     this.lastPaneScan = 0;
     this.runtime = {
@@ -46,7 +46,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       domObserverEnabled: this.domObserverEnabled,
       skippedComposerMutations: 0,
       duplicateMessageEvents: 0,
-      pluginVersion: "1.2.17"
+      pluginVersion: "1.2.18"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -377,7 +377,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     }
 
     this.scheduleUpdate();
-    setTimeout(this.scheduleUpdate, 600);
+    setTimeout(() => this.scheduleUpdate("force"), 600);
   }
 
   handleReadEvent(event) {
@@ -385,7 +385,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     if (channelId) this.fallbackUnreadChannels.delete(channelId);
 
     this.scheduleUpdate();
-    setTimeout(this.scheduleUpdate, 600);
+    setTimeout(() => this.scheduleUpdate("force"), 600);
   }
 
   getMessageEventKey(event, message, channelId) {
@@ -429,7 +429,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     }
 
     this.saveRuntime("channel-select");
-    this.scheduleUpdate();
+    this.scheduleUpdate("force");
   }
 
   handleGuildSelect(event) {
@@ -439,7 +439,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     }
 
     this.saveRuntime("guild-select");
-    this.scheduleUpdate();
+    this.scheduleUpdate("force");
   }
 
   updateMarkers() {

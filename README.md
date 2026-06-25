@@ -17,8 +17,8 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.53`
-- Plugin: `1.2.17`
+- Theme: `2.0.54`
+- Plugin: `1.2.18`
 
 Recent improvements:
 
@@ -35,6 +35,8 @@ Recent improvements:
   panel scans are throttled to reduce typing lag.
 - The theme is now exported as a self-contained low-latency CSS file, with broad
   `:has()` selectors and live backdrop blur removed.
+- The runtime CSS has been reduced to a lightweight pane-and-background layer so
+  Discord can repaint typed text immediately.
 - Video/call wrapper surfaces use transparency where Discord allows it. Black
   pixels inside the actual stream/video cannot be made transparent by CSS.
 - The non-prioritized/floating video content is enlarged to 2.5x and grows

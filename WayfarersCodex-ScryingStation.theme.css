@@ -1,75 +1,53 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
- * @author Original theme created with Codex
- * @version 2.0.53
- * @description A transparent fantasy scrying interface with low-latency panel and unread cleanup.
+ * @author Inkyubis & Byte
+ * @version 2.0.54
+ * @description A fantasy scrying-desk Discord theme tuned for low typing latency.
+ * @source https://github.com/Inkyubis/Discord-themes
  */
-
-/* ==========================================================================
-   WAYFARER'S CODEX: SCRYING STATION
-
-   The background image is loaded from this repository's committed asset.
-   No remote font, tracking, or franchise asset is used.
-   ========================================================================== */
 
 :root {
   --wc-scene: url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/main/assets/scrying-station.webp");
 
-  --wc-glass-deep: rgba(3, 10, 11, 0.10);
-  --wc-glass: rgba(7, 19, 20, 0.10);
-  --wc-glass-soft: rgba(11, 29, 29, 0.10);
-  --wc-glass-faint: rgba(12, 34, 33, 0.10);
-  --wc-nav-glass: rgba(7, 19, 20, 0.10);
-  --wc-glass-hover: rgba(69, 190, 180, 0.13);
-  --wc-glass-selected: rgba(54, 197, 188, 0.10);
-
-  --wc-ivory: #f3ead7;
-  --wc-muted: #baaF99;
-  --wc-teal: #63e6dc;
-  --wc-teal-bright: #a4fff7;
-  --wc-teal-deep: #247f7a;
-  --wc-amber: #e4aa55;
-  --wc-danger: #d46e72;
+  --wc-glass: rgba(30, 19, 13, 0.10);
+  --wc-glass-soft: rgba(30, 19, 13, 0.07);
+  --wc-glass-hover: rgba(99, 230, 220, 0.10);
+  --wc-glass-selected: rgba(99, 230, 220, 0.14);
   --wc-border: rgba(121, 235, 225, 0.28);
-  --wc-border-warm: rgba(228, 170, 85, 0.3);
-  --wc-shadow: rgba(0, 0, 0, 0.58);
-  --wc-radius: 10px;
-  --wc-display-font: Georgia, "Times New Roman", serif;
-  --wc-body-font: "Segoe UI", Arial, sans-serif;
+  --wc-border-soft: rgba(121, 235, 225, 0.14);
+  --wc-teal: #63e6dc;
+  --wc-teal-bright: #bffdf5;
+  --wc-amber: #e4aa55;
+  --wc-ivory: #f3ead7;
+  --wc-danger: #d46e72;
   --wc-video-player-scale: 2.50;
-  /* Discord tokens */
-  --background-primary: var(--wc-glass-soft) !important;
-  --background-secondary: var(--wc-glass) !important;
-  --background-secondary-alt: rgba(3, 12, 13, 0.10) !important;
-  --background-tertiary: var(--wc-glass-deep) !important;
-  --background-accent: rgba(53, 126, 121, 0.10) !important;
-  --background-floating: rgba(3, 12, 13, 0.10) !important;
-  --background-mobile-primary: var(--wc-glass) !important;
-  --background-mobile-secondary: var(--wc-glass-deep) !important;
-  --background-modifier-hover: rgba(99, 230, 220, 0.1) !important;
-  --background-modifier-active: rgba(99, 230, 220, 0.16) !important;
-  --background-modifier-selected: rgba(99, 230, 220, 0.18) !important;
-  --background-modifier-accent: rgba(99, 230, 220, 0.16) !important;
-  --channeltextarea-background: rgba(3, 15, 16, 0.10) !important;
-  --modal-background: rgba(3, 13, 14, 0.10) !important;
-  --modal-footer-background: rgba(2, 9, 10, 0.10) !important;
-  --input-background: rgba(1, 8, 9, 0.10) !important;
 
+  --background-primary: var(--wc-glass) !important;
+  --background-secondary: var(--wc-glass) !important;
+  --background-secondary-alt: var(--wc-glass) !important;
+  --background-tertiary: var(--wc-glass) !important;
+  --background-floating: rgba(3, 12, 13, 0.18) !important;
+  --background-mobile-primary: var(--wc-glass) !important;
+  --background-mobile-secondary: var(--wc-glass) !important;
+  --background-modifier-hover: var(--wc-glass-hover) !important;
+  --background-modifier-active: rgba(99, 230, 220, 0.13) !important;
+  --background-modifier-selected: var(--wc-glass-selected) !important;
+  --background-modifier-accent: rgba(99, 230, 220, 0.12) !important;
+  --channeltextarea-background: rgba(3, 15, 16, 0.10) !important;
+  --input-background: rgba(1, 8, 9, 0.14) !important;
+  --modal-background: rgba(3, 13, 14, 0.16) !important;
+  --modal-footer-background: rgba(2, 9, 10, 0.16) !important;
   --brand-500: #36bdb5 !important;
   --brand-530: #2fa9a2 !important;
   --brand-560: #278f89 !important;
   --brand-experiment: #36bdb5 !important;
-  --brand-experiment-560: #278f89 !important;
   --status-positive: #71bb83 !important;
   --status-warning: var(--wc-amber) !important;
   --status-danger: var(--wc-danger) !important;
-  --red-400: #e27e82 !important;
-  --red-500: var(--wc-danger) !important;
-
   --scrollbar-thin-thumb: rgba(99, 230, 220, 0.38) !important;
   --scrollbar-thin-track: transparent !important;
   --scrollbar-auto-thumb: rgba(99, 230, 220, 0.38) !important;
-  --scrollbar-auto-track: rgba(0, 0, 0, 0.16) !important;
+  --scrollbar-auto-track: rgba(0, 0, 0, 0.14) !important;
 }
 
 html,
@@ -78,1266 +56,149 @@ body,
   min-height: 100%;
   background-color: #071011 !important;
   background-image:
-    linear-gradient(rgba(1, 7, 8, 0.06), rgba(1, 7, 8, 0.14)),
+    linear-gradient(rgba(1, 7, 8, 0.06), rgba(1, 7, 8, 0.16)),
     var(--wc-scene) !important;
   background-position: center center !important;
   background-size: cover !important;
-  background-attachment: fixed !important;
-  font-family: var(--wc-body-font);
 }
 
-/* Keep Discord's structural layers from covering the scene. */
-[class*="app_"],
-[class*="bg_"],
-[class*="layers_"],
-[class*="layer_"],
-[class*="base_"],
-[class*="content_"][class*="content_"] {
+/* Low-latency rule: keep selectors shallow and avoid live blur, :has(), and filters. */
+#app-mount [class*="app_"],
+#app-mount [class*="bg_"],
+#app-mount [class*="layers_"],
+#app-mount [class*="layer_"],
+#app-mount [class*="base_"],
+#app-mount [class*="content_"] {
   background: transparent !important;
 }
 
-/* Dark vignette improves edge readability while preserving the parchment. */
-#app-mount::after {
-  position: fixed;
-  z-index: 999999;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 77% 18%, rgba(72, 255, 240, 0.1), transparent 23%),
-    radial-gradient(ellipse at center, transparent 38%, rgba(0, 0, 0, 0.24) 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0 376px, #000 440px 100%);
-  mask-image: linear-gradient(to right, transparent 0 376px, #000 440px 100%);
-  mix-blend-mode: screen, multiply;
-}
-
-/* Shared glass treatment */
-[class*="sidebarList_"],
-[class*="membersWrap_"],
-[class*="peopleColumn_"],
-[class*="nowPlayingColumn_"] {
-  background: var(--wc-nav-glass) !important;
-  border-color: var(--wc-border) !important;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-  backdrop-filter: none;
-}
-
-/* Outer shells stay unpainted; only their list pane receives glass. */
-[class*="sidebar_"],
-[class*="privateChannels_"],
-[class*="members_"] {
-  background: transparent !important;
-  backdrop-filter: none;
-}
-
-/*
- * Discord adds its own paint to nested channel, member, DM, and friends
- * scrollers. Clear those layers so they do not stack into an opaque panel.
- */
-[class*="sidebar_"] [class*="container_"],
-[class*="sidebar_"] [class*="scroller_"],
-[class*="sidebar_"] [class*="scrollerBase_"],
-[class*="sidebarList_"] [class*="container_"],
-[class*="sidebarList_"] [class*="scroller_"],
-[class*="privateChannels_"] [class*="scroller_"],
-[class*="privateChannels_"] [class*="channel_"],
-[class*="membersWrap_"] [class*="container_"],
-[class*="membersWrap_"] [class*="scroller_"],
-[class*="members_"] [class*="member_"],
-[class*="tabBody_"],
-[class*="peopleColumn_"] [class*="peopleList_"],
-[class*="peopleColumn_"] [class*="peopleListItem_"],
-[class*="nowPlayingColumn_"] [class*="container_"],
-[class*="nowPlayingColumn_"] [class*="scroller_"] {
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-/* Preserve a single controlled glass pane behind each navigation/list area. */
-[class*="sidebarList_"],
-[class*="membersWrap_"],
-[class*="peopleColumn_"],
-[class*="nowPlayingColumn_"] {
-  background: var(--wc-nav-glass) !important;
-}
-
-[class*="peopleListItem_"] {
-  border-color: rgba(121, 235, 225, 0.11) !important;
-}
-
-[class*="peopleListItem_"]:hover,
-[class*="peopleListItem_"][class*="active_"] {
-  background: rgba(99, 230, 220, 0.09) !important;
-}
-
-/* Friends page: clear the opaque page shell and keep cards translucent. */
-[class*="friends_"],
-[class*="tabBody_"] {
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-[class*="nowPlayingColumn_"] [class*="itemCard_"],
-[class*="peopleColumn_"] [class*="itemCard_"],
-[class*="activeNow_"] [class*="itemCard_"] {
-  background: rgba(5, 24, 25, 0.06) !important;
-  border-color: rgba(121, 235, 225, 0.14) !important;
-  backdrop-filter: none;
-}
-
-/*
- * Active Now and server member panels contain extra card/body layers.
- * Keep the single 10% pane above and make every nested surface transparent.
- */
-[class*="nowPlayingColumn_"] [class*="itemCard_"] [class*="body_"],
-[class*="nowPlayingColumn_"] [class*="itemCard_"] [class*="section_"],
-[class*="nowPlayingColumn_"] [class*="itemCard_"] [class*="inset_"],
-[class*="nowPlayingColumn_"] [class*="itemCard_"] [class*="separator_"],
-[class*="activeNow_"] [class*="itemCard_"] [class*="body_"],
-[class*="activeNow_"] [class*="itemCard_"] [class*="section_"],
-[class*="activeNow_"] [class*="itemCard_"] [class*="inset_"],
-[class*="membersWrap_"] [class*="membersGroup_"],
-[class*="membersWrap_"] [class*="member_"] [class*="layout_"],
-[class*="membersWrap_"] [class*="memberInner_"] {
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
-[class*="nowPlayingColumn_"] [class*="itemCard_"]:hover,
-[class*="activeNow_"] [class*="itemCard_"]:hover,
-[class*="membersWrap_"] [class*="member_"]:hover [class*="layout_"] {
-  background: rgba(99, 230, 220, 0.09) !important;
-}
-
-[class*="chat_"],
-[class*="chatContent_"] {
-  background:
-    linear-gradient(135deg, rgba(3, 14, 15, 0.10), rgba(4, 18, 19, 0.10)) !important;
-  backdrop-filter: none;
-}
-
-[class*="chat_"] [class*="scroller_"] {
-  background: transparent !important;
-}
-
-/* Top bars */
-[class*="container_"][class*="themed_"],
-[class*="title_"][class*="container_"],
-[class*="header_"][class*="themed_"],
-[class*="header_"][class*="headerWithBanner_"] {
-  background:
-    linear-gradient(180deg, rgba(4, 15, 16, 0.10), rgba(2, 9, 10, 0.10)) !important;
-  border-bottom: 1px solid var(--wc-border);
-  box-shadow:
-    0 5px 24px rgba(0, 0, 0, 0.34),
-    inset 0 -1px rgba(228, 170, 85, 0.08);
-  backdrop-filter: none;
-}
-
-[class*="name_"][class*="container_"],
-[class*="headerText_"],
-[class*="title_"] h1 {
-  font-family: var(--wc-display-font);
-  letter-spacing: 0.04em;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
-}
-
-/* Server rail */
-nav[aria-label*="Servers"],
-[class*="guilds_"] {
-  background:
-    linear-gradient(90deg, rgba(1, 6, 7, 0.10), rgba(4, 17, 18, 0.10)) !important;
-  border-right: 1px solid rgba(99, 230, 220, 0.18);
-  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.24);
-  backdrop-filter: none;
-}
-
-nav[aria-label*="Servers"] [class*="wrapper_"] foreignObject {
-  mask: none;
-}
-
-nav[aria-label*="Servers"] [class*="icon_"],
-nav[aria-label*="Servers"] [class*="childWrapper_"] {
-  border: 1px solid rgba(99, 230, 220, 0.10);
-  border-radius: 12px !important;
-  background-color: rgba(4, 20, 21, 0.10) !important;
-  box-shadow:
-    inset 0 0 12px rgba(99, 230, 220, 0.04),
-    0 3px 12px rgba(0, 0, 0, 0.3);
-  transition: 160ms ease;
-}
-
-nav[aria-label*="Servers"] [class*="listItem_"]:hover [class*="icon_"],
-nav[aria-label*="Servers"] [class*="listItem_"]:hover [class*="childWrapper_"] {
-  border-color: var(--wc-teal);
-  border-radius: 7px !important;
-  background-color: rgba(25, 94, 91, 0.10) !important;
-  box-shadow:
-    0 0 0 1px rgba(164, 255, 247, 0.25),
-    0 0 22px rgba(99, 230, 220, 0.25);
-}
-
-nav[aria-label*="Servers"] [class*="pill_"] span {
-  background: var(--wc-teal) !important;
-  box-shadow: 0 0 12px var(--wc-teal);
-}
-
-/* Channel categories */
-[class*="containerDefault_"] [class*="mainContent_"][class*="clickable_"],
-[class*="containerDefault_"] [class*="name_"] {
-  color: var(--wc-amber) !important;
-  font-family: var(--wc-display-font);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-shadow: 0 1px 7px rgba(0, 0, 0, 0.72);
-}
-
-[class*="containerDefault_"] [class*="mainContent_"][class*="clickable_"]::after {
-  height: 1px;
-  flex: 1;
-  margin-left: 8px;
-  content: "";
-  background: linear-gradient(90deg, var(--wc-border-warm), transparent);
-}
-
-/* Channels */
-[class*="link_"][class*="channel_"],
-[class*="link_"][class*="mode_"],
-[class*="interactive_"][class*="link_"] {
-  border: 1px solid transparent;
-  border-radius: 8px;
-  transition: 140ms ease;
-}
-
-[class*="link_"][class*="channel_"]:hover,
-[class*="interactive_"][class*="link_"]:hover {
-  border-color: rgba(99, 230, 220, 0.13);
-  background: var(--wc-glass-hover) !important;
-}
-
-[class*="modeSelected_"] [class*="link_"],
-[class*="channel_"][aria-selected="true"] {
-  border-color: rgba(99, 230, 220, 0.3);
-  background:
-    linear-gradient(90deg, rgba(50, 184, 176, 0.26), rgba(28, 87, 85, 0.08)) !important;
-  box-shadow:
-    inset 2px 0 var(--wc-teal),
-    0 0 18px rgba(99, 230, 220, 0.08);
-}
-
-[class*="modeUnreadImportant_"] [class*="link_"] {
-  border-color: rgba(99, 230, 220, 0.24) !important;
-  background:
-    linear-gradient(90deg, rgba(99, 230, 220, 0.16), rgba(99, 230, 220, 0.045) 76%, transparent) !important;
-  box-shadow:
-    inset 2px 0 rgba(121, 235, 225, 0.72),
-    0 0 14px rgba(99, 230, 220, 0.08);
-}
-
-[class*="modeUnreadImportant_"] [class*="name_"],
-[class*="modeUnreadImportant_"] [class*="icon_"] {
-  text-shadow: 0 0 9px rgba(99, 230, 220, 0.28);
-}
-
-[class*="unread_"] {
-  background: var(--wc-teal) !important;
-  box-shadow: 0 0 12px rgba(99, 230, 220, 0.78);
-}
-
-/* Chat messages */
-[class*="messageListItem_"] {
-  position: relative;
-}
-
-[class*="messageListItem_"]:hover,
-[class*="message_"][class*="cozyMessage_"]:hover {
-  background:
-    linear-gradient(90deg, rgba(99, 230, 220, 0.07), rgba(99, 230, 220, 0.015) 72%, transparent) !important;
-}
-
-[class*="markup_"],
-[class*="timestamp_"] {
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.72);
-}
-
-/*
- * Chat usernames should stay Discord-owned: role/user colors and the client
- * username font should not be replaced by the fantasy frame.
- */
-#app-mount [class*="message_"] [class*="username_"],
-#app-mount [class*="repliedMessage_"] [class*="username_"],
-#app-mount [id^="message-username-"] {
-  font-family: var(--font-primary, "gg sans", "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif) !important;
-  text-shadow: none !important;
-}
-
-[class*="mentioned_"] {
-  background:
-    linear-gradient(90deg, rgba(228, 170, 85, 0.10), rgba(228, 170, 85, 0.035)) !important;
-}
-
-[class*="mentioned_"]::before {
-  background: var(--wc-amber) !important;
-  box-shadow: 0 0 10px rgba(228, 170, 85, 0.55);
-}
-
-[class*="divider_"][class*="isUnread_"] {
-  border-color: var(--wc-teal) !important;
-  filter: none;
-}
-
-[class*="divider_"][class*="isUnread_"] [class*="content_"] {
-  color: #032725 !important;
-  background: var(--wc-teal) !important;
-  border-radius: 4px;
-  font-family: var(--wc-display-font);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-shadow: none;
-  text-transform: uppercase;
-}
-
-/* The message composer becomes the scrying console. */
-[class*="channelTextArea_"] {
-  margin-bottom: 18px;
-}
-
-[class*="channelTextArea_"] [class*="scrollableContainer_"],
-[class*="channelTextArea_"] [class*="themedBackground_"] {
-  background:
-    linear-gradient(120deg, rgba(5, 28, 29, 0.10), rgba(2, 13, 14, 0.10)) !important;
-  border: 1px solid rgba(99, 230, 220, 0.3);
-  border-radius: var(--wc-radius) !important;
-  box-shadow:
-    inset 0 0 22px rgba(99, 230, 220, 0.035),
-    0 7px 25px rgba(0, 0, 0, 0.34);
-  backdrop-filter: none;
-}
-
-[class*="channelTextArea_"]:focus-within [class*="scrollableContainer_"],
-[class*="channelTextArea_"]:focus-within [class*="themedBackground_"] {
-  border-color: var(--wc-teal);
-  box-shadow:
-    inset 0 0 24px rgba(99, 230, 220, 0.06),
-    0 0 0 1px rgba(164, 255, 247, 0.14),
-    0 0 26px rgba(99, 230, 220, 0.16);
-}
-
-/* Transparent buttons */
-[class*="lookFilled_"],
-[class*="lookOutlined_"],
-[class*="lookLink_"],
-button[class*="button_"] {
-  border: 1px solid rgba(99, 230, 220, 0.27) !important;
-  border-radius: 8px !important;
-  background: rgba(5, 29, 30, 0.10) !important;
-  box-shadow:
-    inset 0 1px rgba(255, 255, 255, 0.04),
-    0 3px 12px rgba(0, 0, 0, 0.18);
-  backdrop-filter: none;
-}
-
-[class*="lookFilled_"]:hover,
-[class*="lookOutlined_"]:hover,
-button[class*="button_"]:hover {
-  border-color: rgba(164, 255, 247, 0.56) !important;
-  background: rgba(26, 107, 103, 0.10) !important;
-  box-shadow:
-    inset 0 0 12px rgba(99, 230, 220, 0.07),
-    0 0 16px rgba(99, 230, 220, 0.1);
-}
-
-[class*="colorRed_"],
-[class*="colorDanger_"] {
-  border-color: rgba(212, 110, 114, 0.42) !important;
-  background: rgba(103, 28, 33, 0.3) !important;
-}
-
-/* Embeds, cards, reactions, and code */
-[class*="embedFull_"],
-[class*="card_"],
-[class*="container_"][class*="accountProfileCard_"] {
-  background: rgba(3, 14, 15, 0.10) !important;
-  border: 1px solid rgba(99, 230, 220, 0.18);
-  border-radius: var(--wc-radius);
-  box-shadow: inset 0 0 18px rgba(99, 230, 220, 0.025);
-  backdrop-filter: none;
-}
-
-[class*="embedFull_"] {
-  border-left: 4px solid var(--wc-amber);
-}
-
-[class*="markup_"] code,
-[class*="codeBlockText_"],
-pre {
-  color: #e9fffb !important;
-  background: rgba(0, 7, 8, 0.7) !important;
-  border: 1px solid rgba(99, 230, 220, 0.10) !important;
-  border-radius: 6px;
-}
-
-[class*="markup_"] blockquote {
-  border-color: var(--wc-amber) !important;
-  color: #d8ccba;
-}
-
-[class*="reaction_"] {
-  background: rgba(4, 22, 23, 0.10) !important;
-  border-color: rgba(99, 230, 220, 0.10) !important;
-  backdrop-filter: none;
-}
-
-[class*="reaction_"][class*="reactionMe_"] {
-  background: rgba(35, 137, 131, 0.28) !important;
-  border-color: var(--wc-teal) !important;
-  box-shadow: 0 0 10px rgba(99, 230, 220, 0.1);
-}
-
-/* Popouts, menus, profiles, and modals */
-[class*="menu_"],
-[class*="messagesPopoutWrap_"],
-[class*="browser_"],
-[class*="container_"][class*="elevationBorderHigh_"],
-[class*="userPopoutOuter_"],
-[class*="userProfileOuter_"],
-[class*="root_"][class*="modal_"],
-[class*="root_"][class*="small_"],
-[class*="popout_"] {
-  background:
-    linear-gradient(145deg, rgba(5, 20, 21, 0.10), rgba(2, 10, 11, 0.10)) !important;
-  border: 1px solid var(--wc-border);
-  border-radius: var(--wc-radius) !important;
-  box-shadow:
-    0 18px 50px rgba(0, 0, 0, 0.58),
-    inset 0 0 30px rgba(99, 230, 220, 0.025) !important;
-  backdrop-filter: none;
-}
-
-[class*="menu_"] [class*="item_"][class*="focused_"],
-[class*="menu_"] [class*="item_"]:hover {
-  background: rgba(50, 184, 176, 0.10) !important;
-}
-
-[class*="tooltip_"] {
-  color: var(--wc-ivory) !important;
-  background: rgba(2, 10, 11, 0.10) !important;
-  border: 1px solid var(--wc-border);
-  font-family: var(--wc-display-font);
-  backdrop-filter: none;
-}
-
-/* Mentions and status */
-[class*="mention"],
-[class*="wrapper_"][class*="mention"] {
-  color: var(--wc-teal-bright) !important;
-  background: rgba(40, 141, 135, 0.25) !important;
-  border: 1px solid rgba(99, 230, 220, 0.13);
-  border-radius: 4px;
-}
-
-[class*="member_"]:hover [class*="layout_"],
-[class*="member_"][class*="selected_"] [class*="layout_"] {
-  background: rgba(99, 230, 220, 0.09) !important;
-}
-
-/* User panel */
-[class*="panels_"] {
-  background: rgba(2, 10, 11, 0.10) !important;
-  border-top: 1px solid var(--wc-border);
-  box-shadow:
-    0 -6px 22px rgba(0, 0, 0, 0.22),
-    inset 0 1px rgba(228, 170, 85, 0.06);
-  backdrop-filter: none;
-}
-
-/* Settings */
-[class*="standardSidebarView_"],
-[class*="contentRegion_"],
-[class*="contentRegionScroller_"] {
-  background: rgba(4, 15, 16, 0.10) !important;
-  backdrop-filter: none;
-}
-
-[class*="sidebarRegionScroller_"] {
-  background: rgba(2, 10, 11, 0.10) !important;
-}
-
-[class*="side_"] [class*="header_"] {
-  color: var(--wc-amber) !important;
-  font-family: var(--wc-display-font);
-  letter-spacing: 0.14em;
-}
-
-[class*="side_"] [class*="item_"][class*="selected_"] {
-  background: linear-gradient(90deg, rgba(50, 184, 176, 0.22), transparent) !important;
-  box-shadow: inset 2px 0 var(--wc-teal);
-}
-
-/* Inputs and search */
-input,
-textarea,
-[class*="searchBar_"],
-[class*="searchBarComponent_"] {
-  color: var(--wc-ivory) !important;
-}
-
-[class*="searchBar_"],
-[class*="searchBarComponent_"] {
-  background: rgba(1, 9, 10, 0.10) !important;
-  border: 1px solid rgba(99, 230, 220, 0.18);
-  box-shadow: inset 0 0 10px rgba(99, 230, 220, 0.02);
-  backdrop-filter: none;
-}
-
-/* Scrollbars */
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(99, 230, 220, 0.46), rgba(35, 117, 112, 0.52)) !important;
-  border: 2px solid rgba(1, 8, 9, 0.55) !important;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.13) !important;
-}
-
-/* ==========================================================================
-   FINAL RIGHT-PANEL OVERRIDES
-
-   These rules intentionally live at the end of the file. Discord applies
-   background tokens to several nested wrappers in Active Now and Members.
-   Each shell receives one 10% pane; all nested paints are cleared.
-   ========================================================================== */
-
-#app-mount [class*="membersWrap"],
-#app-mount [class*="nowPlayingColumn"] {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-floating: transparent !important;
-  --background-accent: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  --bg-base-primary: transparent !important;
-  --bg-base-secondary: transparent !important;
-  --bg-base-tertiary: transparent !important;
-  background: rgba(7, 19, 20, 0.10) !important;
-  backdrop-filter: none;
-}
-
-#app-mount [class*="membersWrap"] > [class*="members"],
-#app-mount [class*="membersWrap"] [class*="scroller"],
-#app-mount [class*="membersWrap"] [class*="container"],
-#app-mount [class*="membersWrap"] [class*="membersGroup"],
-#app-mount [class*="membersWrap"] [class*="member"],
-#app-mount [class*="membersWrap"] [class*="layout"],
-#app-mount [class*="nowPlayingColumn"] > [class*="container"],
-#app-mount [class*="nowPlayingColumn"] [class*="scroller"],
-#app-mount [class*="nowPlayingColumn"] [class*="content"],
-#app-mount [class*="nowPlayingColumn"] [class*="activeNow"],
-#app-mount [class*="nowPlayingColumn"] [class*="itemCard"],
-#app-mount [class*="nowPlayingColumn"] [class*="emptyCard"],
-#app-mount [class*="nowPlayingColumn"] [class*="outer"],
-#app-mount [class*="nowPlayingColumn"] [class*="interactive"],
-#app-mount [class*="nowPlayingColumn"] [class*="body"],
-#app-mount [class*="nowPlayingColumn"] [class*="section"],
-#app-mount [class*="nowPlayingColumn"] [class*="inset"],
-#app-mount [class*="nowPlayingColumn"] [class*="activity"] {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-#app-mount [class*="nowPlayingColumn"] [class*="outer"]::before,
-#app-mount [class*="nowPlayingColumn"] [class*="outer"]::after,
-#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]::before,
-#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]::after {
-  background: transparent !important;
-}
-
-#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="layout_" i],
-#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]:hover,
-#app-mount [class*="nowPlayingColumn"] [class*="outer"]:hover {
-  background-color: rgba(99, 230, 220, 0.09) !important;
-}
-
-/* Active Now: clear the opaque Friends-page ancestors and every nested paint. */
-#app-mount [class*="container__133bf"],
-#app-mount [class*="tabBody__133bf"],
-#app-mount [class*="friends_"] {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-#app-mount [class*="nowPlayingColumn"] {
-  --home-background: transparent !important;
-  --card-background-default: transparent !important;
-  --card-primary-bg: transparent !important;
-  --card-secondary-bg: transparent !important;
-  --card-gradient-bg: transparent !important;
-  --card-primary-pressed-bg: transparent !important;
-  --card-secondary-pressed-bg: transparent !important;
-  --card-gradient-pressed-bg: transparent !important;
-  --background-mod-faint: transparent !important;
-  --background-mod-subtle: transparent !important;
-  --background-mod-normal: transparent !important;
-  --background-mod-strong: transparent !important;
-  --background-modifier-accent: transparent !important;
-  --background-modifier-hover: transparent !important;
-  --background-modifier-active: transparent !important;
-  --background-modifier-selected: transparent !important;
-  background: rgba(7, 19, 20, 0.10) !important;
-}
-
-#app-mount [class*="nowPlayingColumn"] *,
-#app-mount [class*="nowPlayingColumn"] *::before,
-#app-mount [class*="nowPlayingColumn"] *::after {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="nowPlayingColumn"] [class*="itemCard"]:hover,
-#app-mount [class*="nowPlayingColumn"] [class*="outer"]:hover,
-#app-mount [class*="nowPlayingColumn"] [class*="wrapper"]:hover {
-  background: rgba(99, 230, 220, 0.09) !important;
-}
-
-/*
- * Server member list: Discord's current layout uses container_c8ffbb
- * instead of wrapping every panel in membersWrap. Keep one 10% pane and
- * clear the nested Activity cards and member-list paints.
- */
-#app-mount [class*="container_c8ffbb"],
-#app-mount [class*="membersWrap_c8ffbb"] {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  --background-mod-faint: transparent !important;
-  --background-mod-subtle: transparent !important;
-  --background-mod-normal: transparent !important;
-  --background-mod-strong: transparent !important;
-  --background-modifier-accent: transparent !important;
-  --background-modifier-hover: transparent !important;
-  --background-modifier-active: transparent !important;
-  --background-modifier-selected: transparent !important;
-  --card-background-default: transparent !important;
-  --card-primary-bg: transparent !important;
-  --card-secondary-bg: transparent !important;
-  --card-gradient-bg: transparent !important;
-  --card-primary-pressed-bg: transparent !important;
-  --card-secondary-pressed-bg: transparent !important;
-  --card-gradient-pressed-bg: transparent !important;
-  background: rgba(7, 19, 20, 0.10) !important;
-  backdrop-filter: none;
-}
-
-#app-mount [class*="container_c8ffbb"] *,
-#app-mount [class*="membersWrap_c8ffbb"] * {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="container_c8ffbb"] *::before,
-#app-mount [class*="container_c8ffbb"] *::after,
-#app-mount [class*="membersWrap_c8ffbb"] *::before,
-#app-mount [class*="membersWrap_c8ffbb"] *::after {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-#app-mount [class*="container_c8ffbb"] [class*="member_" i]:hover,
-#app-mount [class*="container_c8ffbb"] [class*="member_" i]:hover [class*="layout_" i],
-#app-mount [class*="container_c8ffbb"] [class*="card"]:hover,
-#app-mount [class*="membersWrap_c8ffbb"] [class*="member_" i]:hover [class*="layout_" i] {
-  background-color: rgba(99, 230, 220, 0.09) !important;
-}
-
-/*
- * Left navigation: keep one 10% pane behind the guild rail and one behind
- * the channel/DM list. Discord's nested shells otherwise stack into a much
- * darker surface.
- */
+#app-mount [data-wc-guild-rail="true"],
+#app-mount [data-wc-channel-list="true"],
+#app-mount [data-wc-members-panel="true"],
+#app-mount [data-wc-activity-panel="true"],
 #app-mount nav[aria-label*="Servers"],
 #app-mount [class*="guilds_"],
-#app-mount [class*="sidebarList_"] {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  --background-mod-faint: transparent !important;
-  --background-mod-subtle: transparent !important;
-  --background-mod-normal: transparent !important;
-  --background-mod-strong: transparent !important;
-  background: var(--wc-nav-glass) !important;
-  box-shadow: inset 0 0 0 1px rgba(121, 235, 225, 0.12) !important;
-  backdrop-filter: none;
-}
-
-#app-mount nav[aria-label*="Servers"] [class*="scroller_"],
-#app-mount [class*="guilds_"] [class*="scroller_"],
-#app-mount [class*="guilds_"] [class*="tree_"],
-#app-mount [class*="guilds_"] [class*="itemsContainer_"],
 #app-mount [class*="sidebar_"],
-#app-mount [class*="sidebarList_"] [class*="container_"],
-#app-mount [class*="sidebarList_"] [class*="scroller_"],
-#app-mount [class*="sidebarList_"] [class*="scrollerBase_"],
-#app-mount [class*="privateChannels_"],
-#app-mount [class*="privateChannels_"] [class*="scroller_"] {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="sidebarList_"] * {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  --background-mod-faint: transparent !important;
-  --background-mod-subtle: transparent !important;
-  --background-mod-normal: transparent !important;
-  --background-mod-strong: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount nav[aria-label*="Servers"] *,
-#app-mount [class*="guilds_"] * {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="sidebarList_"] *::before,
-#app-mount [class*="sidebarList_"] *::after,
-#app-mount nav[aria-label*="Servers"] *::before,
-#app-mount nav[aria-label*="Servers"] *::after,
-#app-mount [class*="guilds_"] *::before,
-#app-mount [class*="guilds_"] *::after {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-
-#app-mount [class*="sidebarList_"] [class*="modeSelected_"] [class*="link_"],
-#app-mount [class*="sidebarList_"] [class*="interactiveSelected_"],
-#app-mount [class*="sidebarList_"] [class*="channel_"][class*="selected_"],
-#app-mount [class*="sidebarList_"] [class*="link_"]:hover,
-#app-mount [class*="sidebarList_"] [class*="interactive_"]:hover {
-  background-color: rgba(99, 230, 220, 0.09) !important;
-}
-
-/*
- * Enforce one 10% layer per persistent pane. Several Discord layouts nest
- * chat, Friends, and member shells that would otherwise compound opacity.
- */
-#app-mount [class*="sidebar_"],
-#app-mount [class*="privateChannels_"],
-#app-mount [class*="chatContent_"],
-#app-mount [class*="members_"] {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="chat_"] {
-  background: rgba(7, 19, 20, 0.10) !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="chat_"] [class*="chatContent_"] {
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="peopleColumn_"],
-#app-mount [class*="nowPlayingColumn_"],
-#app-mount [class*="container_c8ffbb"] {
-  background: rgba(7, 19, 20, 0.10) !important;
-}
-
-#app-mount [class*="container_c8ffbb"] [class*="membersWrap_c8ffbb"] {
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-/*
- * Match the two left panes to the rest of the interface. Older rail rules
- * added heavier blur and shadows that made a 10% color look much denser.
- */
-#app-mount nav[aria-label*="Servers"],
-#app-mount [class*="guilds_"],
-#app-mount [class*="sidebarList_"] {
-  background: rgba(7, 19, 20, 0.10) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [class*="sidebar_"],
-#app-mount [class*="sidebarList_"] [class*="container_"],
-#app-mount [class*="sidebarList_"] [class*="scroller_"],
-#app-mount [class*="privateChannels_"],
-#app-mount nav[aria-label*="Servers"] [class*="scroller_"],
-#app-mount [class*="guilds_"] [class*="scroller_"],
-#app-mount [class*="guilds_"] [class*="tree_"],
-#app-mount [class*="guilds_"] [class*="itemsContainer_"] {
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-/*
- * Keep the desk scene crisp across every persistent pane, matching the left
- * navigation. Opacity and borders remain; only backdrop frosting is removed.
- */
-#app-mount [class*="chat_"],
 #app-mount [class*="sidebarList_"],
-#app-mount [class*="peopleColumn_"],
-#app-mount [class*="nowPlayingColumn_"],
+#app-mount [class*="privateChannels_"],
+#app-mount [class*="chat_"],
+#app-mount [class*="chatContent_"],
 #app-mount [class*="membersWrap_"],
-#app-mount [class*="container_c8ffbb"],
-#app-mount [class*="profilePanel_"],
-#app-mount [class*="userProfileOuter_"],
-#app-mount [class*="fullSizeOuter_"],
-#app-mount [class*="userProfileModal_"],
-#app-mount [class*="outer_c0bea0"],
-#app-mount .user-profile-sidebar {
+#app-mount [class*="members_"],
+#app-mount [class*="peopleColumn_"],
+#app-mount [class*="nowPlayingColumn_"] {
+  background: var(--wc-glass) !important;
+  background-image: none !important;
+  border-color: var(--wc-border-soft) !important;
+  box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
 
-/*
- * Voice activity: the transparent-sidebar reset clears Discord's default
- * speaking shadow, so restore it only while a voice user's avatar is active.
- */
-#app-mount [class*="voiceUser_"][data-wc-speaking="true"] {
-  position: relative !important;
-  overflow: visible !important;
+#app-mount [class*="scroller_"],
+#app-mount [class*="messagesWrapper_"],
+#app-mount [class*="scrollerInner_"],
+#app-mount [class*="membersGroup_"],
+#app-mount [class*="containerDefault_"],
+#app-mount [class*="section_"],
+#app-mount [class*="body_"],
+#app-mount [class*="inset_"],
+#app-mount [class*="outer_"],
+#app-mount [class*="inner_"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="title_"],
+#app-mount [class*="toolbar_"],
+#app-mount [class*="children_"]::after {
+  background: rgba(3, 15, 16, 0.10) !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="channelTextArea_"],
+#app-mount [class*="scrollableContainer_"],
+#app-mount [class*="themedBackground_"] {
+  background: rgba(3, 15, 16, 0.18) !important;
+  background-image: none !important;
+  border: 1px solid rgba(121, 235, 225, 0.24) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [class*="placeholder_"],
+#app-mount [class*="slateTextArea_"],
+#app-mount [class*="textArea_"],
+#app-mount [role="textbox"] {
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+#app-mount [class*="name_"][class*="container_"],
+#app-mount [class*="channelName_"],
+#app-mount [class*="mainContent_"] [class*="name_"] {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.055em;
+}
+
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="link_"],
+#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="link_"],
+#app-mount [aria-label*="Direct Messages" i] [class*="modeUnread_"] [class*="link_"],
+#app-mount [role="treeitem"][aria-label*="unread" i] [class*="link_"] {
   background: linear-gradient(
     90deg,
-    rgba(99, 230, 220, 0.14),
-    rgba(99, 230, 220, 0.03) 72%,
+    rgba(99, 230, 220, 0.18),
+    rgba(99, 230, 220, 0.06) 70%,
     transparent
   ) !important;
-  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.64) !important;
+  border-left: 3px solid rgba(121, 235, 225, 0.80) !important;
 }
 
-#app-mount [class*="voiceUser_"][data-wc-speaking="true"] [class*="avatar_"] {
-  box-shadow:
-    inset 0 0 0 2px rgba(121, 235, 225, 0.64),
-    0 0 8px rgba(99, 230, 220, 0.61),
-    0 0 18px rgba(99, 230, 220, 0.4) !important;
-  outline: 2px solid rgba(121, 235, 225, 0.64) !important;
-  outline-offset: 2px !important;
-  filter: brightness(1.06) saturate(1.08) !important;
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="name_"],
+#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="icon_"],
+#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="name_"],
+#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="icon_"] {
+  color: var(--wc-teal-bright) !important;
 }
 
-/*
- * Preserve server unread indicators after clearing the rail's nested paints.
- */
+#app-mount [data-wc-unread="true"] [class*="pill_"] span,
 #app-mount nav[aria-label*="Servers"] [class*="pill_"] span,
 #app-mount [class*="guilds_"] [class*="pill_"] span {
-  background-color: var(--wc-teal, #63e6dc) !important;
-  background-image: none !important;
-  box-shadow: 0 0 12px rgba(99, 230, 220, 0.78) !important;
+  background-color: var(--wc-teal) !important;
 }
 
 #app-mount nav[aria-label*="Servers"] [class*="numberBadge_"],
 #app-mount [class*="guilds_"] [class*="numberBadge_"] {
   background-color: var(--status-danger, #da4f4f) !important;
   color: #ffffff !important;
-  box-shadow: 0 0 10px rgba(218, 79, 79, 0.58) !important;
 }
 
-#app-mount [data-wc-guild-rail="true"] [class*="unreadMentionsIndicator" i],
-#app-mount nav[aria-label*="Servers" i] [class*="unreadMentionsIndicator" i],
-#app-mount [class*="guilds_" i] [class*="unreadMentionsIndicator" i] {
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-guild-rail="true"] [class*="unreadMentionsIndicator" i] [class*="bar_" i],
-#app-mount nav[aria-label*="Servers" i] [class*="unreadMentionsIndicator" i] [class*="bar_" i],
-#app-mount [class*="guilds_" i] [class*="unreadMentionsIndicator" i] [class*="bar_" i] {
-  background-color: rgba(218, 79, 79, 0.18) !important;
-  color: rgba(255, 255, 255, 0.88) !important;
-  box-shadow: 0 0 6px rgba(218, 79, 79, 0.18) !important;
-}
-
-/*
- * Discord also renders full-width top/bottom overlays inside the channel
- * sidebar. They can sit over invite/settings controls, so keep them invisible
- * and non-blocking while leaving real unread channel rows/dots alone.
- */
-#app-mount [data-wc-channel-list="true"] > [class*="unread" i],
-#app-mount [data-wc-channel-list="true"] > [class*="bar" i],
 #app-mount [data-wc-channel-list="true"] [class*="unreadTop" i],
 #app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i],
 #app-mount [data-wc-channel-list="true"] [class*="unreadBar" i],
-#app-mount [aria-label*="Channels" i] > [class*="unread" i],
-#app-mount [aria-label*="Channels" i] > [class*="bar" i],
 #app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
 #app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
 #app-mount [aria-label*="Channels" i] [class*="unreadBar" i],
-#app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i],
-#app-mount [class*="sidebarList" i] [class*="newMessagesBar" i],
-#app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i],
-#app-mount [class*="sidebarList" i] [class*="barBase" i],
-#app-mount [class*="sidebarList" i] [class*="unreadTop" i],
-#app-mount [class*="sidebarList" i] [class*="unreadBottom" i],
-#app-mount [class*="sidebarList" i] [class*="unreadBar" i],
-#app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i],
-#app-mount [class*="sidebar_" i] [class*="unreadTop" i],
-#app-mount [class*="sidebar_" i] [class*="unreadBottom" i],
-#app-mount [class*="sidebar_" i] [class*="unreadBar" i],
-#app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  border-color: transparent !important;
-  color: transparent !important;
-  pointer-events: none !important;
-}
-
-#app-mount [data-wc-channel-list="true"] > [class*="unread" i] *,
-#app-mount [data-wc-channel-list="true"] > [class*="bar" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i] *,
-#app-mount [aria-label*="Channels" i] > [class*="unread" i] *,
-#app-mount [aria-label*="Channels" i] > [class*="bar" i] *,
-#app-mount [aria-label*="Channels" i] [class*="unreadTop" i] *,
-#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i] *,
-#app-mount [aria-label*="Channels" i] [class*="unreadBar" i] *,
-#app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i] *,
-#app-mount [class*="sidebarList" i] [class*="newMessagesBar" i] *,
-#app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i] *,
-#app-mount [class*="sidebarList" i] [class*="barBase" i] *,
-#app-mount [class*="sidebarList" i] [class*="unreadTop" i] *,
-#app-mount [class*="sidebarList" i] [class*="unreadBottom" i] *,
-#app-mount [class*="sidebarList" i] [class*="unreadBar" i] *,
-#app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i] *,
-#app-mount [class*="sidebar_" i] [class*="unreadTop" i] *,
-#app-mount [class*="sidebar_" i] [class*="unreadBottom" i] *,
-#app-mount [class*="sidebar_" i] [class*="unreadBar" i] *,
-#app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] * {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  color: transparent !important;
-}
-
-/*
- * Discord's top/bottom unread jump strips can reappear under new hashed
- * class names. Hide those overlay bars on the left rail/sidebar, while
- * leaving individual unread server dots and channel rows intact.
- */
-#app-mount [data-wc-guild-rail="true"] [class*="unreadMentions" i],
-#app-mount nav[aria-label*="Servers" i] [class*="unreadMentions" i],
-#app-mount [data-list-id*="guild" i] [class*="unreadMentions" i],
-#app-mount [class*="guilds" i] [class*="unreadMentions" i],
-#app-mount [data-wc-channel-list="true"] [class*="unreadMentions" i],
-#app-mount [data-wc-channel-list="true"] [class*="newMessagesBar" i],
-#app-mount [data-wc-channel-list="true"] [class*="jumpToPresentBar" i],
-#app-mount [data-wc-channel-list="true"] [class*="barBase" i],
-#app-mount [class*="sidebar" i] [class*="unreadMentions" i],
-#app-mount [class*="sidebar" i] [class*="newMessagesBar" i],
-#app-mount [class*="sidebar" i] [class*="jumpToPresentBar" i],
-#app-mount [class*="sidebar" i] [class*="barBase" i] {
+#app-mount [data-wc-left-edge-strip="true"] {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
   background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
   box-shadow: none !important;
   color: transparent !important;
-  filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
 }
 
-#app-mount [data-wc-guild-rail="true"] [class*="unreadMentions" i] *,
-#app-mount nav[aria-label*="Servers" i] [class*="unreadMentions" i] *,
-#app-mount [data-list-id*="guild" i] [class*="unreadMentions" i] *,
-#app-mount [class*="guilds" i] [class*="unreadMentions" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="unreadMentions" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="newMessagesBar" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="jumpToPresentBar" i] *,
-#app-mount [data-wc-channel-list="true"] [class*="barBase" i] *,
-#app-mount [class*="sidebar" i] [class*="unreadMentions" i] *,
-#app-mount [class*="sidebar" i] [class*="newMessagesBar" i] *,
-#app-mount [class*="sidebar" i] [class*="jumpToPresentBar" i] *,
-#app-mount [class*="sidebar" i] [class*="barBase" i] * {
-  opacity: 0 !important;
-  visibility: hidden !important;
+#app-mount [data-wc-members-panel="true"] {
+  --interactive-hover: var(--interactive-normal, currentColor) !important;
+  --interactive-active: var(--interactive-normal, currentColor) !important;
+  --background-modifier-hover: transparent !important;
+  --background-modifier-selected: transparent !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member_"]:hover [class*="layout_"] {
   background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  color: transparent !important;
-  filter: none !important;
-}
-
-#app-mount [data-wc-left-edge-strip="true"],
-#app-mount [data-wc-left-edge-strip="true"]::before,
-#app-mount [data-wc-left-edge-strip="true"]::after,
-#app-mount [data-wc-left-edge-strip="true"] * {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  color: transparent !important;
-  filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-/*
- * Friend profile cards: keep one 10% outer pane and clear Discord's nested
- * profile gradient, body, and overlay layers.
- */
-#app-mount [class*="profilePanel_"],
-#app-mount [class*="userProfileOuter_"],
-#app-mount [class*="fullSizeOuter_"],
-#app-mount [class*="userProfileModal_"],
-#app-mount [class*="outer_c0bea0"],
-#app-mount .user-profile-sidebar {
-  --profile-gradient-primary-color: transparent !important;
-  --profile-gradient-secondary-color: transparent !important;
-  --profile-gradient-overlay-color: transparent !important;
-  --profile-body-background-color: transparent !important;
-  --profile-note-background-color: rgba(7, 19, 20, 0.09) !important;
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  background: rgba(7, 19, 20, 0.10) !important;
-  border-color: rgba(121, 235, 225, 0.18) !important;
-  backdrop-filter: none;
-}
-
-#app-mount [class*="profilePanel_"] [class*="userPanelInner_"],
-#app-mount [class*="profilePanel_"] [class*="inner_"],
-#app-mount [class*="profilePanel_"] [class*="body_"],
-#app-mount [class*="profilePanel_"] [class*="overlay_"],
-#app-mount [class*="userProfileOuter_"] [class*="userProfileInner_"],
-#app-mount [class*="userProfileOuter_"] [class*="inner_"],
-#app-mount [class*="userProfileOuter_"] [class*="body_"],
-#app-mount [class*="userProfileOuter_"] [class*="overlay_"],
-#app-mount [class*="fullSizeOuter_"] [class*="inner_"],
-#app-mount [class*="fullSizeOuter_"] [class*="body_"],
-#app-mount [class*="fullSizeOuter_"] [class*="overlay_"],
-#app-mount [class*="userProfileModal_"] [class*="inner_"],
-#app-mount [class*="userProfileModal_"] [class*="body_"],
-#app-mount [class*="userProfileModal_"] [class*="overlay_"],
-#app-mount [class*="outer_c0bea0"] [class*="inner_c0bea0"],
-#app-mount .user-profile-sidebar [class*="inner_c0bea0"] {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-}
-
-/*
- * Discord update recovery layer.
- * The companion plugin marks important panes with data-wc-* attributes so this
- * theme does not depend only on Discord's hashed class suffixes.
- */
-#app-mount [data-wc-guild-rail="true"],
-#app-mount [data-wc-channel-list="true"],
-#app-mount [data-wc-members-panel="true"],
-#app-mount [data-wc-activity-panel="true"],
-#app-mount nav[aria-label*="Servers" i],
-#app-mount [data-list-id*="guild" i],
-#app-mount [aria-label*="Channels" i],
-#app-mount [aria-label*="Direct Messages" i],
-#app-mount [aria-label*="Private Channels" i],
-#app-mount [aria-label*="Members" i],
-#app-mount [aria-label*="Active Now" i],
-#app-mount [class*="guilds" i],
-#app-mount [class*="sidebarList" i],
-#app-mount [class*="privateChannels" i],
-#app-mount [class*="membersWrap" i],
-#app-mount [class*="peopleColumn" i],
-#app-mount [class*="nowPlayingColumn" i] {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  background: rgba(7, 19, 20, 0.10) !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [data-wc-guild-rail="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [data-wc-channel-list="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [data-wc-activity-panel="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount nav[aria-label*="Servers" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [data-list-id*="guild" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Channels" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Direct Messages" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Private Channels" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Active Now" i] *:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] *:not([class*="avatar" i]):not([class*="icon" i]):not(img):not(svg),
-#app-mount [aria-label*="Members" i] *:not([class*="avatar" i]):not([class*="icon" i]):not(img):not(svg) {
-  --background-primary: transparent !important;
-  --background-secondary: transparent !important;
-  --background-secondary-alt: transparent !important;
-  --background-tertiary: transparent !important;
-  --background-base-lowest: transparent !important;
-  --background-base-low: transparent !important;
-  --background-base-lower: transparent !important;
-  --background-surface-high: transparent !important;
-  --background-surface-higher: transparent !important;
-  --background-surface-highest: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-/*
- * Member panel restore. Keep member rows visible after pane cleanup, but do
- * not style username/name/content nodes so Discord's server role colors win.
- */
-#app-mount [data-wc-members-panel="true"] [class*="member" i],
-#app-mount [aria-label*="Members" i] [class*="member" i],
-#app-mount [class*="membersWrap" i] [class*="member" i],
-#app-mount [class*="container_c8ffbb"] [class*="member" i],
-#app-mount [class*="membersWrap_c8ffbb"] [class*="member" i] {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/*
- * Voice occupants in channel lists use avatar/image layers. Keep those visible
- * after the transparent-pane reset, while leaving the panel itself glassy.
- */
-#app-mount [data-wc-voice-user="true"],
-#app-mount [class*="voiceUser" i],
-#app-mount [data-list-item-id*="voice-user" i],
-#app-mount [data-list-item-id*="voiceuser" i] {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-#app-mount [data-wc-voice-user="true"] [class*="avatar" i],
-#app-mount [data-wc-voice-user="true"] [style*="background-image"],
-#app-mount [class*="voiceUser" i] [class*="avatar" i],
-#app-mount [class*="voiceUser" i] [style*="background-image"],
-#app-mount [data-list-item-id*="voice-user" i] [class*="avatar" i],
-#app-mount [data-list-item-id*="voice-user" i] [style*="background-image"],
-#app-mount [data-list-item-id*="voiceuser" i] [class*="avatar" i],
-#app-mount [data-list-item-id*="voiceuser" i] [style*="background-image"],
-#app-mount [data-wc-voice-user="true"] img,
-#app-mount [class*="voiceUser" i] img {
-  opacity: 1 !important;
-  visibility: visible !important;
-  background-size: cover !important;
-  background-position: center !important;
-}
-
-#app-mount [data-wc-guild-item="true"][data-wc-unread="true"]::before {
-  content: "";
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  left: 0;
-  width: 4px;
-  height: 10px;
-  border-radius: 0 4px 4px 0;
-  background: var(--wc-teal, #63e6dc) !important;
-  box-shadow: 0 0 12px rgba(99, 230, 220, 0.9) !important;
-  transform: translateY(-50%);
 }
 
 #app-mount [data-wc-speaking="true"] {
@@ -1345,29 +206,19 @@ textarea,
   overflow: visible !important;
   background: linear-gradient(
     90deg,
-    rgba(99, 230, 220, 0.14),
-    rgba(99, 230, 220, 0.03) 72%,
+    rgba(99, 230, 220, 0.11),
+    rgba(99, 230, 220, 0.02) 70%,
     transparent
   ) !important;
-  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.64) !important;
+  border-left: 3px solid rgba(121, 235, 225, 0.64) !important;
 }
 
-#app-mount [data-wc-speaking="true"] [class*="avatar" i],
+#app-mount [data-wc-speaking="true"] [class*="avatar_"],
 #app-mount [data-wc-speaking="true"] img {
-  box-shadow:
-    inset 0 0 0 2px rgba(121, 235, 225, 0.64),
-    0 0 8px rgba(99, 230, 220, 0.61),
-    0 0 18px rgba(99, 230, 220, 0.4) !important;
-  outline: 2px solid rgba(121, 235, 225, 0.64) !important;
+  outline: 2px solid rgba(121, 235, 225, 0.58) !important;
   outline-offset: 2px !important;
 }
 
-/*
- * Video and stream surfaces: Discord often paints call/stage wrappers black.
- * Clear exposed wrapper surfaces so the desk scene shows through where Discord
- * allows it. Black pixels inside the actual stream/video cannot be made
- * transparent by CSS.
- */
 #app-mount [class*="callContainer" i],
 #app-mount [class*="call_" i],
 #app-mount [class*="channelChatWrapper" i],
@@ -1382,38 +233,15 @@ textarea,
 #app-mount [class*="floatingVideo" i],
 #app-mount [class*="mediaEngine" i] {
   background: transparent !important;
-  background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
 }
 
-#app-mount video,
-#app-mount [class*="mediaEngineVideo" i],
-#app-mount [class*="streamPreview" i] video,
-#app-mount [class*="pictureInPicture" i] video,
-#app-mount [class*="floatingVideo" i] video {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/*
- * Make the actual non-prioritized/floating video content easier to see without
- * forcing width/height or screen coordinates. Discord can still drag/anchor it.
- */
 #app-mount [class*="pictureInPicture" i],
 #app-mount [class*="floatingVideo" i],
 #app-mount [class*="streamPreview" i] {
   overflow: visible !important;
   z-index: 1001 !important;
-}
-
-#app-mount [class*="pictureInPicture" i] [class*="video" i],
-#app-mount [class*="pictureInPicture" i] [class*="preview" i],
-#app-mount [class*="floatingVideo" i] [class*="video" i],
-#app-mount [class*="floatingVideo" i] [class*="preview" i],
-#app-mount [class*="streamPreview" i] [class*="video" i],
-#app-mount [class*="streamPreview" i] [class*="preview" i] {
-  overflow: visible !important;
 }
 
 #app-mount [class*="pictureInPicture" i] video,
@@ -1423,231 +251,22 @@ textarea,
   transform-origin: top right !important;
 }
 
-/*
- * Keep unread channels legible after the transparency recovery layer clears
- * nested channel-list paint.
- */
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Direct Messages" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Private Channels" i] [class*="modeUnread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Channels" i] [role="treeitem"][aria-label*="unread" i] [class*="link_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
-  border-color: rgba(99, 230, 220, 0.32) !important;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(99, 230, 220, 0.22),
-      rgba(99, 230, 220, 0.08) 68%,
-      rgba(99, 230, 220, 0.02)
-    ) !important;
-  box-shadow:
-    inset 3px 0 rgba(121, 235, 225, 0.88),
-    0 0 16px rgba(99, 230, 220, 0.14) !important;
-}
-
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="name_" i],
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread" i] [class*="icon_" i],
-#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="name_" i],
-#app-mount [aria-label*="Channels" i] [class*="modeUnread" i] [class*="icon_" i],
-#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="name_" i],
-#app-mount [data-wc-channel-list="true"] [role="treeitem"][aria-label*="unread" i] [class*="icon_" i] {
-  color: #bffdf5 !important;
-  text-shadow: 0 0 10px rgba(99, 230, 220, 0.46) !important;
-}
-
-#app-mount [data-wc-channel-list="true"] [class*="unread_" i]:not([class*="unreadTop" i]):not([class*="unreadBottom" i]):not([class*="unreadBar" i]):not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Channels" i] [class*="unread_" i]:not([class*="unreadTop" i]):not([class*="unreadBottom" i]):not([class*="unreadBar" i]):not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
-  background: var(--wc-teal, #63e6dc) !important;
-  box-shadow: 0 0 12px rgba(99, 230, 220, 0.78) !important;
-}
-
-#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i],
-#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i],
-#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadBar" i] {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
+#app-mount [class*="userProfileOuter_"],
+#app-mount [class*="fullSizeOuter_"],
+#app-mount [class*="userProfileModal_"],
+#app-mount [class*="profilePanel_"] {
+  background: rgba(3, 12, 13, 0.12) !important;
   box-shadow: none !important;
-  color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
-/*
- * Keep Discord's hovered/selected member sync from painting the whole member
- * column. Member-list hover paint is removed entirely; profile popouts and
- * role colors still come from Discord.
- */
-#app-mount [data-wc-members-panel="true"],
-#app-mount [aria-label*="Members" i],
-#app-mount [class*="membersWrap" i],
-#app-mount [class*="container_c8ffbb" i],
-#app-mount [class*="members_" i] {
-  --interactive-hover: var(--interactive-normal, currentColor) !important;
-  --interactive-active: var(--interactive-normal, currentColor) !important;
-  --background-modifier-hover: transparent !important;
-  --background-modifier-selected: transparent !important;
-  --background-modifier-active: transparent !important;
-  --bg-overlay-hover: transparent !important;
-  --bg-overlay-selected: transparent !important;
-  --bg-overlay-active: transparent !important;
-  --custom-member-list-item-hover: transparent !important;
-  --custom-member-list-item-selected: transparent !important;
-}
-
-#app-mount [data-wc-members-panel="true"]:hover,
-#app-mount [aria-label*="Members" i]:hover,
-#app-mount [class*="membersWrap" i]:hover,
-#app-mount [class*="container_c8ffbb" i]:hover,
-#app-mount [class*="members_" i]:hover {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="name" i],
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="username" i],
-#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="name" i],
-#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="username" i],
-#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="name" i],
-#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="username" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="name" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="username" i] {
-  opacity: 1 !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover,
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover *,
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover,
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover *,
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover,
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover *,
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover,
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover * {
-  opacity: 1 !important;
-  filter: none !important;
-  mix-blend-mode: normal !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="layout" i],
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="memberInner" i],
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="childContainer" i],
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="layout" i],
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="memberInner" i],
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="childContainer" i],
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="layout" i],
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="memberInner" i],
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="childContainer" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="layout" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="memberInner" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="childContainer" i] {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
-#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
-#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
-#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
-#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]) {
-  color: inherit !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="members_" i]:hover,
-#app-mount [aria-label*="Members" i]:hover,
-#app-mount [class*="membersWrap" i] [class*="members_" i]:hover,
-#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]::before,
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]::after,
-#app-mount [aria-label*="Members" i] [class*="member_" i]::before,
-#app-mount [aria-label*="Members" i] [class*="member_" i]::after,
-#app-mount [class*="membersWrap" i] [class*="member_" i]::before,
-#app-mount [class*="membersWrap" i] [class*="member_" i]::after,
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]::before,
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]::after {
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Members" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [class*="membersWrap" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [class*="container_c8ffbb" i] *:hover:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"]:hover [class*="layout_" i],
-#app-mount [aria-label*="Members" i]:hover [class*="layout_" i],
-#app-mount [class*="membersWrap" i]:hover [class*="layout_" i],
-#app-mount [class*="container_c8ffbb" i]:hover [class*="layout_" i],
-#app-mount [class*="members_" i]:hover [class*="layout_" i],
-#app-mount [class*="membersWrap" i] [class*="members_" i]:hover [class*="layout_" i],
-#app-mount [class*="container_c8ffbb" i] [class*="members_" i]:hover [class*="layout_" i],
-#app-mount [data-wc-members-panel="true"] [class*="selected_" i] [class*="layout_" i],
-#app-mount [aria-label*="Members" i] [class*="selected_" i] [class*="layout_" i],
-#app-mount [class*="membersWrap" i] [class*="selected_" i] [class*="layout_" i],
-#app-mount [class*="container_c8ffbb" i] [class*="selected_" i] [class*="layout_" i] {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover,
-#app-mount [aria-label*="Members" i] [class*="member_" i]:hover,
-#app-mount [class*="membersWrap" i] [class*="member_" i]:hover,
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="layout_" i],
-#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="layout_" i],
-#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="layout_" i],
-#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="layout_" i] {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  border-radius: 8px !important;
-}
-
-/* Accessibility */
-:focus-visible {
-  outline: 2px solid var(--wc-teal-bright) !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 13px rgba(99, 230, 220, 0.42) !important;
+#app-mount ::-webkit-scrollbar-thumb {
+  background-color: rgba(99, 230, 220, 0.34) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  #app-mount {
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
   }
 }
