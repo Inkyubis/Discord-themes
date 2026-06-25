@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.48
- * @description An original fantasy scrying-desk theme with corrected server unread marker behavior.
+ * @version 2.0.49
+ * @description An original fantasy scrying-desk theme with hidden left-side top/bottom overlay strips.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -316,6 +316,60 @@
   background-image: none !important;
   box-shadow: none !important;
   color: transparent !important;
+}
+
+/*
+ * Discord's top/bottom unread jump strips can reappear under new hashed
+ * class names. Hide those overlay bars on the left rail/sidebar, while
+ * leaving individual unread server dots and channel rows intact.
+ */
+#app-mount [data-wc-guild-rail="true"] [class*="unreadMentions" i],
+#app-mount nav[aria-label*="Servers" i] [class*="unreadMentions" i],
+#app-mount [data-list-id*="guild" i] [class*="unreadMentions" i],
+#app-mount [class*="guilds" i] [class*="unreadMentions" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadMentions" i],
+#app-mount [data-wc-channel-list="true"] [class*="newMessagesBar" i],
+#app-mount [data-wc-channel-list="true"] [class*="jumpToPresentBar" i],
+#app-mount [data-wc-channel-list="true"] [class*="barBase" i],
+#app-mount [class*="sidebar" i] [class*="unreadMentions" i],
+#app-mount [class*="sidebar" i] [class*="newMessagesBar" i],
+#app-mount [class*="sidebar" i] [class*="jumpToPresentBar" i],
+#app-mount [class*="sidebar" i] [class*="barBase" i] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+#app-mount [data-wc-guild-rail="true"] [class*="unreadMentions" i] *,
+#app-mount nav[aria-label*="Servers" i] [class*="unreadMentions" i] *,
+#app-mount [data-list-id*="guild" i] [class*="unreadMentions" i] *,
+#app-mount [class*="guilds" i] [class*="unreadMentions" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="unreadMentions" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="newMessagesBar" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="jumpToPresentBar" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="barBase" i] *,
+#app-mount [class*="sidebar" i] [class*="unreadMentions" i] *,
+#app-mount [class*="sidebar" i] [class*="newMessagesBar" i] *,
+#app-mount [class*="sidebar" i] [class*="jumpToPresentBar" i] *,
+#app-mount [class*="sidebar" i] [class*="barBase" i] * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  filter: none !important;
 }
 
 #app-mount [data-wc-speaking="true"] {
