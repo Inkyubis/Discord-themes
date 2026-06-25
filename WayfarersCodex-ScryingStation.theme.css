@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.49
- * @description An original fantasy scrying-desk theme with hidden left-side top/bottom overlay strips.
+ * @version 2.0.51
+ * @description An original fantasy scrying-desk theme with live-detected left edge strip cleanup.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -284,14 +284,28 @@
  */
 #app-mount [data-wc-channel-list="true"] > [class*="unread" i],
 #app-mount [data-wc-channel-list="true"] > [class*="bar" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i],
 #app-mount [aria-label*="Channels" i] > [class*="unread" i],
 #app-mount [aria-label*="Channels" i] > [class*="bar" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBar" i],
 #app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i],
 #app-mount [class*="sidebarList" i] [class*="newMessagesBar" i],
 #app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i],
 #app-mount [class*="sidebarList" i] [class*="barBase" i],
+#app-mount [class*="sidebarList" i] [class*="unreadTop" i],
+#app-mount [class*="sidebarList" i] [class*="unreadBottom" i],
+#app-mount [class*="sidebarList" i] [class*="unreadBar" i],
 #app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i],
+#app-mount [class*="sidebar_" i] [class*="unreadTop" i],
+#app-mount [class*="sidebar_" i] [class*="unreadBottom" i],
+#app-mount [class*="sidebar_" i] [class*="unreadBar" i],
 #app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] {
+  opacity: 0 !important;
+  visibility: hidden !important;
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
@@ -303,14 +317,28 @@
 
 #app-mount [data-wc-channel-list="true"] > [class*="unread" i] *,
 #app-mount [data-wc-channel-list="true"] > [class*="bar" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i] *,
+#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i] *,
 #app-mount [aria-label*="Channels" i] > [class*="unread" i] *,
 #app-mount [aria-label*="Channels" i] > [class*="bar" i] *,
+#app-mount [aria-label*="Channels" i] [class*="unreadTop" i] *,
+#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i] *,
+#app-mount [aria-label*="Channels" i] [class*="unreadBar" i] *,
 #app-mount [class*="sidebarList" i] [class*="unreadMentionsIndicator" i] *,
 #app-mount [class*="sidebarList" i] [class*="newMessagesBar" i] *,
 #app-mount [class*="sidebarList" i] [class*="jumpToPresentBar" i] *,
 #app-mount [class*="sidebarList" i] [class*="barBase" i] *,
+#app-mount [class*="sidebarList" i] [class*="unreadTop" i] *,
+#app-mount [class*="sidebarList" i] [class*="unreadBottom" i] *,
+#app-mount [class*="sidebarList" i] [class*="unreadBar" i] *,
 #app-mount [class*="sidebarList" i] [class*="unread" i][class*="bar" i] *,
+#app-mount [class*="sidebar_" i] [class*="unreadTop" i] *,
+#app-mount [class*="sidebar_" i] [class*="unreadBottom" i] *,
+#app-mount [class*="sidebar_" i] [class*="unreadBar" i] *,
 #app-mount [class*="sidebar_" i] [class*="unread" i][class*="bar" i] * {
+  opacity: 0 !important;
+  visibility: hidden !important;
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
@@ -370,6 +398,24 @@
   box-shadow: none !important;
   color: transparent !important;
   filter: none !important;
+}
+
+#app-mount [data-wc-left-edge-strip="true"],
+#app-mount [data-wc-left-edge-strip="true"]::before,
+#app-mount [data-wc-left-edge-strip="true"]::after,
+#app-mount [data-wc-left-edge-strip="true"] * {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
 #app-mount [data-wc-speaking="true"] {
@@ -491,10 +537,27 @@
   text-shadow: 0 0 10px rgba(99, 230, 220, 0.46) !important;
 }
 
-#app-mount [data-wc-channel-list="true"] [class*="unread_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
-#app-mount [aria-label*="Channels" i] [class*="unread_" i]:not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
+#app-mount [data-wc-channel-list="true"] [class*="unread_" i]:not([class*="unreadTop" i]):not([class*="unreadBottom" i]):not([class*="unreadBar" i]):not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg),
+#app-mount [aria-label*="Channels" i] [class*="unread_" i]:not([class*="unreadTop" i]):not([class*="unreadBottom" i]):not([class*="unreadBar" i]):not([class*="avatar" i]):not([class*="icon" i]):not([style*="background-image"]):not(img):not(svg) {
   background: var(--wc-teal, #63e6dc) !important;
   box-shadow: 0 0 12px rgba(99, 230, 220, 0.78) !important;
+}
+
+#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i],
+#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBar" i] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
 }
 
 /*

@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.13
+ * @version 1.2.15
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -38,7 +38,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       fallbackChannels: 0,
       fallbackPulseMs: this.fallbackPulseMs,
       duplicateMessageEvents: 0,
-      pluginVersion: "1.2.13"
+      pluginVersion: "1.2.15"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -75,6 +75,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
         this.updateMarkers();
         this.updateSpeakingUsers();
         this.markDurablePanes();
+        this.markLeftEdgeStrips();
       });
     };
 
@@ -847,6 +848,143 @@ module.exports = class WayfarersCodexUnreadIndicators {
       ],
       "data-wc-activity-panel"
     );
+  }
+
+  markLeftEdgeStrips() {
+    const liveStrips = new Set();
+    const diagnostics = [];
+    const panes = document.querySelectorAll(
+      [
+        '[data-wc-channel-list="true"]',
+        '[class*="sidebarList" i]',
+        '[aria-label*="Channels" i]',
+        '[aria-label*="Private Channels" i]',
+        '[aria-label*="Direct Messages" i]'
+      ].join(",")
+    );
+
+    for (const pane of panes) {
+      const paneRect = pane.getBoundingClientRect?.();
+      if (!paneRect || paneRect.width < 180 || paneRect.height < 220) continue;
+
+      for (const element of pane.querySelectorAll("*")) {
+        const diagnostic = this.getLeftEdgeStripDiagnostic(element, paneRect);
+        if (diagnostic && diagnostics.length < 30) diagnostics.push(diagnostic);
+        if (!diagnostic?.matches) continue;
+        element.setAttribute("data-wc-left-edge-strip", "true");
+        liveStrips.add(element);
+      }
+    }
+
+    for (const element of document.querySelectorAll('[data-wc-left-edge-strip="true"]')) {
+      if (!liveStrips.has(element)) {
+        element.removeAttribute("data-wc-left-edge-strip");
+      }
+    }
+
+    this.runtime.leftEdgeStrips = liveStrips.size;
+    this.runtime.leftEdgeStripCandidates = liveStrips.size ? [] : diagnostics.slice(0, 12);
+  }
+
+  isLeftEdgeStrip(element, paneRect) {
+    return Boolean(this.getLeftEdgeStripDiagnostic(element, paneRect)?.matches);
+  }
+
+  getLeftEdgeStripDiagnostic(element, paneRect) {
+    const rect = element.getBoundingClientRect?.();
+    if (!rect || rect.width < paneRect.width * 0.72) return null;
+    if (rect.height < 18 || rect.height > 96) return null;
+    if (rect.width > paneRect.width + 36) return null;
+
+    const horizontallyAligned =
+      Math.abs(rect.left - paneRect.left) <= 12 ||
+      Math.abs(rect.right - paneRect.right) <= 12 ||
+      rect.width >= paneRect.width * 0.88;
+    if (!horizontallyAligned) return null;
+
+    const nearTop = rect.top - paneRect.top <= 120;
+    const nearBottom = paneRect.bottom - rect.bottom <= 140;
+    if (!nearTop && !nearBottom) return null;
+
+    const className = String(element.className || "");
+    const classNameLower = className.toLowerCase();
+    const isDiscordEdgeUnread =
+      classNameLower.includes("unreadtop") ||
+      classNameLower.includes("unreadbottom") ||
+      classNameLower.includes("unreadbar") ||
+      (
+        classNameLower.includes("unread") &&
+        (classNameLower.includes("bar") || classNameLower.includes("container"))
+      );
+    const text = String(element.textContent || "").trim();
+    const hasMedia = Boolean(
+      element.querySelector?.('img, svg, canvas, video, [role="img"], [class*="icon" i], [class*="avatar" i]')
+    );
+    const paint = this.getPaintDiagnostic(element);
+    const matches = (text.length <= 2 || isDiscordEdgeUnread) && !hasMedia && this.hasAquaPaint(element);
+
+    return {
+      matches,
+      isDiscordEdgeUnread,
+      tag: element.tagName,
+      className: className.slice(0, 160),
+      ariaLabel: element.getAttribute?.("aria-label") || null,
+      role: element.getAttribute?.("role") || null,
+      textLength: text.length,
+      hasMedia,
+      rect: {
+        left: Math.round(rect.left),
+        top: Math.round(rect.top),
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+        paneTopOffset: Math.round(rect.top - paneRect.top),
+        paneBottomOffset: Math.round(paneRect.bottom - rect.bottom)
+      },
+      paint
+    };
+  }
+
+  hasAquaPaint(element) {
+    const paint = this.getPaintDiagnostic(element);
+    return [paint.self, paint.before, paint.after].some((style) =>
+      this.isAquaPaint(style.backgroundColor) ||
+      this.isAquaPaint(style.backgroundImage) ||
+      this.isAquaPaint(style.boxShadow)
+    );
+  }
+
+  getPaintDiagnostic(element) {
+    const serialize = (style) => ({
+      backgroundColor: String(style?.backgroundColor || "").slice(0, 180),
+      backgroundImage: String(style?.backgroundImage || "").slice(0, 180),
+      boxShadow: String(style?.boxShadow || "").slice(0, 180),
+      opacity: String(style?.opacity || ""),
+      position: String(style?.position || ""),
+      content: String(style?.content || "").slice(0, 80)
+    });
+
+    return {
+      self: serialize(window.getComputedStyle(element)),
+      before: serialize(window.getComputedStyle(element, "::before")),
+      after: serialize(window.getComputedStyle(element, "::after"))
+    };
+  }
+
+  isAquaPaint(value) {
+    const paint = String(value || "").toLowerCase();
+    if (!paint || paint === "none" || paint === "transparent") return false;
+    if (paint.includes("63e6dc") || paint.includes("99, 230, 220")) return true;
+
+    const match = paint.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?/);
+    if (!match) return false;
+
+    const r = Number(match[1]);
+    const g = Number(match[2]);
+    const b = Number(match[3]);
+    const a = match[4] == null ? 1 : Number(match[4]);
+    if (a <= 0.08) return false;
+
+    return g >= 145 && b >= 130 && r <= 140 && g > r + 35 && b > r + 25;
   }
 
   markAll(selectors, attribute) {

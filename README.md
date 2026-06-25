@@ -17,8 +17,8 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.49`
-- Plugin: `1.2.13`
+- Theme: `2.0.51`
+- Plugin: `1.2.15`
 
 Recent improvements:
 
@@ -29,8 +29,8 @@ Recent improvements:
 - Voice users glow when speaking.
 - Member and chat name colors stay controlled by Discord/server role settings.
 - Right-side member hover paint is removed so the whole panel does not light up.
-- Server-rail and channel-list top/bottom overlay strips are hidden so the left
-  side does not flare brighter than the rest of the theme.
+- Discord's top/bottom unread jump bars inside the left channel panel are
+  hidden without affecting real unread channel highlights.
 - Video/call wrapper surfaces use transparency where Discord allows it. Black
   pixels inside the actual stream/video cannot be made transparent by CSS.
 - The non-prioritized/floating video content is enlarged to 2.5x and grows
