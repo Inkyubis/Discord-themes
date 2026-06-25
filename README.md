@@ -17,7 +17,7 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.46`
+- Theme: `2.0.47`
 - Plugin: `1.2.12`
 
 Recent improvements:
@@ -34,8 +34,8 @@ Recent improvements:
   controls are not covered by bright panes.
 - Video/call wrapper surfaces use transparency where Discord allows it. Black
   pixels inside the actual stream/video cannot be made transparent by CSS.
-- The non-prioritized/floating video content is enlarged to 2x without
-  forcing Discord's drag position or screen anchor.
+- The non-prioritized/floating video content is enlarged to 2.5x and grows
+  downward without forcing Discord's drag position or screen anchor.
 - Member names keep their normal/role colors when hovering the member list.
 
 ## Install
