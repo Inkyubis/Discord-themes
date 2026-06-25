@@ -1,15 +1,15 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.45
- * @description An original fantasy scrying-desk theme with safer video frames and steadier member-list hover colors.
+ * @version 2.0.47
+ * @description An original fantasy scrying-desk theme with a 2.5x non-priority stream player that grows downward.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
 @import url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/152d6bf2a384549a83fadfbf6beeed9a6bf98d1d/WayfarersCodex-ScryingStation.theme.css");
 
 :root {
-  --wc-video-player-scale: 1.50;
+  --wc-video-player-scale: 2.50;
 }
 
 /*
@@ -399,7 +399,7 @@
 #app-mount [class*="floatingVideo" i] video,
 #app-mount [class*="streamPreview" i] video {
   transform: scale(var(--wc-video-player-scale)) !important;
-  transform-origin: bottom right !important;
+  transform-origin: top right !important;
 }
 
 /*
