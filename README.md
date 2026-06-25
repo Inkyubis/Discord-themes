@@ -17,7 +17,7 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.43`
+- Theme: `2.0.45`
 - Plugin: `1.2.12`
 
 Recent improvements:
@@ -36,6 +36,7 @@ Recent improvements:
   pixels inside the actual stream/video cannot be made transparent by CSS.
 - The non-prioritized/floating video content is enlarged by about 50% without
   forcing Discord's drag position or screen anchor.
+- Member names keep their normal/role colors when hovering the member list.
 
 ## Install
 
