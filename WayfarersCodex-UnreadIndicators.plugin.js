@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.12
+ * @version 1.2.13
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -38,7 +38,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       fallbackChannels: 0,
       fallbackPulseMs: this.fallbackPulseMs,
       duplicateMessageEvents: 0,
-      pluginVersion: "1.2.12"
+      pluginVersion: "1.2.13"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -54,6 +54,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.selectedGuildStore = this.getStore("SelectedGuildStore");
     this.userStore = this.getStore("UserStore");
     this.dispatcher = this.getDispatcher();
+    this.allowFallbackUnread = !(this.readState && this.guildChannelStore && this.channelStore);
     this.runtime.dispatcherFound = Boolean(this.dispatcher);
     this.runtime.stores = {
       guildReadState: Boolean(this.guildReadState),
@@ -66,6 +67,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
       selectedGuild: Boolean(this.selectedGuildStore),
       user: Boolean(this.userStore)
     };
+    this.runtime.allowFallbackUnread = this.allowFallbackUnread;
 
     this.scheduleUpdate = () => {
       cancelAnimationFrame(this.frame);
@@ -316,7 +318,13 @@ module.exports = class WayfarersCodexUnreadIndicators {
       duplicateMessageEvents: this.runtime.duplicateMessageEvents
     };
 
-    if (!this.runtime.lastMessage.fromSelf && !this.runtime.lastMessage.selectedChannel) {
+    const fallbackEligible =
+      this.allowFallbackUnread &&
+      !this.runtime.lastMessage.fromSelf &&
+      !this.runtime.lastMessage.selectedChannel &&
+      (!this.channelStore || this.isUnreadEligibleChannel(channelId, guildId));
+
+    if (fallbackEligible) {
       this.fallbackUnreadChannels.set(channelId, {
         guildId,
         expiresAt: Date.now() + this.fallbackPulseMs
@@ -392,8 +400,12 @@ module.exports = class WayfarersCodexUnreadIndicators {
   updateMarkers() {
     const guildItems = this.getGuildNavItems();
     this.pruneFallbackUnread();
+    if (!this.allowFallbackUnread && this.fallbackUnreadChannels.size) {
+      this.fallbackUnreadChannels.clear();
+    }
     this.runtime.guildNavItems = guildItems.length;
     this.runtime.fallbackChannels = this.fallbackUnreadChannels.size;
+    this.runtime.allowFallbackUnread = this.allowFallbackUnread;
     const unreadGuilds = [];
     const nativeUnreadGuilds = [];
     const fallbackUnreadGuilds = [];
@@ -403,7 +415,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     for (const { guildId, listItem } of guildItems) {
       const nativeSource = this.getNativeUnreadSource(guildId);
       const nativeUnread = Boolean(nativeSource);
-      const fallbackUnread = !nativeUnread && this.hasFallbackUnread(guildId);
+      const fallbackUnread =
+        !nativeUnread && this.allowFallbackUnread && this.hasFallbackUnread(guildId);
       const unread = nativeUnread || fallbackUnread;
 
       if (unread) {
