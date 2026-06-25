@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.16
+ * @version 1.2.17
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -30,6 +30,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.seenMessageWindowMs = 30000;
     this.dispatchSubscriptions = [];
     this.paneScanIntervalMs = 5000;
+    this.pollIntervalMs = 2500;
+    this.domObserverEnabled = false;
     this.lastPaneScan = 0;
     this.runtime = {
       startedAt: new Date().toISOString(),
@@ -40,9 +42,11 @@ module.exports = class WayfarersCodexUnreadIndicators {
       fallbackChannels: 0,
       fallbackPulseMs: this.fallbackPulseMs,
       paneScanIntervalMs: this.paneScanIntervalMs,
+      pollIntervalMs: this.pollIntervalMs,
+      domObserverEnabled: this.domObserverEnabled,
       skippedComposerMutations: 0,
       duplicateMessageEvents: 0,
-      pluginVersion: "1.2.16"
+      pluginVersion: "1.2.17"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -99,7 +103,7 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.saveRuntime("start-init");
 
     const observerTarget = document.body || document.documentElement;
-    if (observerTarget) {
+    if (this.domObserverEnabled && observerTarget) {
       this.observer = new MutationObserver(this.scheduleDomUpdate);
       this.observer.observe(observerTarget, {
         attributes: true,
@@ -157,18 +161,14 @@ module.exports = class WayfarersCodexUnreadIndicators {
         #app-mount [data-wc-speaking="true"] img {
           outline: 2px solid rgba(121, 235, 225, 0.64) !important;
           outline-offset: 2px !important;
-          filter:
-            brightness(1.10)
-            saturate(1.14)
-            drop-shadow(0 0 5px rgba(99, 230, 220, 0.64))
-            drop-shadow(0 0 11px rgba(99, 230, 220, 0.53)) !important;
+          filter: brightness(1.06) saturate(1.08) !important;
         }
       `
     );
 
     this.saveRuntime("start");
     this.scheduleUpdate();
-    this.pollTimer = setInterval(this.scheduleUpdate, 2000);
+    this.pollTimer = setInterval(() => this.scheduleUpdate("poll"), this.pollIntervalMs);
   }
 
   saveStartupError(error) {
