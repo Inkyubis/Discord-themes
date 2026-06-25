@@ -17,14 +17,15 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.47`
-- Plugin: `1.2.12`
+- Theme: `2.0.48`
+- Plugin: `1.2.13`
 
 Recent improvements:
 
 - Persistent panels are kept at one light 10% glass layer.
 - Unread channels get a teal row glow so they are easier to find.
-- Server unread dots are restored without stale false-positive dots.
+- Server unread dots now follow confirmed native unread state when Discord
+  exposes it, reducing false-positive flashes on the server rail.
 - Voice users glow when speaking.
 - Member and chat name colors stay controlled by Discord/server role settings.
 - Right-side member hover paint is removed so the whole panel does not light up.
