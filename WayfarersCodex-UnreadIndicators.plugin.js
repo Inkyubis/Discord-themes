@@ -1,7 +1,7 @@
 /**
  * @name WayfarersCodexUnreadIndicators
  * @author Inkyubis & Byte
- * @version 1.2.15
+ * @version 1.2.16
  * @description Keeps server unread markers visible and restores voice-user speaking glows.
  */
 
@@ -29,6 +29,8 @@ module.exports = class WayfarersCodexUnreadIndicators {
     this.seenMessageEvents = new Map();
     this.seenMessageWindowMs = 30000;
     this.dispatchSubscriptions = [];
+    this.paneScanIntervalMs = 5000;
+    this.lastPaneScan = 0;
     this.runtime = {
       startedAt: new Date().toISOString(),
       dispatcherFound: false,
@@ -37,8 +39,10 @@ module.exports = class WayfarersCodexUnreadIndicators {
       guildNavItems: 0,
       fallbackChannels: 0,
       fallbackPulseMs: this.fallbackPulseMs,
+      paneScanIntervalMs: this.paneScanIntervalMs,
+      skippedComposerMutations: 0,
       duplicateMessageEvents: 0,
-      pluginVersion: "1.2.15"
+      pluginVersion: "1.2.16"
     };
 
     this.guildReadState = this.getStore("GuildReadStateStore");
@@ -69,21 +73,34 @@ module.exports = class WayfarersCodexUnreadIndicators {
     };
     this.runtime.allowFallbackUnread = this.allowFallbackUnread;
 
-    this.scheduleUpdate = () => {
+    this.scheduleUpdate = (source = "general") => {
       cancelAnimationFrame(this.frame);
       this.frame = requestAnimationFrame(() => {
         this.updateMarkers();
         this.updateSpeakingUsers();
-        this.markDurablePanes();
-        this.markLeftEdgeStrips();
+        const now = Date.now();
+        if (source === "force" || now - this.lastPaneScan >= this.paneScanIntervalMs) {
+          this.lastPaneScan = now;
+          this.markDurablePanes();
+          this.markLeftEdgeStrips();
+        }
       });
+    };
+
+    this.scheduleDomUpdate = (mutations) => {
+      if (this.isComposerOnlyMutation(mutations)) {
+        this.runtime.skippedComposerMutations += 1;
+        return;
+      }
+
+      this.scheduleUpdate("dom");
     };
 
     this.saveRuntime("start-init");
 
     const observerTarget = document.body || document.documentElement;
     if (observerTarget) {
-      this.observer = new MutationObserver(this.scheduleUpdate);
+      this.observer = new MutationObserver(this.scheduleDomUpdate);
       this.observer.observe(observerTarget, {
         attributes: true,
         attributeFilter: ["class", "aria-label", "data-list-item-id"],
@@ -175,6 +192,33 @@ module.exports = class WayfarersCodexUnreadIndicators {
         updatedAt: new Date().toISOString()
       });
     } catch {}
+  }
+
+  isComposerOnlyMutation(mutations) {
+    if (!mutations?.length) return false;
+
+    for (const mutation of mutations) {
+      const target =
+        mutation.target?.nodeType === 1
+          ? mutation.target
+          : mutation.target?.parentElement;
+      if (!target?.closest) return false;
+
+      const composer = target.closest(
+        [
+          '[contenteditable="true"]',
+          '[data-slate-editor="true"]',
+          '[role="textbox"]',
+          '[class*="channelTextArea" i]',
+          '[class*="slateTextArea" i]',
+          '[class*="textArea" i]'
+        ].join(",")
+      );
+
+      if (!composer) return false;
+    }
+
+    return true;
   }
 
   getStore(name) {

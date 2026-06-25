@@ -17,8 +17,8 @@ logos, maps, or commercial tabletop game art.
 
 ## Current Version
 
-- Theme: `2.0.51`
-- Plugin: `1.2.15`
+- Theme: `2.0.52`
+- Plugin: `1.2.16`
 
 Recent improvements:
 
@@ -31,6 +31,8 @@ Recent improvements:
 - Right-side member hover paint is removed so the whole panel does not light up.
 - Discord's top/bottom unread jump bars inside the left channel panel are
   hidden without affecting real unread channel highlights.
+- Composer-only typing changes are ignored by the companion plugin, and heavier
+  panel scans are throttled to reduce typing lag.
 - Video/call wrapper surfaces use transparency where Discord allows it. Black
   pixels inside the actual stream/video cannot be made transparent by CSS.
 - The non-prioritized/floating video content is enlarged to 2.5x and grows
