@@ -1,24 +1,21 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.54
- * @description A fantasy scrying-desk Discord theme tuned for low typing latency.
+ * @version 2.0.57
+ * @description CSS-only fantasy scrying-desk theme tuned for low typing latency.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
 :root {
   --wc-scene: url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/main/assets/scrying-station.webp");
-
   --wc-glass: rgba(30, 19, 13, 0.10);
-  --wc-glass-soft: rgba(30, 19, 13, 0.07);
-  --wc-glass-hover: rgba(99, 230, 220, 0.10);
-  --wc-glass-selected: rgba(99, 230, 220, 0.14);
-  --wc-border: rgba(121, 235, 225, 0.28);
-  --wc-border-soft: rgba(121, 235, 225, 0.14);
+  --wc-glass-strong: rgba(3, 12, 13, 0.18);
+  --wc-hover: rgba(99, 230, 220, 0.10);
+  --wc-selected: rgba(99, 230, 220, 0.14);
+  --wc-border: rgba(121, 235, 225, 0.24);
   --wc-teal: #63e6dc;
   --wc-teal-bright: #bffdf5;
   --wc-amber: #e4aa55;
-  --wc-ivory: #f3ead7;
   --wc-danger: #d46e72;
   --wc-video-player-scale: 2.50;
 
@@ -26,17 +23,17 @@
   --background-secondary: var(--wc-glass) !important;
   --background-secondary-alt: var(--wc-glass) !important;
   --background-tertiary: var(--wc-glass) !important;
-  --background-floating: rgba(3, 12, 13, 0.18) !important;
+  --background-floating: var(--wc-glass-strong) !important;
   --background-mobile-primary: var(--wc-glass) !important;
   --background-mobile-secondary: var(--wc-glass) !important;
-  --background-modifier-hover: var(--wc-glass-hover) !important;
+  --background-modifier-hover: var(--wc-hover) !important;
   --background-modifier-active: rgba(99, 230, 220, 0.13) !important;
-  --background-modifier-selected: var(--wc-glass-selected) !important;
+  --background-modifier-selected: var(--wc-selected) !important;
   --background-modifier-accent: rgba(99, 230, 220, 0.12) !important;
-  --channeltextarea-background: rgba(3, 15, 16, 0.10) !important;
+  --channeltextarea-background: rgba(3, 15, 16, 0.16) !important;
   --input-background: rgba(1, 8, 9, 0.14) !important;
-  --modal-background: rgba(3, 13, 14, 0.16) !important;
-  --modal-footer-background: rgba(2, 9, 10, 0.16) !important;
+  --modal-background: var(--wc-glass-strong) !important;
+  --modal-footer-background: var(--wc-glass-strong) !important;
   --brand-500: #36bdb5 !important;
   --brand-530: #2fa9a2 !important;
   --brand-560: #278f89 !important;
@@ -62,7 +59,7 @@ body,
   background-size: cover !important;
 }
 
-/* Low-latency rule: keep selectors shallow and avoid live blur, :has(), and filters. */
+/* Keep runtime paint cheap: no imports, live blur, filters, animation, or :has(). */
 #app-mount [class*="app_"],
 #app-mount [class*="bg_"],
 #app-mount [class*="layers_"],
@@ -72,10 +69,6 @@ body,
   background: transparent !important;
 }
 
-#app-mount [data-wc-guild-rail="true"],
-#app-mount [data-wc-channel-list="true"],
-#app-mount [data-wc-members-panel="true"],
-#app-mount [data-wc-activity-panel="true"],
 #app-mount nav[aria-label*="Servers"],
 #app-mount [class*="guilds_"],
 #app-mount [class*="sidebar_"],
@@ -86,10 +79,11 @@ body,
 #app-mount [class*="membersWrap_"],
 #app-mount [class*="members_"],
 #app-mount [class*="peopleColumn_"],
-#app-mount [class*="nowPlayingColumn_"] {
+#app-mount [class*="nowPlayingColumn_"],
+#app-mount [class*="profilePanel_"] {
   background: var(--wc-glass) !important;
   background-image: none !important;
-  border-color: var(--wc-border-soft) !important;
+  border-color: var(--wc-border) !important;
   box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -99,12 +93,15 @@ body,
 #app-mount [class*="messagesWrapper_"],
 #app-mount [class*="scrollerInner_"],
 #app-mount [class*="membersGroup_"],
+#app-mount [class*="member_"],
+#app-mount [class*="layout_"],
 #app-mount [class*="containerDefault_"],
 #app-mount [class*="section_"],
 #app-mount [class*="body_"],
 #app-mount [class*="inset_"],
 #app-mount [class*="outer_"],
-#app-mount [class*="inner_"] {
+#app-mount [class*="inner_"],
+#app-mount [class*="itemCard_"] {
   background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
@@ -122,7 +119,7 @@ body,
 #app-mount [class*="themedBackground_"] {
   background: rgba(3, 15, 16, 0.18) !important;
   background-image: none !important;
-  border: 1px solid rgba(121, 235, 225, 0.24) !important;
+  border: 1px solid var(--wc-border) !important;
   box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -143,27 +140,46 @@ body,
   letter-spacing: 0.055em;
 }
 
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="link_"],
-#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="link_"],
-#app-mount [aria-label*="Direct Messages" i] [class*="modeUnread_"] [class*="link_"],
-#app-mount [role="treeitem"][aria-label*="unread" i] [class*="link_"] {
-  background: linear-gradient(
-    90deg,
-    rgba(99, 230, 220, 0.18),
-    rgba(99, 230, 220, 0.06) 70%,
-    transparent
-  ) !important;
-  border-left: 3px solid rgba(121, 235, 225, 0.80) !important;
+/* CSS-only unread channel highlighting, using Discord's native unread hooks. */
+#app-mount [class*="modeUnread_"] [class*="link_"],
+#app-mount [class*="modeUnread"] [class*="link"],
+#app-mount [role="treeitem"][aria-label*="unread" i] [class*="link_"],
+#app-mount [role="treeitem"][aria-label*="unread" i] [class*="link"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(99, 230, 220, 0.22),
+      rgba(99, 230, 220, 0.08) 70%,
+      transparent
+    ) !important;
+  border-left: 3px solid rgba(121, 235, 225, 0.82) !important;
 }
 
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="name_"],
-#app-mount [data-wc-channel-list="true"] [class*="modeUnread_"] [class*="icon_"],
-#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="name_"],
-#app-mount [aria-label*="Channels" i] [class*="modeUnread_"] [class*="icon_"] {
+#app-mount [class*="modeUnread_"] [class*="name_"],
+#app-mount [class*="modeUnread_"] [class*="icon_"],
+#app-mount [class*="modeUnread"] [class*="name"],
+#app-mount [class*="modeUnread"] [class*="icon"],
+#app-mount [role="treeitem"][aria-label*="unread" i] [class*="name_"],
+#app-mount [role="treeitem"][aria-label*="unread" i] [class*="icon_"] {
   color: var(--wc-teal-bright) !important;
 }
 
-#app-mount [data-wc-unread="true"] [class*="pill_"] span,
+#app-mount [class*="unread_"]:not([class*="unreadTop" i]):not([class*="unreadBottom" i]):not([class*="unreadBar" i]) {
+  background-color: var(--wc-teal) !important;
+}
+
+#app-mount [class*="unreadTop" i],
+#app-mount [class*="unreadBottom" i],
+#app-mount [class*="unreadBar" i],
+#app-mount [class*="unreadMentionsIndicator" i] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: transparent !important;
+}
+
 #app-mount nav[aria-label*="Servers"] [class*="pill_"] span,
 #app-mount [class*="guilds_"] [class*="pill_"] span {
   background-color: var(--wc-teal) !important;
@@ -175,46 +191,49 @@ body,
   color: #ffffff !important;
 }
 
-#app-mount [data-wc-channel-list="true"] [class*="unreadTop" i],
-#app-mount [data-wc-channel-list="true"] [class*="unreadBottom" i],
-#app-mount [data-wc-channel-list="true"] [class*="unreadBar" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
-#app-mount [aria-label*="Channels" i] [class*="unreadBar" i],
-#app-mount [data-wc-left-edge-strip="true"] {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: transparent !important;
-}
-
-#app-mount [data-wc-members-panel="true"] {
+#app-mount [class*="membersWrap_"],
+#app-mount [class*="members_"],
+#app-mount [class*="container_c8ffbb"],
+#app-mount [class*="peopleColumn_"],
+#app-mount [class*="nowPlayingColumn_"],
+#app-mount [class*="activeNow_"] {
   --interactive-hover: var(--interactive-normal, currentColor) !important;
   --interactive-active: var(--interactive-normal, currentColor) !important;
+  --background-modifier-active: transparent !important;
   --background-modifier-hover: transparent !important;
   --background-modifier-selected: transparent !important;
 }
 
-#app-mount [data-wc-members-panel="true"] [class*="member_"]:hover [class*="layout_"] {
+#app-mount [class*="membersWrap_"]:hover,
+#app-mount [class*="members_"]:hover,
+#app-mount [class*="container_c8ffbb"]:hover,
+#app-mount [class*="peopleColumn_"]:hover,
+#app-mount [class*="nowPlayingColumn_"]:hover,
+#app-mount [class*="activeNow_"]:hover {
+  background: var(--wc-glass) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="membersWrap_"] [class*="member_"]:hover,
+#app-mount [class*="membersWrap_"] [class*="layout_"]:hover,
+#app-mount [class*="membersWrap_"] [class*="member_"]:hover [class*="layout_"],
+#app-mount [class*="container_c8ffbb"] [class*="member_"]:hover,
+#app-mount [class*="container_c8ffbb"] [class*="layout_"]:hover,
+#app-mount [class*="container_c8ffbb"] [class*="member_"]:hover [class*="layout_"],
+#app-mount [class*="nowPlayingColumn_"] [class*="itemCard_"]:hover,
+#app-mount [class*="nowPlayingColumn_"] [class*="outer_"]:hover,
+#app-mount [class*="nowPlayingColumn_"] [class*="interactive_"]:hover,
+#app-mount [class*="activeNow_"] [class*="itemCard_"]:hover,
+#app-mount [class*="activeNow_"] [class*="outer_"]:hover,
+#app-mount [class*="activeNow_"] [class*="interactive_"]:hover {
   background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
-#app-mount [data-wc-speaking="true"] {
-  position: relative !important;
-  overflow: visible !important;
-  background: linear-gradient(
-    90deg,
-    rgba(99, 230, 220, 0.11),
-    rgba(99, 230, 220, 0.02) 70%,
-    transparent
-  ) !important;
-  border-left: 3px solid rgba(121, 235, 225, 0.64) !important;
-}
-
-#app-mount [data-wc-speaking="true"] [class*="avatar_"],
-#app-mount [data-wc-speaking="true"] img {
+#app-mount [class*="usernameSpeaking_"],
+#app-mount [class*="avatarSpeaking_"] {
   outline: 2px solid rgba(121, 235, 225, 0.58) !important;
   outline-offset: 2px !important;
 }
@@ -253,8 +272,7 @@ body,
 
 #app-mount [class*="userProfileOuter_"],
 #app-mount [class*="fullSizeOuter_"],
-#app-mount [class*="userProfileModal_"],
-#app-mount [class*="profilePanel_"] {
+#app-mount [class*="userProfileModal_"] {
   background: rgba(3, 12, 13, 0.12) !important;
   box-shadow: none !important;
   -webkit-backdrop-filter: none !important;
@@ -263,10 +281,4 @@ body,
 
 #app-mount ::-webkit-scrollbar-thumb {
   background-color: rgba(99, 230, 220, 0.34) !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #app-mount {
-    scroll-behavior: auto !important;
-  }
 }
