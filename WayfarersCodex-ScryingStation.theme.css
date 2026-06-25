@@ -1,8 +1,8 @@
 /**
  * @name Wayfarer's Codex: Scrying Station
  * @author Inkyubis & Byte
- * @version 2.0.43
- * @description An original fantasy scrying-desk theme with safer video frames and a 50% larger mini video player.
+ * @version 2.0.45
+ * @description An original fantasy scrying-desk theme with safer video frames and steadier member-list hover colors.
  * @source https://github.com/Inkyubis/Discord-themes
  */
 
@@ -453,6 +453,8 @@
 #app-mount [class*="membersWrap" i],
 #app-mount [class*="container_c8ffbb" i],
 #app-mount [class*="members_" i] {
+  --interactive-hover: var(--interactive-normal, currentColor) !important;
+  --interactive-active: var(--interactive-normal, currentColor) !important;
   --background-modifier-hover: transparent !important;
   --background-modifier-selected: transparent !important;
   --background-modifier-active: transparent !important;
@@ -471,6 +473,61 @@
   background-color: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="name" i],
+#app-mount [data-wc-members-panel="true"] [class*="member_" i]:hover [class*="username" i],
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="name" i],
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="username" i],
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="name" i],
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="username" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="name" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="username" i] {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover,
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover *,
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover,
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover *,
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover,
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover *,
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover,
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover * {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="layout" i],
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="memberInner" i],
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="childContainer" i],
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="layout" i],
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="memberInner" i],
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="childContainer" i],
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="layout" i],
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="memberInner" i],
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="childContainer" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="layout" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="memberInner" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="childContainer" i] {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
+#app-mount [data-wc-members-panel="true"] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
+#app-mount [aria-label*="Members" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
+#app-mount [class*="membersWrap" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]),
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="name" i]:not([style*="color"]),
+#app-mount [class*="container_c8ffbb" i] [class*="member" i]:hover [class*="username" i]:not([style*="color"]) {
+  color: inherit !important;
 }
 
 #app-mount [data-wc-members-panel="true"] [class*="members_" i]:hover,
