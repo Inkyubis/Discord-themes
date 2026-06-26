@@ -24,8 +24,6 @@ characters, logos, maps, or tabletop game art.
    themes folder.
 3. Reload Discord and enable **Wayfarer's Codex: Scrying Station** in
    BetterDiscord's Themes settings.
-4. Keep BetterDiscord **Custom CSS** disabled if it contains an older Wayfarer
-   setup, since that old styling can interfere with this theme.
 
 The background is embedded in the CSS file, so the theme does not need an
 internet connection to show the desk scene.
