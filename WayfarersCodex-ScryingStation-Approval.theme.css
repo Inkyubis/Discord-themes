@@ -1,0 +1,483 @@
+Exit code: 0
+Wall time: 4 seconds
+Output:
+/**
+ * @name Wayfarer's Codex: Scrying Station
+ * @author Inkyubis & Byte
+ * @version 2.0.90
+ * @description CSS-only fantasy desk theme with a GitHub-hosted desk scene for BetterDiscord approval submission.
+ * @source https://github.com/Inkyubis/Discord-themes/blob/main/WayfarersCodex-ScryingStation-Approval.theme.css
+ */
+
+:root {
+  --wc-scene: url("https://raw.githubusercontent.com/Inkyubis/Discord-themes/main/assets/scrying-station.webp");
+  --wc-video-player-scale: 2.50;
+  --wc-pane: rgba(30, 19, 13, 0.10);
+  --wc-pane-dark: rgba(17, 11, 8, 0.12);
+  --wc-pane-soft: rgba(229, 199, 142, 0.10);
+  --wc-border: rgba(121, 235, 225, 0.22);
+  --wc-border-warm: rgba(216, 168, 80, 0.24);
+  --wc-teal: #63e6dc;
+  --wc-teal-soft: rgba(99, 230, 220, 0.16);
+  --wc-amber: #e4aa55;
+  --wc-ivory: #f2ddb0;
+  --wc-display-font: Georgia, "Times New Roman", serif;
+
+  --background-primary: transparent !important;
+  --background-secondary: transparent !important;
+  --background-secondary-alt: transparent !important;
+  --background-tertiary: transparent !important;
+  --background-floating: rgba(17, 11, 8, 0.72) !important;
+  --background-base-lowest: transparent !important;
+  --background-base-low: transparent !important;
+  --background-base-lower: transparent !important;
+  --background-base-low: transparent !important;
+  --background-surface-high: transparent !important;
+  --background-surface-higher: transparent !important;
+  --background-surface-highest: transparent !important;
+  --bg-base-primary: transparent !important;
+  --bg-base-secondary: transparent !important;
+  --bg-base-tertiary: transparent !important;
+  --bg-base-lowest: transparent !important;
+  --bg-base-low: transparent !important;
+  --bg-base-lower: transparent !important;
+  --bg-surface-overlay: transparent !important;
+  --bg-surface-raised: transparent !important;
+  --home-background: transparent !important;
+  --chat-background-default: transparent !important;
+  --channeltextarea-background: rgba(8, 18, 18, 0.46) !important;
+  --input-background: rgba(8, 18, 18, 0.46) !important;
+  --background-modifier-hover: rgba(229, 199, 142, 0.08) !important;
+  --background-modifier-selected: rgba(99, 230, 220, 0.11) !important;
+  --background-modifier-active: rgba(99, 230, 220, 0.12) !important;
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: #071011 !important;
+  background-image: none !important;
+}
+
+#app-mount {
+  min-height: 100%;
+  background-color: #071011 !important;
+  background-image:
+    linear-gradient(rgba(2, 8, 9, 0.12), rgba(2, 8, 9, 0.22)),
+    var(--wc-scene) !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+}
+
+#app-mount [class*="app_"],
+#app-mount [class*="bg_"],
+#app-mount [class*="layers_"],
+#app-mount [class*="layer_"],
+#app-mount [class*="base_"],
+#app-mount [class*="page_"],
+#app-mount [class*="content_"][class*="content_"],
+#app-mount [class*="container_"][class*="container_"],
+#app-mount [class*="standardSidebarView_"],
+#app-mount [class*="contentRegion_"],
+#app-mount [class*="contentRegionScroller_"] {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Persistent panes: one flat 10% layer, no blur. */
+#app-mount nav[aria-label*="Servers"],
+#app-mount [class*="guilds_"],
+#app-mount [class*="sidebarList_"],
+#app-mount [class*="privateChannels_"],
+#app-mount [class*="chat_"],
+#app-mount [class*="chatContent_"],
+#app-mount [class*="peopleColumn_"],
+#app-mount [class*="nowPlayingColumn_"],
+#app-mount [class*="membersWrap_"],
+#app-mount [class*="container_c8ffbb"],
+#app-mount [class*="profilePanel"],
+#app-mount [class*="userProfileSidebar"],
+#app-mount [class*="user-profile-sidebar"],
+#app-mount [class*="userPanelOuter"],
+#app-mount [class*="userPanelInner"],
+#app-mount [class*="userProfileOuter"] {
+  background: var(--wc-pane) !important;
+  background-image: none !important;
+  border-color: rgba(121, 235, 225, 0.12) !important;
+  box-shadow: none !important;
+}
+
+/* Direct Message profile/activity pane: preserve one 10% outer surface only. */
+#app-mount [class*="profilePanel"] [class*="userProfileOuter"],
+#app-mount [class*="profilePanel"] [class*="userProfileInner"],
+#app-mount [class*="profilePanel"] [class*="userPanelOuter"],
+#app-mount [class*="profilePanel"] [class*="userPanelInner"],
+#app-mount [class*="userPanelOuter"] [class*="userProfileOuter"],
+#app-mount [class*="userPanelOuter"] [class*="userProfileInner"],
+#app-mount [class*="userPanelOuter"] [class*="userPanelInner"],
+#app-mount [class*="userProfileOuter"] [class*="userProfileInner"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* The current Direct Message sidebar carries its own profile gradient tokens. */
+#app-mount [class*="userProfileSidebar"] {
+  --profile-body-background-color: transparent !important;
+  --profile-gradient-primary-color: transparent !important;
+  --profile-gradient-secondary-color: transparent !important;
+  --profile-gradient-overlay-color: transparent !important;
+  background: var(--wc-pane) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="user-profile-sidebar"] {
+  --profile-body-background-color: transparent !important;
+  --profile-gradient-primary-color: transparent !important;
+  --profile-gradient-secondary-color: transparent !important;
+  --profile-gradient-overlay-color: transparent !important;
+  background: var(--wc-pane) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="userProfileSidebar"] [class*="userProfile"],
+#app-mount [class*="userProfileSidebar"] [class*="profile"],
+#app-mount [class*="userProfileSidebar"] [class*="container"],
+#app-mount [class*="user-profile-sidebar"] [class*="banner"],
+#app-mount [class*="user-profile-sidebar"] [class*="overlay"],
+#app-mount [class*="user-profile-sidebar"] [class*="footerButton"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Opened user profile cards use the same light glass as the main Discord view. */
+#app-mount [class*="user-profile-modal"] {
+  --profile-body-background-color: transparent !important;
+  --profile-gradient-primary-color: transparent !important;
+  --profile-gradient-secondary-color: transparent !important;
+  --profile-gradient-overlay-color: transparent !important;
+  background: var(--wc-pane) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="user-profile-modal"] [class*="banner"],
+#app-mount [class*="user-profile-modal"] [class*="overlay"],
+#app-mount [class*="user-profile-modal"] [class*="footerButton"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Clear only common nested shells so pane opacity does not stack. */
+#app-mount [class*="sidebar_"],
+#app-mount [class*="sidebarList_"] [class*="container_"],
+#app-mount [class*="sidebarList_"] [class*="scroller_"],
+#app-mount [class*="privateChannels_"] [class*="scroller_"],
+#app-mount nav[aria-label*="Servers"] [class*="scroller_"],
+#app-mount [class*="guilds_"] [class*="scroller_"],
+#app-mount [class*="guilds_"] [class*="tree_"],
+#app-mount [class*="membersWrap_"] [class*="members_"],
+#app-mount [class*="membersWrap_"] [class*="scroller_"],
+#app-mount [class*="container_c8ffbb"] [class*="membersWrap_"],
+#app-mount [class*="peopleColumn_"] [class*="scroller_"],
+#app-mount [class*="nowPlayingColumn_"] [class*="scroller_"],
+#app-mount [class*="chat_"] [class*="scroller_"] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Top bars and server headers. */
+#app-mount [class*="title_"][class*="container_"],
+#app-mount [class*="header_"][class*="themed_"],
+#app-mount [class*="header_"][class*="headerWithBanner_"],
+#app-mount [class*="upperContainer_"] {
+  background: rgba(8, 16, 16, 0.22) !important;
+  border-color: var(--wc-border) !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="title_"] h1,
+#app-mount [class*="headerText_"],
+#app-mount [class*="name_"][class*="container_"] {
+  font-family: var(--wc-display-font) !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Server channel list typography. */
+#app-mount [class*="sidebarList_"] [class*="containerDefault_"] [class*="name_"],
+#app-mount [aria-label*="Channels" i] [class*="containerDefault_"] [class*="name_"] {
+  color: var(--wc-amber) !important;
+  font-family: var(--wc-display-font) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+#app-mount [class*="sidebarList_"] [class*="link_"],
+#app-mount [aria-label*="Channels" i] [class*="link_"],
+#app-mount [class*="privateChannels_"] [class*="channel_"] {
+  border: 1px solid transparent !important;
+  border-radius: 8px !important;
+}
+
+#app-mount [class*="sidebarList_"] [class*="link_"]:hover,
+#app-mount [aria-label*="Channels" i] [class*="link_"]:hover,
+#app-mount [class*="privateChannels_"] [class*="channel_"]:hover {
+  background: rgba(229, 199, 142, 0.08) !important;
+  border-color: rgba(216, 168, 80, 0.14) !important;
+}
+
+#app-mount [class*="modeSelected_"] [class*="link_"],
+#app-mount [class*="channel_"][aria-selected="true"],
+#app-mount [class*="interactiveSelected_"] {
+  background: rgba(99, 230, 220, 0.10) !important;
+  border-color: rgba(99, 230, 220, 0.24) !important;
+  box-shadow: inset 2px 0 rgba(121, 235, 225, 0.55) !important;
+}
+
+/* Native unread channel state. */
+#app-mount [class*="modeUnread" i] [class*="link_" i],
+#app-mount [aria-label*="Channels" i] [role="treeitem"][aria-label*="unread" i] [class*="link_" i] {
+  background: linear-gradient(90deg, rgba(99, 230, 220, 0.18), rgba(99, 230, 220, 0.04)) !important;
+  border-color: rgba(99, 230, 220, 0.30) !important;
+  box-shadow: inset 3px 0 rgba(121, 235, 225, 0.78) !important;
+}
+
+#app-mount [class*="modeUnread" i] [class*="name_" i],
+#app-mount [class*="modeUnread" i] [class*="icon_" i],
+#app-mount [aria-label*="Channels" i] [role="treeitem"][aria-label*="unread" i] [class*="name_" i],
+#app-mount [aria-label*="Channels" i] [role="treeitem"][aria-label*="unread" i] [class*="icon_" i] {
+  color: #bffdf5 !important;
+}
+
+/* Hide bright top/bottom jump strips without touching real unread dots. */
+#app-mount [class*="sidebarList_"] [class*="unreadMentionsIndicator" i],
+#app-mount [class*="sidebarList_"] [class*="newMessagesBar" i],
+#app-mount [class*="sidebarList_"] [class*="jumpToPresentBar" i],
+#app-mount [class*="sidebarList_"] [class*="barBase" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadTop" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBottom" i],
+#app-mount [aria-label*="Channels" i] [class*="unreadBar" i] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Direct Messages list: same fantasy style as server channels. */
+#app-mount [class*="privateChannels_"] [class*="name_"],
+#app-mount [aria-label*="Direct Messages" i] [class*="name_"],
+#app-mount [aria-label*="Private Channels" i] [class*="name_"] {
+  color: var(--wc-amber) !important;
+  font-family: var(--wc-display-font) !important;
+  letter-spacing: 0.055em !important;
+}
+
+#app-mount [class*="privateChannels_"] [class*="interactiveSelected_"] [class*="name_"],
+#app-mount [aria-label*="Direct Messages" i] [class*="interactiveSelected_"] [class*="name_"],
+#app-mount [aria-label*="Private Channels" i] [class*="interactiveSelected_"] [class*="name_"] {
+  color: var(--wc-ivory) !important;
+}
+
+/* Right-side panels: preserve Discord role/name colors and avoid slab hover. */
+#app-mount [aria-label*="Members" i],
+#app-mount [class*="membersWrap" i],
+#app-mount [class*="container_c8ffbb" i],
+#app-mount [class*="nowPlayingColumn" i] {
+  --background-modifier-hover: transparent !important;
+  --background-modifier-selected: transparent !important;
+  --background-modifier-active: transparent !important;
+  --bg-overlay-hover: transparent !important;
+  --bg-overlay-selected: transparent !important;
+  --custom-member-list-item-hover: transparent !important;
+  --custom-member-list-item-selected: transparent !important;
+}
+
+#app-mount [aria-label*="Members" i]:hover,
+#app-mount [class*="members_" i]:hover,
+#app-mount [class*="nowPlayingColumn" i]:hover {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="membersWrap" i]:hover,
+#app-mount [class*="container_c8ffbb" i]:hover {
+  background: var(--wc-pane) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [aria-label*="Members" i] *:hover,
+#app-mount [class*="membersWrap" i] *:hover,
+#app-mount [class*="container_c8ffbb" i] *:hover,
+#app-mount [class*="nowPlayingColumn" i] *:hover {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover,
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover,
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount [aria-label*="Members" i] [class*="member_" i]:hover [class*="layout_" i],
+#app-mount [class*="membersWrap" i] [class*="member_" i]:hover [class*="layout_" i],
+#app-mount [class*="container_c8ffbb" i] [class*="member_" i]:hover [class*="layout_" i] {
+  background: rgba(229, 199, 142, 0.06) !important;
+  border-radius: 8px !important;
+}
+
+#app-mount [class*="nowPlayingColumn" i] [class*="itemCard" i],
+#app-mount [class*="nowPlayingColumn" i] [class*="outer" i] {
+  background: transparent !important;
+  border-color: rgba(216, 168, 80, 0.16) !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="nowPlayingColumn" i] [class*="itemCard" i]:hover,
+#app-mount [class*="nowPlayingColumn" i] [class*="outer" i]:hover {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Composer: keep it plain so keystrokes do not trigger expensive repaints. */
+#app-mount [class*="channelTextArea_"] {
+  background: rgba(8, 18, 18, 0.46) !important;
+  border: 1px solid rgba(99, 230, 220, 0.20) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+#app-mount [class*="channelTextArea_"] [class*="scrollableContainer_"],
+#app-mount [class*="channelTextArea_"] [class*="themedBackground_"] {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+#app-mount [class*="channelTextArea_"]:focus-within,
+#app-mount [class*="channelTextArea_"]:focus-within [class*="scrollableContainer_"],
+#app-mount [class*="channelTextArea_"]:focus-within [class*="themedBackground_"],
+#app-mount [class*="channelTextArea_"] [contenteditable="true"],
+#app-mount [class*="channelTextArea_"] textarea,
+#app-mount [class*="channelTextArea_"] [class*="slateTextArea_"] {
+  background: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Buttons, cards and popouts get flat translucent paint only. */
+#app-mount [class*="button_"]:not([class*="lookFilled_"]),
+#app-mount [class*="reaction_"],
+#app-mount [class*="role_"],
+#app-mount [class*="tag_"],
+#app-mount [class*="embed_"],
+#app-mount [class*="attachment_"],
+#app-mount [class*="messageAttachment_"],
+#app-mount [class*="searchBar_"],
+#app-mount [class*="searchBarComponent_"],
+#app-mount [class*="input_"],
+#app-mount input,
+#app-mount textarea {
+  background: var(--wc-pane-soft) !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="channelTextArea_"] input,
+#app-mount [class*="channelTextArea_"] textarea,
+#app-mount [class*="channelTextArea_"] [contenteditable="true"],
+#app-mount [class*="channelTextArea_"] [class*="slateTextArea_"] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#app-mount [class*="popout_"],
+#app-mount [class*="menu_"],
+#app-mount [class*="tooltip_"],
+#app-mount [class*="modal_"],
+#app-mount [class*="userPopoutOuter_"],
+#app-mount [class*="messagesPopoutWrap_"],
+#app-mount [class*="picker_"],
+#app-mount [class*="autocomplete_"] {
+  background: rgba(17, 11, 8, 0.72) !important;
+  border-color: var(--wc-border-warm) !important;
+  box-shadow: none !important;
+}
+
+/* Video and stream wrappers: keep exposed Discord surfaces transparent. */
+#app-mount [class*="callContainer" i],
+#app-mount [class*="call_" i],
+#app-mount [class*="channelChatWrapper" i],
+#app-mount [class*="chatLayerWrapper" i],
+#app-mount [class*="stream" i],
+#app-mount [class*="videoGrid" i],
+#app-mount [class*="videoWrapper" i],
+#app-mount [class*="videoFrame" i],
+#app-mount [class*="videoControls" i],
+#app-mount [class*="streamPreview" i],
+#app-mount [class*="pictureInPicture" i],
+#app-mount [class*="floatingVideo" i],
+#app-mount [class*="mediaEngine" i] {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#app-mount video,
+#app-mount [class*="mediaEngineVideo" i],
+#app-mount [class*="streamPreview" i] video,
+#app-mount [class*="pictureInPicture" i] video,
+#app-mount [class*="floatingVideo" i] video {
+  background: transparent !important;
+}
+
+#app-mount [class*="pictureInPicture" i],
+#app-mount [class*="floatingVideo" i],
+#app-mount [class*="streamPreview" i] {
+  overflow: visible !important;
+  z-index: 1001 !important;
+}
+
+#app-mount [class*="pictureInPicture" i] video,
+#app-mount [class*="floatingVideo" i] video,
+#app-mount [class*="streamPreview" i] video {
+  transform: scale(var(--wc-video-player-scale)) !important;
+  transform-origin: top right !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #app-mount *,
+  #app-mount *::before,
+  #app-mount *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+
+
+
