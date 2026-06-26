@@ -1,6 +1,3 @@
-Exit code: 0
-Wall time: 4.3 seconds
-Output:
 # Wayfarer's Codex: Scrying Station
 
 Turn Discord into a warm, translucent fantasy scrying desk. This BetterDiscord
